@@ -2,7 +2,7 @@
 * Template
 * the tab is the template that you can duplicate to add the item you want in your Romanesco.
 * You must change the class name and this one must be unique.
-* v 0.1.0
+* v 0.1.1
 * 2018-2019
 */
 class Template extends Romanesco {
@@ -17,69 +17,69 @@ class Template extends Romanesco {
 		item_mode = "";
 		// define slider
 		// COL 1
-		hue_fill_is = true;
-		sat_fill_is = true;
-		bright_fill_is = true;
-		alpha_fill_is = true;
-		hue_stroke_is = true;
-		sat_stroke_is = true;
-		bright_stroke_is = true;
-		alpha_stroke_is = true;
-		thickness_is = true;
-		size_x_is = true;
-		size_y_is = true;
-		size_z_is = true;
-		// diameter_is = true;
-		// canvas_x_is = true;
-		// canvas_y_is = true;
-		// canvas_z_is = true;
+		hue_fill_is = true; // 0 > 360
+		sat_fill_is = true; // 0 > 100
+		bright_fill_is = true; // 0 > 100
+		alpha_fill_is = true; // 0 > 100
+		hue_stroke_is = true; // 0 > 360
+		sat_stroke_is = true; // 0 > 100
+		bright_stroke_is = true; // 0 > 100
+		alpha_stroke_is = true; // 0 > 100
+		thickness_is = true; // 0 > width * 0.01
+		size_x_is = true; // 0 > width
+		size_y_is = true; // 0 > width
+		size_z_is = true; // 0 > width
+		// diameter_is = true; // 0 > width
+		// canvas_x_is = true; // 0 > width
+		// canvas_y_is = true; // 0 > width
+		// canvas_z_is = true; // 0 > width
 
 		// COL 2
-		// frequence_is = true;
-		// speed_x_is = true;
-		// speed_y_is = true;
-		// speed_z_is = true;
-		// spurt_x_is = true;
-		// spurt_y_is = true;
-		// spurt_z_is = true;
-		//dir_x_is = true;
-		// dir_y_is = true;
-		// dir_z_is = true;
-		// jit_x_is = true;
-		// jit_y_is = true;
-		// jit_z_is  = true;
-		// swing_x_is = true;
-		// swing_y_is = true;
-		// swing_z_is = true;
+		// frequence_is = true; // 0 > 1
+		// speed_x_is = true; // 0 > 1
+		// speed_y_is = true; // 0 > 1
+		// speed_z_is = true; // 0 > 1
+		// spurt_x_is = true; // 0 > 1
+		// spurt_y_is = true; // 0 > 1
+		// spurt_z_is = true; // 0 > 1
+		// dir_x_is = true; // 0 > TAU
+		// dir_y_is = true; // 0 > TAU
+		// dir_z_is = true; // 0 > TAU
+		// jit_x_is = true; // 0 > 1
+		// jit_y_is = true; // 0 > 1
+		// jit_z_is  = true; // 0 > 1
+		// swing_x_is = true; // 0 > 1
+		// swing_y_is = true; // 0 > 1
+		// swing_z_is = true; // 0 > 1
 
 		// COL 3
-		// quantity_is = true;
-		// variety_is =true;
-		// life_is = true;
-		// flow_is = true;
-		// quality_is = true;
-		// area_is = true;
-		// angle_is = true;
-		// scope_is = true;
-		// scan_is = true;
-		// align_is = true;
-		// repulsion_is = true;
-		// attraction_is = true;
-		// density_is = true;
-		// influence_is = true;
-		// calm_is = true;
-		// spectrum_is = true;
+		// quantity_is = true; // 0 > 1
+		// variety_is =true; // 0 > 1
+		// life_is = true; // 0 > 1
+		// flow_is = true; // 0 > 1
+		// quality_is = true; // 0 > 1
+		// area_is = true; // 0 > width
+		// angle_is = true; // 0 > TAU
+		// scope_is = true; // 0 > width
+		// scan_is = true; // 0 > TAU
+		// align_is = true;  // 0 > 1
+		// repulsion_is = true;  // 0 > 1
+		// attraction_is = true; // 0 > 1
+		// density_is = true; // 0 > 1
+		// influence_is = true; // 0 > 1
+		// calm_is = true; // 0 > 1
+		// spectrum_is = true; // 0 > 360
 
 		// COL 4
-		// grid_is = true;
-		// viscosity_is = true;
-		// diffusion_is = true;
-		// power_is = true;
-		// mass_is = true;
-		// amplitude_is = true;
-		// coord_x_is = true;
-		// coord_y_is = true;
-		// coord_z_is = true;
+		// grid_is = true; // 0 > width
+		// viscosity_is = true; // 0 > 1
+		// diffusion_is = true; // 0 > 1
+		// power_is = true; // 0 > 1
+		// mass_is = true; // 0 > 1
+		// amplitude_is = true; // 0 > 1
+		// coord_x_is = true; // 0 > 1
+		// coord_y_is = true; // 0 > 1
+		// coord_z_is = true; // 0 > 1
 	}
 
 	void setup() {

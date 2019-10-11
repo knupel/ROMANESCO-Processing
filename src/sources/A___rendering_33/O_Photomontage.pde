@@ -80,30 +80,32 @@ class Photomontage extends Romanesco {
 		// coord_z_is = true;
 	}
 
-	// cloud mask
-	vec2 [] cloud_mask;
-	int [] fill_choses;
-	R_Chose [] cloud_mask_chose;
-
-
+	boolean init = false;
 	PImage buffer;
 	PGraphics mask;
 
 	void setup() {
-		setup_cloud_mask();
-		
-
+		// setup_cloud_mask();
 		rand_image_background_id();
 		rand_image_buffer_id();
 	}
 	
-	//DRAW
 	void draw() {
 
 	}
 
 	void draw_2D() {
-		// here if you want code in 2D mode
+		// PATTERN
+		if(birth_is() || !init) {
+			rand_image_background_id();
+			rand_image_buffer_id();
+			generator(get_costume().get_name());
+			birth_is(false);
+			init = true;
+		}
+		update(get_costume().get_name());	
+
+		// RENDER
 		int mode_mask = 0; // GRAY VALUE: 0 // WHITE: 1 // BLACK: 2 // COLOUR: 3
 		if(get_mode_name().contains("gray")) {
 			mode_mask = 0;
@@ -117,21 +119,9 @@ class Photomontage extends Romanesco {
 			colorMode(HSB,g.colorModeX,g.colorModeY,g.colorModeZ,g.colorModeA,mask);
 			endDraw(mask);
 		}
-
-		update();
-		
-		render_mask(mask, mode_mask, clear_mask_is);
-
-
-		if(birth_is()) {
-			// image
-			rand_image_background_id();
-			rand_image_buffer_id();
-			// mask
-			generator_cloud(get_quantity().value(), get_variety().value(), get_power().value(), get_size_x().value(), get_fill(), get_spectrum().value());
-			birth_is(false);
-		}
-
+		render_mask(mask, mode_mask, get_costume().get_name(), clear_mask_is);
+    
+    // SHOW
 		boolean use_bg_like_src = true;
 		if(special_is()) use_bg_like_src = false;
 		else use_bg_like_src = true;
@@ -144,12 +134,12 @@ class Photomontage extends Romanesco {
 			if(get_mode_name().contains("fx")) {
 				boolean on_g = false;
 				boolean filter_is = true;
-				int step_speparation = 3 + ceil(get_quality().value() *13);
+				int step_speparation = 3 +ceil(get_quality().value() *13);
 				vec2 threshold = vec2(0,get_density().value());
-				float l_red =  (get_fill_hue().value() / get_fill_hue().max() ) *6.0;
-				float l_gre =  (get_fill_sat().value() / get_fill_sat().max() ) *6.0;
-				float l_blu =  (get_fill_bri().value() / get_fill_bri().max() ) *6.0;
-				float l_alp =  (get_fill_alp().value() / get_fill_alp().max() ) *6.0;
+				float l_red = (get_fill_hue().value() /get_fill_hue().max() ) *6.0;
+				float l_gre = (get_fill_sat().value() /get_fill_sat().max() ) *6.0;
+				float l_blu = (get_fill_bri().value() /get_fill_bri().max() ) *6.0;
+				float l_alp = (get_fill_alp().value() /get_fill_alp().max() ) *6.0;
 				vec4 level_layer = vec4(l_red,l_gre,l_blu,l_alp); // 0 to 6
 				int fx_mode_mask = get_mode_id();
 				buffer = get_bitmap_collection().get(id_img_buffer);
@@ -164,20 +154,48 @@ class Photomontage extends Romanesco {
 
 
 
-	// update
-	void update() {
-		update_cloud_mask(10);
+	private void generator(String costume_name) {
+		if(costume_name.toLowerCase().equals("cloud")) {
+			generator_cloud(get_quantity().value(), get_variety().value(), get_power().value(), get_size_x().value(), get_fill(), get_spectrum().value());
+		} else if(costume_name.toLowerCase().equals("tartan")) {
+			generator_tartan(birth_is(), get_quantity().value(), get_variety().value(), get_size_x());
+			update_tartan(birth_is(), get_fill_hue().value(), get_fill_sat().value(), get_fill_bri().value(), get_spectrum().value());
+			// println("generator arg",birth_is(), get_quantity().value(), get_variety().value(), get_size_x());
+			// println("update arg",birth_is(), get_fill_hue().value(), get_fill_sat().value(), get_fill_bri().value(), get_spectrum().value());
+		}
 	}
-	// show
-	void show(PImage render, int mode, boolean use_bg_like_src) {
+
+	private void update(String costume_name) {
+		if(costume_name.toLowerCase().equals("cloud")) {
+			update_cloud_mask(10);
+		} else if(costume_name.toLowerCase().equals("tartan")) {
+			update_tartan(false, get_fill_hue().value(), get_fill_sat().value(), get_fill_bri().value(), get_spectrum().value());
+		}
+	}
+
+	private void render_mask(PGraphics pg_buffer, int mode, String costume_name, boolean clear_is) { 
+		if(pg_buffer != null) {
+			beginDraw(pg_buffer);
+			if(pg_buffer != null && clear_is) {
+				clear(pg_buffer);
+			}
+
+			if(costume_name.toLowerCase().equals("cloud")) {
+				render_cloud_mask(pg_buffer, mode);
+			} else if(costume_name.toLowerCase().equals("tartan")) {
+				render_tartan(pg_buffer, mode);
+			}
+			endDraw(pg_buffer);
+		} 
+	}
+
+	private void show(PImage render, int mode, boolean use_bg_like_src) {
 		if(use_bg_like_src) {
 			image(render,mode);
 		} else {
 			set_background(render,mode);
 		}
 	}
-
-
 
 	// method
 	int id_img_buffer = -1;
@@ -199,55 +217,76 @@ class Photomontage extends Romanesco {
 	}
 
 
-	// render
-	private void render_mask(PGraphics pg_buffer, int mode, boolean clear_is) { 
-		if(pg_buffer != null) {
-			beginDraw(pg_buffer);
-			if(pg_buffer != null && clear_is) {
-				clear(pg_buffer);
-			}
-			for (int i = 0 ; i < cloud_mask.length ; i++) {
-				if (mode == 0) {
-					// here we use hue value, because this one is a only one with different value in the array
-					// because when we create colour with hue_palette the variation is only on hue, not on saturation and brightness.
-					float gray = map(hue(fill_choses[i]),0,g.colorModeX,0,g.colorModeZ);
-					fill(0,0,gray,pg_buffer);
-				} else if(mode == 1) {
-					fill(r.WHITE,pg_buffer);
-				} else if(mode == 2) {
-					fill(r.BLACK,pg_buffer);
-				} else if(mode == 3) {
-					fill(fill_choses[i],pg_buffer);
-				}
-				noStroke(pg_buffer);
-				mask_cloud_mask_chose(i,pg_buffer); 
-			}
-			endDraw(pg_buffer);
-		} 
+
+
+
+
+
+
+
+	// MACHINE A TARTAN
+	int tartan_complexicity = 0;
+	int min_line = 0;
+	int max_line = 0;
+	Tartan tartan;
+
+	private void generator_tartan(boolean birth_is, float quantity, float variety, Varom size) {
+		int tartan_complexicity = int(quantity *100 +2);
+		if(tartan == null || birth_is || tartan.length() != tartan_complexicity) {
+			min_line = (int)map(size.value(),size.min(),size.max(),1,height/10);
+			max_line = int(min_line + (height/10 *variety));
+			tartan = new Tartan(p5, tartan_complexicity, min_line, max_line);
+		}
+	}
+
+	float ref_colour = 0;
+	private void update_tartan(boolean birth_is, float hue, float sat, float bright, float spectrum) {
+		if(tartan == null) {
+			init = false;
+		}
+		if(tartan != null && (ref_colour != hue +sat +bright +spectrum || birth_is)) {
+			ref_colour = hue +sat +bright +spectrum;
+
+			tartan.set_pattern();
+			int num = tartan.length();
+			int num_group = num;
+			int hue_key = (int)hue;
+			int hue_range = (int)spectrum;
+			spectrum = map(spectrum,0,360,0,100);
+			vec2 range_sat = vec2(sat -spectrum, sat).constrain(0,100);
+			vec2 range_bri = vec2(bright -spectrum, bright).constrain(0,100);
+			int [] palette = color_pool(num,num_group, hue_key,hue_range, range_sat,range_bri);	
+			tartan.set_palette(palette);
+		}
+	}
+
+	private void render_tartan(PGraphics buffer, int mode) {
+		if(tartan != null) {
+			buffer.loadPixels();
+			tartan.show(false, buffer);
+			buffer.updatePixels();
+		}
 	}
 
 
+	
+
+
+	
 
 
 
 
 
-	// cloud mask
-	void setup_cloud_mask() {
-		ivec2 num_range_shape = ivec2(5,10);
-		create_cloud_coord(num_range_shape);
-
-		ivec2 range_branches = ivec2(3,3);
-		ivec2 range_radius = ivec2(width/100,width/2);
-		vec2 range_alpha = vec2(0,1);
-
-		int master_colour = r.ORANGE;
-		float spectrum = 20;
-		create_cloud_mask(cloud_mask.length,range_branches,range_radius,master_colour,spectrum);
-	}
 
 
-	void generator_cloud(float quantity, float variety, float power, float size, int fill, float spectrum) {
+	// CLOUD MASK CHOSE
+	
+	int [] fill_choses;
+	vec2 [] cloud_mask_coord;
+	R_Chose [] cloud_mask_chose;
+
+	private void generator_cloud(float quantity, float variety, float power, float size, int fill, float spectrum) {
 		int min_shape = 3;
 		float norm_q = quantity *quantity *quantity;
 		int max_shape = floor(min_shape + (norm_q*3000));
@@ -269,7 +308,7 @@ class Photomontage extends Romanesco {
 		//ivec2 range_alpha = ivec2(int(g.colorModeX/3),(int)g.colorModeX);
 		int master_colour = fill;
 		//float spectre = get_spectrum().value();
-		create_cloud_mask(cloud_mask.length,range_branches,range_radius,master_colour,spectrum);
+		create_cloud_mask(cloud_mask_coord.length,range_branches,range_radius,master_colour,spectrum);
 	}
 
 	// render cloud mask
@@ -277,19 +316,18 @@ class Photomontage extends Romanesco {
 		beginShape(pg_buffer);
 		cloud_mask_chose[target].calc();
 		for(int k = 0 ; k < cloud_mask_chose[target].get_final_points().length ; k++) {
-			vec2 temp_pos = vec2(cloud_mask_chose[target].get_final_points()[k]).add(cloud_mask[target].xy());
+			vec2 temp_pos = vec2(cloud_mask_chose[target].get_final_points()[k]).add(cloud_mask_coord[target].xy());
 			vertex(temp_pos,pg_buffer);
 		} 
 		endShape(CLOSE,pg_buffer);
 	}
 
-
 	private void create_cloud_coord(ivec2 num_range_cloud) {
 		int num = (int)random(num_range_cloud.min(),num_range_cloud.max());
-		cloud_mask = new vec2[num];
+		cloud_mask_coord = new vec2[num];
 		int marge = 50;
-		for(int i = 0 ; i < cloud_mask.length ; i++) {
-			cloud_mask[i] = vec2().rand(vec2(-marge,width+marge),vec2(-marge,height+marge));
+		for(int i = 0 ; i < cloud_mask_coord.length ; i++) {
+			cloud_mask_coord[i] = vec2().rand(vec2(-marge,width+marge),vec2(-marge,height+marge));
 		}
 	}
 
@@ -300,7 +338,6 @@ class Photomontage extends Romanesco {
 		int [] colour_paleltte = hue_palette(master_colour, num_group, num, spectrum);
 		for(int i = 0 ; i < num ; i++) {
 			cloud_mask_chose[i] = new R_Chose(p5,(int)random(branch.min(),branch.max()));
-
 
 			fill_choses[i] = colour_paleltte[i];
 			float [] relief = new float[(int)random(2,cloud_mask_chose[i].get_summits())];
@@ -313,15 +350,174 @@ class Photomontage extends Romanesco {
 	}
 
 	private void update_cloud_mask(float swing) {
-		for(R_Chose chose : cloud_mask_chose) {
-			float [] relief = chose.get_radius();
-			for(int i = 0 ; i < relief.length ; i++) {
-				relief[i] = chose.get_radius(i) + random(-swing,swing);
+		if(cloud_mask_chose != null) {
+			for(R_Chose chose : cloud_mask_chose) {
+				float [] relief = chose.get_radius();
+				for(int i = 0 ; i < relief.length ; i++) {
+					relief[i] = chose.get_radius(i) + random(-swing,swing);
+				}
+				chose.radius(relief);
+				chose.reset_is(true);
 			}
-			chose.radius(relief);
-			chose.reset_is(true);
 		}
 	}
 
-	
+	private void render_cloud_mask(PGraphics pg_buffer, int mode) {
+		if(cloud_mask_coord != null) {
+			for (int i = 0 ; i < cloud_mask_coord.length ; i++) {
+				if (mode == 0) {
+					// here we use hue value, because this one is a only one with different value in the array
+					// because when we create colour with hue_palette the variation is only on hue, not on saturation and brightness.
+					float gray = map(hue(fill_choses[i]),0,g.colorModeX,0,g.colorModeZ);
+					fill(0,0,gray,pg_buffer);
+				} else if(mode == 1) {
+					fill(r.WHITE,pg_buffer);
+				} else if(mode == 2) {
+					fill(r.BLACK,pg_buffer);
+				} else if(mode == 3) {
+					fill(fill_choses[i],pg_buffer);
+				}
+				noStroke(pg_buffer);
+				mask_cloud_mask_chose(i,pg_buffer); 
+			}
+		}	
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+* Tartan v 0.0.5
+*/
+public class Tartan {
+	int [] tartan_pattern;
+	R_Colour palette;
+	float alpha = 0.5;
+	private int complexity = 2;
+	private int min = 1;
+	private int max = 2;
+
+	public Tartan(PApplet pa, int complexity, int min, int max) {
+		if(complexity < 2) complexity = 2;
+		if(min < 1) min = 1;
+		if(max <= min) max = min +1;
+		this.complexity = complexity;
+		this.min = min;
+		this.max = max;
+		set_pattern();
+		set_gray(pa);
+	}
+
+	public void set_pattern() {
+		// contain entry value;
+		int range = max - min;
+		tartan_pattern = new int[complexity];
+		for(int i = 0 ; i < tartan_pattern.length ; i++) {
+			tartan_pattern[i] = ceil(random(range));
+		}
+	}
+
+	private void set_gray(PApplet pa) {
+		palette = new R_Colour(pa);
+		for(int i = 0 ; i < complexity ; i++) {
+			palette.add(color(random(g.colorModeX))); 
+		}
+	}
+
+	public int length() {
+		return complexity;
+	}
+
+	public void set_colour(int index, int colour) {
+		if(index >= 0 && index < palette.size()) {
+			palette.set(index,colour);
+		} else {
+			printErr("class Tartan method set_colour(int index, int colour): index ", index, " is out of the array colour");
+		}
+	}
+
+
+	public void set_palette(int... colour) {
+		for(int i = 0 ; i < colour.length && i < palette.size(0) ; i++) {
+			palette.set(i,colour[i]);
+		}
+	}
+
+	public int [] get_palette() {
+		return palette.get(0);
+	}
+
+	private void show(boolean single) {
+		show(single, g);
+	}
+
+	private void show(boolean single, PGraphics pg) {
+		// set final pattern desing and colour
+		int [] pattern = tartan_pattern;
+		int [] colour = palette.get();
+		if(!single) {
+			colour = new int[palette.size() *2];
+			pattern = new int[tartan_pattern.length *2];
+			int index = 0;
+			for(int i = 0 ; i < pattern.length ; i++) {
+				pattern[i] = tartan_pattern[index];
+				colour[i] = palette.get()[index];
+				if(i < tartan_pattern.length -1) {
+					index++;
+				} else if(i > tartan_pattern.length -1) {
+					index--;
+				}
+			}
+		}
+
+		noStroke(pg);
+		// col
+		int col = 0;
+		while(col <  pg.width) {
+			for(int index = 0 ; index < pattern.length ; index++) {
+				fill(colour[index], pg.colorModeA * alpha, pg);
+				rect(col,0,pattern[index], pg.height, pg);
+				col += pattern[index];
+			}
+		}
+		// row
+		int row = 0;
+		while(row <  pg.height) {
+			for(int index = 0 ; index < pattern.length ; index++) {
+				fill(colour[index], pg.colorModeA * alpha, pg);
+				rect(0,row, pg.width,pattern[index], pg);
+				row += pattern[index];
+			}
+		}
+	}
 }
