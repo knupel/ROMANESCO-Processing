@@ -159,9 +159,11 @@ class Photomontage extends Romanesco {
 			generator_cloud(get_quantity().value(), get_variety().value(), get_power().value(), get_size_x().value(), get_fill(), get_spectrum().value());
 		} else if(costume_name.toLowerCase().equals("tartan")) {
 			generator_tartan(birth_is(), get_quantity().value(), get_variety().value(), get_size_x());
-			update_tartan(birth_is(), get_fill_hue().value(), get_fill_sat().value(), get_fill_bri().value(), get_spectrum().value());
-			// println("generator arg",birth_is(), get_quantity().value(), get_variety().value(), get_size_x());
-			// println("update arg",birth_is(), get_fill_hue().value(), get_fill_sat().value(), get_fill_bri().value(), get_spectrum().value());
+			if(get_mode_name().contains("gray")) {
+				update_tartan(birth_is(), 0, get_fill_hue().value(), get_fill_sat().value(), get_fill_bri().value(), get_spectrum().value());
+			} else {
+				update_tartan(birth_is(), 3, get_fill_hue().value(), get_fill_sat().value(), get_fill_bri().value(), get_spectrum().value());
+			}
 		}
 	}
 
@@ -169,7 +171,12 @@ class Photomontage extends Romanesco {
 		if(costume_name.toLowerCase().equals("cloud")) {
 			update_cloud_mask(10);
 		} else if(costume_name.toLowerCase().equals("tartan")) {
-			update_tartan(false, get_fill_hue().value(), get_fill_sat().value(), get_fill_bri().value(), get_spectrum().value());
+			if(get_mode_name().contains("gray")) {
+				update_tartan(false, 0, get_fill_hue().value(), get_fill_sat().value(), get_fill_bri().value(), get_spectrum().value());
+			} else {
+				update_tartan(false, 3, get_fill_hue().value(), get_fill_sat().value(), get_fill_bri().value(), get_spectrum().value());
+			}
+			
 		}
 	}
 
@@ -240,7 +247,7 @@ class Photomontage extends Romanesco {
 	}
 
 	float ref_colour = 0;
-	private void update_tartan(boolean birth_is, float hue, float sat, float bright, float spectrum) {
+	private void update_tartan(boolean birth_is, int mode, float hue, float sat, float bright, float spectrum) {
 		if(tartan == null) {
 			init = false;
 		}
@@ -249,14 +256,23 @@ class Photomontage extends Romanesco {
 
 			tartan.set_pattern();
 			int num = tartan.length();
-			int num_group = num;
-			int hue_key = (int)hue;
-			int hue_range = (int)spectrum;
-			spectrum = map(spectrum,0,360,0,100);
-			vec2 range_sat = vec2(sat -spectrum, sat).constrain(0,100);
-			vec2 range_bri = vec2(bright -spectrum, bright).constrain(0,100);
-			int [] palette = color_pool(num,num_group, hue_key,hue_range, range_sat,range_bri);	
-			tartan.set_palette(palette);
+			if(mode == 0) {
+				tartan.set_gray(p5);
+			} else if(mode == 1) {
+				// to white, like other item cloud mask
+			} else if(mode == 2) {
+				// to black, like other item cloud mask
+			} else if(mode == 3) {
+				int num_group = num;
+				int hue_key = (int)hue;
+				int hue_range = (int)spectrum;
+				spectrum = map(spectrum,0,360,0,100);
+				vec2 range_sat = vec2(sat -spectrum, sat).constrain(0,100);
+				vec2 range_bri = vec2(bright -spectrum, bright).constrain(0,100);
+				int [] palette = color_pool(num,num_group, hue_key,hue_range, range_sat,range_bri);	
+				tartan.set_palette(palette);
+			}
+
 		}
 	}
 
@@ -371,9 +387,9 @@ class Photomontage extends Romanesco {
 					float gray = map(hue(fill_choses[i]),0,g.colorModeX,0,g.colorModeZ);
 					fill(0,0,gray,pg_buffer);
 				} else if(mode == 1) {
-					fill(r.WHITE,pg_buffer);
+					// fill(r.WHITE,pg_buffer); // like other item tartan
 				} else if(mode == 2) {
-					fill(r.BLACK,pg_buffer);
+					// fill(r.BLACK,pg_buffer); // like other item tartan
 				} else if(mode == 3) {
 					fill(fill_choses[i],pg_buffer);
 				}
