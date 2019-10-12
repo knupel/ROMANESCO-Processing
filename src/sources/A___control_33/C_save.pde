@@ -28,7 +28,7 @@ void save_controller_setting(String path) {
   for(int i = 0 ; i < BUTTON_ITEM_CONSOLE ;i++) {
     set_data_button(i, 0,false,"Button item");
   }  
-  midi_manager(true);
+  update_midi_button(true);
   saveTable(saveSetting, path);
   saveSetting.clearRows() ;
 }

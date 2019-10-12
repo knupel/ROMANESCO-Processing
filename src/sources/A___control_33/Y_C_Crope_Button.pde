@@ -1,10 +1,9 @@
 /**
 * CLASS BUTTON 
-* v 1.6.0
+* v 1.6.1
 * 2013-2019
 */
 public class Button extends Crope {
-  
   protected int color_bg = r.GRAY[2];
 
   protected int color_on_off = r.GRAY[10];
@@ -17,7 +16,6 @@ public class Button extends Crope {
 
   protected PImage [] pic;
 
-  protected boolean inside;
   protected boolean authorization;
   protected boolean is = false;  
 
