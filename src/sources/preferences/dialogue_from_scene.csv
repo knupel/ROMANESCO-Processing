@@ -1,2 +1,2 @@
 fx active,fx slider active
-halftone multi/split rgb/,red/green/quantity/angle/threshold/strength X/strength Y/speed/
+dither bayer/warp proc/,red/green/blue/strength X/speed/

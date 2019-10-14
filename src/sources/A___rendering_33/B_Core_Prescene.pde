@@ -1,7 +1,7 @@
 /**
-Core Prescene
-v 1.4.1
-2013-2019
+* Core Prescene
+* v 1.4.2
+* 2013-2019
 * Here you find
 * variable Prescene
 * update command for the mouse, cursor...
@@ -11,22 +11,17 @@ v 1.4.1
 */
 
 //to opening app
-boolean openScene = true ;
-boolean openMiroir = true ;
-boolean openControleur = true ;
+boolean openScene = true;
+boolean openMiroir = true;
+boolean openControleur = true;
 //send to the other sketches
-boolean youCanSendToScene = true ;
-// boolean youCanSendToMiroir = true ;
-
+boolean youCanSendToScene = true;
+// boolean youCanSendToMiroir = true;
 
 // CURSOR SPEED
-int speedWheel = 4 ; // 5 is too quick
-float speedLeapmotion = .15 ; // between 0.000001 and 1 : can be good between 0.1 and 0.4
-
-float mouse_reactivity = .8;
-
-
-
+int speedWheel = 4; // 5 is too quick
+float speedLeapmotion = 0.15; // between 0.000001 and 1 : can be good between 0.1 and 0.4
+float mouse_reactivity = 0.8;
 
 
 import codeanticode.tablet.*;
@@ -41,33 +36,33 @@ void prescene_setup() {
 
 
 /**
-command
+* command
 */
 void update_command() {
   // move the object
-  if(clickLongLeft[0] || finger.activefingers == 1 ) {
-    ORDER_ONE = true ; 
-    ORDER_TWO = false ;
-    ORDER_THREE = false ;
+  if(clickLongLeft[0] || finger.activefingers == 1) {
+    ORDER_ONE = true; 
+    ORDER_TWO = false;
+    ORDER_THREE = false;
   }
   // rotate the object
   else if(clickLongRight[0] || finger.activefingers == 2) {
-    ORDER_ONE = false ; 
-    ORDER_TWO = true ;
-    ORDER_THREE = false ;
+    ORDER_ONE = false; 
+    ORDER_TWO = true;
+    ORDER_THREE = false;
   }
   // move and rotate
   else if(finger.activefingers == 3) {
-    ORDER_ONE = false ; 
-    ORDER_TWO = false ;
-    ORDER_THREE = true ;
+    ORDER_ONE = false; 
+    ORDER_TWO = false;
+    ORDER_THREE = true;
   }
 
   if(!clickLongLeft[0] && !clickLongRight[0] && finger.activefingers != 2 && finger.activefingers != 1 && finger.activefingers != 3)  {
   // false
-    ORDER_ONE = false ;
-    ORDER_TWO = false ;
-    ORDER_THREE = false ;
+    ORDER_ONE = false;
+    ORDER_TWO = false;
+    ORDER_THREE = false;
   }
 }
 
@@ -77,7 +72,7 @@ void update_command() {
 update cursor 1.2.0
 */
 vec3 mouse_ref;
-int mouseZ ;
+int mouseZ;
 void device_update() {
   update_leap_command();
   update_wheel();
@@ -163,19 +158,15 @@ void update_leapmotion() {
 */
 import java.awt.event.KeyEvent;
 boolean[] keyboard = new boolean[526];
-
-
 boolean check_keyboard(int c) {
   if (keyboard.length >= c) {
     return keyboard[c];  
   }
   return false;
 }
-
-
      
 void key_true() {
-  if (key == ' ') key_space = true ; 
+  if (key == ' ') key_space = true; 
   
   if (key == 'a') key_a = true;
   if (key == 'b') key_b = true;
@@ -242,20 +233,20 @@ void key_true() {
   if (key == '8') key_8 = true;
   if (key == '9') key_9 = true;
   
-  if (keyCode == SHIFT) key_shift = true ;
-  if (keyCode == BACKSPACE) key_backspace = true ;
-  if (keyCode == DELETE) key_delete = true ;
+  if (keyCode == SHIFT) key_shift = true;
+  if (keyCode == BACKSPACE) key_backspace = true;
+  if (keyCode == DELETE) key_delete = true;
 
-  if (keyCode == ALT) key_alt = true ;
-  if (keyCode == RETURN) key_return = true ;
-  if (keyCode == ENTER) key_enter = true ;
-  if (keyCode == CONTROL) key_ctrl = true ;
-  if (keyCode == 157) key_cmd = true ;
+  if (keyCode == ALT) key_alt = true;
+  if (keyCode == RETURN) key_return = true;
+  if (keyCode == ENTER) key_enter = true;
+  if (keyCode == CONTROL) key_ctrl = true;
+  if (keyCode == 157) key_cmd = true;
   
-  if (keyCode == LEFT) key_left = true ;
-  if (keyCode == RIGHT) key_right = true ;
-  if (keyCode == UP) key_up = true ;
-  if (keyCode == DOWN) key_down = true ;
+  if (keyCode == LEFT) key_left = true;
+  if (keyCode == RIGHT) key_right = true;
+  if (keyCode == UP) key_up = true;
+  if (keyCode == DOWN) key_down = true;
 
   // long
   if (key == ' ') key_space_long = true; 
@@ -275,7 +266,6 @@ void key_long_false() {
 
   if (keyCode == SHIFT) key_shift_long = false;
 }
-
 
 void key_false() {
   /** 
