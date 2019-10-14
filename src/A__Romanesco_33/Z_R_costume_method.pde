@@ -1,9 +1,9 @@
 /**
 * Costume method
 * Copyleft (c) 2014-2019
-* v 1.9.2
+* v 1.9.9
 * processing 3.5.3.269
-* Rope Library 0.8.1.26
+* Rope Library 0.8.4.29
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 */
@@ -12,6 +12,481 @@ import rope.costume.R_Circle;
 import rope.costume.R_Bezier;
 import rope.costume.R_Star;
 import rope.costume.R_Virus;
+import rope.costume.R_Line2D;
+
+
+/**
+* line2D
+* v 0.2.0
+* 2019-2019
+*/
+void line2D(vec2 p1, vec2 p2, boolean aa_is, boolean update_pix_is, PGraphics pg) {
+  line2D(p1.x(), p1.y(), p2.x(), p2.y(), aa_is, update_pix_is, pg);
+}
+
+void line2D(vec2 p1, vec2 p2, boolean aa_is , boolean update_pix_is) {
+  line2D(p1.x(), p1.y(), p2.x(), p2.y(), aa_is, update_pix_is, g);
+}
+
+void line2D(float x1, float y1, float x2, float y2, boolean aa_is, boolean update_pix_is) {
+  line2D(x1, y1, x2, y2, aa_is, update_pix_is, g);
+}
+
+void line2D(float x1, float y1, float x2, float y2, boolean aa_is, boolean update_pix_is, PGraphics pg) {
+  if(!aa_is) {
+    draw_line_no_aa(x1, y1, x2, y2, update_pix_is, pg);
+  } else {
+  	
+  	vec2 src = vec2(x1,y1);
+  	vec2 dst = vec2(x2,y2);
+    float angle = src.angle(dst);
+  	float range = 0.005;
+    
+    boolean x_is = false;
+    if(x1 == x2) x_is = true;
+    boolean y_is = false;
+    if(y1 == y2) y_is = true;
+    boolean align_is = false;
+    if(x_is || y_is) align_is = true;
+
+    boolean n_is = false;
+    if(angle > r.NORTH - range && angle < r.NORTH + range) n_is = true;
+    boolean ne_is = false;
+    if(angle > r.NORTH_EAST - range && angle < r.NORTH_EAST + range) ne_is = true;
+    boolean e_is = false;
+    if(angle > r.EAST - range && angle < r.EAST + range) e_is = true;
+    boolean se_is = false;
+    if(angle > r.SOUTH_EAST - range && angle < r.SOUTH_EAST + range) se_is = true;
+    boolean s_is = false;
+    if(angle > r.SOUTH - range && angle < r.SOUTH + range) s_is = true;
+    boolean sw_is = false;
+    if(angle > r.SOUTH_WEST - range && angle < r.SOUTH_WEST + range) sw_is = true;
+    boolean w_is = false;
+    if(angle > r.WEST - range && angle < r.WEST + range) w_is = true;
+    boolean nw_is = false;
+    if(angle > r.NORTH_WEST - range && angle < r.NORTH_WEST + range) nw_is = true;
+
+    // resolve
+    boolean exception_is = false;
+    if(align_is || n_is || ne_is || e_is || se_is || s_is || sw_is || w_is || nw_is) {
+      exception_is = true;
+    }
+
+  	if(exception_is) {
+  		draw_line_no_aa(x1, y1, x2, y2, update_pix_is, pg);
+  	} else {
+  		draw_line_aa_wu(x1, y1, x2, y2, update_pix_is, pg);
+  	}	
+  } 
+}
+
+
+
+
+
+
+
+/**
+* line2D echo loop
+* 2019-2019
+* v 0.0.2
+* This method return the rest of line after this one meet an other line from a list of walls
+*/
+R_Line2D line2D_echo_loop(R_Line2D line, R_Line2D [] walls, ArrayList<R_Line2D> list, float offset, float angle_echo, boolean go_return_is) {
+  R_Line2D rest = new R_Line2D(this);
+  int count_limit = 0;
+  if(go_return_is) offset = -1 *offset;
+
+  for(R_Line2D wall : walls) {
+    count_limit ++;
+    // add line.a() like exception because this one touch previous border
+    vec2 node = wall.intersection(line, line.a());
+    if(node != null) {
+      R_Line2D line2D = new R_Line2D(this,line.a(),node);
+      rest = new R_Line2D(this,node,line.b());
+
+      //offset
+      float angle_offset = wall.angle();
+      if(offset < 0 ) {
+        if(list.size()%2 == 0 && go_return_is) {
+          angle_offset += PI;
+        } else {
+
+        }
+      } else {
+        if(list.size()%2 == 0 && go_return_is) {
+          angle_offset -= PI;
+        } else {
+
+        }
+      }
+
+      vec2 displacement = projection(angle_offset,offset);
+      rest.offset(displacement);
+      
+      // classic go and return
+      if(go_return_is) {
+        rest.angle(rest.angle() +PI);
+      // go on a same way
+      } else {
+        float angle = rest.angle() -PI;
+
+        vec2 temp = projection(angle, width+height).add(rest.a());
+        R_Line2D max_line = new R_Line2D(this,rest.b(),temp);
+        for(R_Line2D limit_opp : walls) {
+          vec2 opp_node = limit_opp.intersection(max_line,vec2(node).add(displacement));
+          if(opp_node != null) {
+            rest.angle(rest.angle());
+            vec2 swap = opp_node.sub(node).sub(displacement);
+            rest.offset(swap);
+            break;
+          }
+        }
+      }
+      // add result
+      list.add(line2D);
+      break;
+    } else {
+      // to add the last segment of the main line, 
+      // because this one cannot match with any borders or limits
+      // before add the last element, it's necessary to check all segments borders
+      if(count_limit == walls.length) {
+        list.add(line);
+      } 
+    }
+  }
+  //angle echo effect
+  if(angle_echo != 0) {
+    rest.angle(rest.angle()+angle_echo);
+  }
+  return rest;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+* line AA Xiaolin Wu based on alogrithm of Bresenham
+* v 0.2.3
+* 2019-2019
+* @see https://github.com/jdarc/wulines/blob/master/src/Painter.java
+* @see https://rosettacode.org/wiki/Xiaolin_Wu%27s_line_algorithm#Java
+* @see https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm
+* @see https://en.wikipedia.org/wiki/Xiaolin_Wu%27s_line_algorithm
+*/
+
+// integer part of x
+int ipart(double x) {
+  return (int)x;
+}
+
+// fractional part of x
+double fpart(double x) {
+  return x - Math.floor(x);
+}
+
+// fractional part of x
+double rfpart(double x) {
+  return 1.0 - fpart(x);
+}
+ 
+void draw_line_aa_wu(double x_0, double y_0, double x_1, double y_1, boolean update_pixel, PGraphics pg) {
+  if(update_pixel) pg.loadPixels();
+  // check angle before the steeping
+  vec2 src = vec2((float)x_0,(float)y_0);
+  vec2 dst = vec2((float)x_1,(float)y_1);
+  float angle = src.angle(dst);
+
+  boolean steep = Math.abs(y_1 - y_0) > Math.abs(x_1 - x_0);
+  double buffer;
+  if (steep) {
+    buffer = y_0;
+    y_0 = x_0; 
+    x_0 = buffer;
+    buffer = y_1; 
+    y_1 = x_1; 
+    x_1 = buffer;
+  }
+  
+  if (x_0 > x_1) {
+    buffer = x_0; 
+    x_0 = x_1; 
+    x_1 = buffer;
+    buffer = y_0; 
+    y_0 = y_1; 
+    y_1 = buffer;
+  }
+
+  double dx = x_1 - x_0;
+  double dy = y_1 - y_0;
+  double gradient = dy / dx;
+  
+
+  // MISC
+  // here method use to set the design who the Xaolin Wu line, is not the algorithm himself
+  // colour part
+  float radius = dist(vec2((float)x_0,(float)y_0),vec2((float)x_1,(float)y_1));
+  float step_palette = radius;
+  int [] col = {pg.strokeColor};
+  int colour = col[0];
+  float alpha_ratio = 1.0;
+  if(get_palette() != null) {
+    col = get_palette();
+    step_palette = radius / col.length;  
+  }
+
+  // BACK to ALGORITHM
+  // handle first endpoint
+  int x_end_0 = (int)Math.round(x_0);
+  double y_end_0 = y_0 + gradient * (x_end_0 - x_0);
+  double x_gap_0 = rfpart(x_0 + 0.5);
+  double stop_intery = y_end_0;  
+
+  // handle second endpoint
+  int x_end_1 = (int)Math.round(x_1);
+  double start_intery = y_1 + gradient * (x_end_1 - x_1);
+  double x_gap_1 = fpart(x_1 + 0.5);
+
+
+  colour = colour_wu_line_pixel(stop_intery, start_intery, stop_intery, radius, step_palette, col, angle);
+  alpha_ratio = alpha_ratio_wu_line_pixel(stop_intery, start_intery, stop_intery, radius, step_palette, angle);
+  pixel_wu(steep, x_end_0, stop_intery, x_gap_0, colour, alpha_ratio, pg);
+
+  colour = colour_wu_line_pixel(start_intery, start_intery, stop_intery, radius, step_palette, col, angle);
+  alpha_ratio = alpha_ratio_wu_line_pixel(start_intery, start_intery, stop_intery, radius, step_palette, angle);
+  pixel_wu(steep, x_end_1, start_intery, x_gap_1, colour, alpha_ratio, pg);
+
+  // main loop
+  // first y-intersection for the main loop
+  yes_steep = 0;
+  no_steep = 0;
+  double intery = y_end_0 + gradient;
+  for (int x = x_end_0 ; x <= x_end_1 ; x++) {
+    double gap = 1.0;
+    colour = colour_wu_line_pixel(intery, start_intery, stop_intery, radius, step_palette, col, angle);
+    alpha_ratio = alpha_ratio_wu_line_pixel(intery, start_intery, stop_intery, radius, step_palette, angle);
+    pixel_wu(steep, x, intery, gap, colour, alpha_ratio, pg);
+    intery += gradient;
+  }
+  if(update_pixel) pg.updatePixels();
+}
+
+int yes_steep = 0;
+int no_steep = 0;
+void pixel_wu(boolean steep, int x, double intery, double gap, int colour, float alpha_ratio, PGraphics pg) {
+  double alpha = 0;
+
+  if (steep) {
+    alpha = rfpart(intery) * gap;
+    plot(int(ipart(intery) + 0), x, colour, (float)alpha *alpha_ratio, pg);
+    alpha = fpart(intery) * gap;
+    plot(int(ipart(intery) + 1), x, colour, (float)alpha *alpha_ratio, pg);
+  } else {
+    alpha = rfpart(intery) * gap;
+    plot(x, int(ipart(intery) + 0), colour, (float)alpha *alpha_ratio, pg);
+    alpha = fpart(intery) * gap;
+    plot(x, int(ipart(intery) + 1), colour, (float)alpha *alpha_ratio, pg);
+  }
+}
+
+
+float alpha_ratio_wu_line_pixel(double intery, double start, double stop, float radius, float step, float angle) {
+	float index = index_wu(intery, start, stop, radius, angle);
+  float alpha = 1.0;
+  
+  if(alpha_entry_line2D != 1.0 || alpha_exit_line2D != 1.0) {
+  	if(alpha_entry_line2D < 0) alpha_entry_line2D = 0;
+  	if(alpha_entry_line2D > 1) alpha_entry_line2D = 1;
+  	if(alpha_exit_line2D < 0) alpha_exit_line2D = 0;
+  	if(alpha_exit_line2D > 1) alpha_exit_line2D = 1;
+  	alpha = map(index,0,radius,alpha_entry_line2D,alpha_exit_line2D);
+  }
+  return alpha;
+}
+
+
+
+int colour_wu_line_pixel(double intery, double start, double stop, float radius, float step, int [] colour_list, float angle) {
+  float index = index_wu(intery, start, stop, radius, angle);
+  return colour_line2D((int)index,step,colour_list);
+}
+
+
+float index_wu(double intery, double start, double stop, float radius, float angle) {
+  if(start == stop) {
+    start -= 1;
+  }
+  float index = 1;
+  boolean inverse_is = false;
+  
+  if((angle > r.NORTH_EAST && angle < r.SOUTH_WEST)) {
+    inverse_is = true;
+  }
+
+
+  if(inverse_is) {
+    index = map((float)intery,(float)stop,(float)start,0,radius);
+  } else {
+    index = map((float)intery,(float)start,(float)stop,0,radius);
+  }
+  
+  if(index < 0) index = 0;
+  if(index > radius) index = radius;
+  return index;
+}
+
+
+
+
+/**
+* NO AA
+*/
+void draw_line_no_aa(float x0, float y0, float x1, float y1, boolean update_pixel, PGraphics pg) {
+  vec2 src = vec2(x0,y0);
+  vec2 dst = vec2(x1,y1);
+  float dir = src.angle(dst);
+  float radius = dist(src,dst);
+  
+  // manage colour list
+  float step_palette = radius;
+  int [] col = {pg.strokeColor};
+  if(get_palette() != null) {
+    col = get_palette();
+    step_palette = radius / col.length;  
+  }
+
+  
+  boolean alpha_is = false;
+  float [] alpha = {1.};
+  if(alpha_entry_line2D != 1.0 || alpha_exit_line2D != 1.0) {
+  	alpha_is = true;
+  	alpha = new float[ceil(radius)];
+  	if(alpha_entry_line2D < 0) alpha_entry_line2D = 0;
+  	if(alpha_entry_line2D > 1) alpha_entry_line2D = 1;
+  	if(alpha_exit_line2D < 0) alpha_exit_line2D = 0;
+  	if(alpha_exit_line2D > 1) alpha_exit_line2D = 1;
+
+  	for(int i = 0 ; i < alpha.length; i++) {
+  		alpha[i] = map(i,0,alpha.length,alpha_entry_line2D,alpha_exit_line2D);
+  	}
+  }
+
+
+  if(update_pixel) pg.loadPixels();
+  for(int i = 0 ; i < radius ; i++) {
+    float x = cos(dir);
+    float y = sin(dir);
+    float from_center = i;
+    vec2 path = vec2(x,y).mult(from_center).add(src);
+    path.constrain(vec2(0),vec2(width,height));
+    int px = (int)path.x();
+    int py = (int)path.y();
+
+    // update pixel
+    int colour = colour_line2D(i,step_palette,col);
+    if(alpha_is) {
+    	plot(px, py, colour, alpha[i], pg);
+    } else {
+    	plot(px, py, colour, 1.0, pg);
+    }
+    
+  }
+   if(update_pixel) pg.updatePixels();
+}
+
+
+
+
+
+
+// util line2D
+int colour_line2D(int index, float step, int [] colour_list) {
+  int target = 0;
+  if(tempo() == null) {
+    target = floor((float)index/step);
+  } else {
+    target = get_tempo_pos(index);
+  }
+  target = target%colour_list.length;
+  return colour_list[target];
+}
+
+
+float alpha_entry_line2D = 1.0;
+float alpha_exit_line2D =1.0;
+void alpha_line2D(float entry, float exit) {
+	alpha_entry_line2D = entry;
+	alpha_exit_line2D = exit;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /**
 Costume selection in shape catalogue
@@ -316,7 +791,9 @@ void aspect(vec fill, vec stroke, float thickness, PGraphics other) {
 }
 
 
-
+/**
+* Deprecated part
+*/
 @Deprecated
 void aspect(int fill, int stroke, float thickness, Costume costume) {
 	PGraphics other = null;
@@ -1066,27 +1543,3 @@ void print_list_costume() {
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

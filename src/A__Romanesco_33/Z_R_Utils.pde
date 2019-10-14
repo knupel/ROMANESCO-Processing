@@ -1,6 +1,6 @@
 /**
 Rope UTILS 
-v 1.60.0
+v 1.61.1
 * Copyleft (c) 2014-2019
 * Rope – Romanesco Processing Environment – 
 * Processing 3.5.3
@@ -20,6 +20,62 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 // EXPORT PDF
 import processing.pdf.*;
+
+
+
+
+
+
+/**
+* tempo
+* v 0.0.1
+* 2019-2019
+* create tempo partition
+*/
+float [] tempo = {1};
+void tempo(float... tempo) {
+  this.tempo = tempo;
+}
+
+float sum_tempo() {
+  float sum = 0;
+  for(int i = 0 ; i < tempo().length ; i++) {
+    sum += tempo()[i];
+  }
+  return sum;
+}
+
+float get_tempo(float time) {
+  return tempo()[get_tempo_pos(time)];
+}
+
+int get_tempo_pos(float time) {
+  float rank = time%sum_tempo();
+  float progress = 0;
+  int pos = 0;
+  for(int i = 0 ; i < tempo().length ; i++) {
+    progress += tempo()[i];
+    if(rank < progress) {
+      pos = i;
+      break;
+    }  
+  } 
+  return pos;
+}
+
+float [] tempo() {
+  return tempo;
+}
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1023,7 +1079,7 @@ void explore_directory(ArrayList list_file, String dir) {
 
 /**
 * SAVE LOAD  FRAME Rope
-* v 0.4.0
+* v 0.4.1
 * 2016-2019
 */
 /**
@@ -1088,7 +1144,7 @@ void save_frame(String where, String filename, float compression, PImage img) {
 */
 boolean record_PNG;
 void save_PNG() {
-  save_PNG("data", "shot_"+ranking_shot + ".png");
+  save_PNG("data", "shot_"+ranking_shot);
 }
 
 void save_PNG(String path, String name_file) {
@@ -2346,14 +2402,3 @@ boolean extension_is(String path, String... data) {
   }
   return is;
 }
-
-
-
-
-
-
-
-
-
-
-

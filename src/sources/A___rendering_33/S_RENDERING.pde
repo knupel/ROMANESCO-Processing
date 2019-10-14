@@ -1,7 +1,7 @@
 /**
 * RENDERING
 * 2016-2019
-* v 1.4.0
+* v 1.4.1
 */
 boolean fx_mix_is_done = false;
 boolean show_is = true;
@@ -224,9 +224,9 @@ void init_romanesco() {
 
 
 /**
-DISPLAY SETUP
-2015-2019
-v 1.3.1
+* DISPLAY SETUP
+* 2015-2019
+* v 1.3.3
 */
 String displayMode = ("");
 // int depth_scene;
@@ -240,7 +240,6 @@ void display_setup(int frame_rate, int num_layer) {
 
 	set_screen();
 	render_canvas = ivec6(0,width,0,height,-height,height);
-	// depth_scene = height;
 
 	// resize layer
 	if(USE_LAYER) {
@@ -268,10 +267,12 @@ void set_screen() {
 		}
  
 		if(!FULL_SCREEN) {
-			if(!DEV_MODE) window.set(resize_screen(window,target_screen));
+			if(!DEV_MODE) {
+				window.set(resize_screen(window,target_screen));
+			}
 			load_window_location(window);
 			surface.setSize(window.x,window.y);
-		} else {
+		} else if(FULL_SCREEN) {
 			println("The",IAM,"is on the screen",target_screen,"on",get_display_num(),"screen available");    
 			int ox = get_screen_location(target_screen).x;
 			int oy = get_screen_location(target_screen).y;

@@ -126,5 +126,4 @@ class Button
   void mouseClic() {
     if (insideRect()) if (!OnOff)  OnOff = !OnOff ;
   } 
-  
 }

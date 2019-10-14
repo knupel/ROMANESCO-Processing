@@ -4,8 +4,8 @@ ROPE FRAMEWORK - Romanesco processing environment –
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 * ROPE core
-* v 0.1.1
-* 2017-2018
+* v 0.2.0
+* 2017-2019
 */
 import rope.core.*;
 import rope.vector.*;
@@ -49,19 +49,21 @@ Something weird, now it's not necessary to use the method init_rope()
 to use the interface Rope_constants...
 that's cool but that's very weird !!!!!
 */
-Rope r ;
+Rope r;
+/*
 public void init_rope() {
   r = new Rope();
-  println("Init ROPE: Romanesco Processing Environment - 2015-2018");
+  println("Romanesco Processing Environment - 2015-2019");
 }
-
-
-
-
-
-
-
-
+*/
+String rope_framework_version = "1.2.5.61";
+public void rope_version() {
+	r = new Rope();
+	println("Romanesco Processing Environment - 2015-2019");
+	println("Processing: 3.5.3.269");
+	println("Rope library: " +r.version());
+  println("Rope framework: " + rope_framework_version);
+}
 
 
 
@@ -104,5 +106,3 @@ void mouseWheelMoved(MouseWheelEvent e) {
   println(e.getUnitsToScroll());
 }
 */
-
-

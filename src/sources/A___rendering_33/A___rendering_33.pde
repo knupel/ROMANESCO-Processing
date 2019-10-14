@@ -26,12 +26,12 @@ BUG with warp on MacBook Pro 2018 or HighSierra / Mojave
 
 
 // DEVELOPER SETTING
-// boolean DEBUG_MODE = true;
-// boolean USE_LAYER = false; // cause a bug when the  shader effect is used
-// boolean DEV_MODE = true; // inter alia, path preferences folder, curtain
-// String IAM = "prescene";
-// boolean LIVE = false;
-// boolean FULL_RENDERING = true;
+boolean DEBUG_MODE = true;
+boolean USE_LAYER = false; // cause a bug when the  shader effect is used
+boolean DEV_MODE = true; // inter alia, path preferences folder, curtain
+String IAM = "prescene";
+boolean LIVE = false;
+boolean FULL_RENDERING = true;
 
 // PRESCENE LIVE
 // boolean DEBUG_MODE = true;
@@ -108,12 +108,12 @@ BUG with warp on MacBook Pro 2018 or HighSierra / Mojave
 // for the scene live export, two export set in void settings() 
 // APP: scene_##_live_fullscreen  > change for  fullScreen() in settings()
 // APP: scene_##_live > change for size(124,124) in settings()
-boolean USE_LAYER = false;
-boolean DEV_MODE = false; // inter alia, path preferences folder, curtain
-String IAM = "scene";
-boolean LIVE = false; 
-boolean FULL_RENDERING = true;
-boolean DEBUG_MODE = false;
+// boolean USE_LAYER = false;
+// boolean DEV_MODE = false; // inter alia, path preferences folder, curtain
+// String IAM = "scene";
+// boolean LIVE = false; 
+// boolean FULL_RENDERING = true;
+// boolean DEBUG_MODE = false;
 
 
 
@@ -150,15 +150,16 @@ LIVE must change from the launcher, the info must be write in the external loadi
 
 
 void settings() {
-	//size(800,580,P3D); // DEV MODE PARAM
-	//size(1300,1300,P3D); // DEV MODE PARAM
+	size(800,500,P3D); // DEV MODE PARAM
+
 	rope_version();
 	
 	// EXPORTING PARAM 
 	// size(124,124,P3D);
+  
 
-	fullScreen(P3D);
-	FULL_SCREEN = true;
+	// fullScreen(P3D);
+	// FULL_SCREEN = true;
 
 	syphon_settings();
 
@@ -241,7 +242,9 @@ void draw() {
 		String title = nameVersion + " " +prettyVersion+"."+version+ " | "+ IAM + " | FPS: "+round(frameRate);
 		if(MIROIR) title = nameVersion + " " +prettyVersion+"."+version+ " | "+ "miroir" + " | FPS: "+round(frameRate);
 		surface.setTitle(title);
-		if(!FULL_SCREEN) update_window_location();
+		if(!FULL_SCREEN) {
+			update_window_location();
+		}
 		// script
 		if(frameCount%180 == 0) {
 			rom_manager.historic();
@@ -253,7 +256,6 @@ void draw() {
 
 		if(width == 1 || height == 1) {
 			printErr("width:",width,"heigh:",height, "this window size is not usable the process is stoped,\nplease set preference size via the launcher or directly in file sceneProperty.csv");
-			// exit();
 		}
 	} else {
 		if(FULL_RENDERING) {
