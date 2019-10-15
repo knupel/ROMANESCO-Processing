@@ -1,7 +1,7 @@
 /**
 * Romanesco Manager
 * 2013-2019
-* v 1.7.4
+* v 1.7.5
 */
 Romanesco_manager rom_manager;
 
@@ -372,10 +372,11 @@ void update_var_sound(Romanesco item) {
 // RESET list and item
 boolean reset(Romanesco item) {
   boolean state = false;
-  //global delete
-  if (space_is()) state = true;
-  //SPECIFIC DELETE when the paramer button of contrôleur is ON
-  else if (key_delete) if (item.action_is() || item.parameter_is()) state = true ;
+  if(key_delete || key_backspace) {
+    if(item.action_is() || item.parameter_is()) {
+      state = true ;
+    }
+  }
   return state;
 }
 

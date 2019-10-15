@@ -154,10 +154,10 @@ class Lyric extends Romanesco {
 			index_vers++;
 			birth_is(false);
 		}
-		println("freq slider", get_frequence().value());
+		// println("freq slider", get_frequence().value());
 		float temp_freq = 1.0 -get_frequence().value();
 		int freq_next = (int)map(temp_freq *temp_freq , 1, 0, 600, 1);
-		println("freq",freq_next);
+		// println("freq",freq_next);
 		if(freq_next < 600 && frameCount%freq_next == 0) {
 			index_vers++;
 		}

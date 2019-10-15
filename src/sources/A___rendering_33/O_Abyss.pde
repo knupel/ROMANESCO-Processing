@@ -117,13 +117,16 @@ class The_Abbyss extends Romanesco {
       if(camera_global_is()) {
         if (key_up) {
           creatureManager.nextCameraCreature();
-        } else if (key_down ) { 
+        } else if (key_down) { 
           creatureManager.prevCameraCreature();
         }
       }
     }
     //
-    if (reset(this)) creatureManager.killAll(whichCreature);
+    if(reset(this)) {
+      println("remove creature");
+      creatureManager.killAll(whichCreature);
+    }
     
     // info display
     info("Creatures "+ creatureManager.creatures.size()) ;
