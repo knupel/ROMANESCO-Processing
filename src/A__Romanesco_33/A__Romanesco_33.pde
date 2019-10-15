@@ -19,7 +19,7 @@ void setup() {
   path_setting();
   rope_version();
   version();
-  color_setup();
+  colorMode(HSB,360,100,100);
   display_setup();
   set_structure();
   set_data();
@@ -28,9 +28,9 @@ void setup() {
 void draw() {
   surface.setTitle(nameVersion + " " +prettyVersion+"."+version+ " - Launcher");
   reset_window_location();
-  launcher_background() ;
+  launcher_background();
   launcher();
-  open_romanesco() ;
+  open_romanesco();
 }
 
 void mousePressed() {
@@ -38,7 +38,7 @@ void mousePressed() {
 }
 
 void mouseReleased() {
-  if(buttonFullscreen.OnOff) {
+  if(button_full_screen.is()) {
     which_screen_released();
   }
 }

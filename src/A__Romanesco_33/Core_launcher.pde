@@ -6,35 +6,16 @@
 
 String preference_path;
 String load_data_path;
-/*
-String import_path;
-String items_path;
-String autosave_path;
-*/
 void path_setting() {
-	//int folder_position = 1;
 	String main_folder = "/sources";
 	if(DEV) {
 		load_data_path = sketchPath(1)+main_folder+"/preferences/";
 		preference_path = sketchPath(1)+main_folder+"/preferences/";
-		/*
-		import_path = sketchPath(1)+main_folder+"/import/";
-		items_path = sketchPath(1)+main_folder+"/items/";
-		autosave_path = sketchPath(1)+main_folder+"/autosave.csv";
-		*/
 	} else {
 		load_data_path = sketchPath(0)+main_folder+"/preferences/";
 		preference_path = sketchPath(0)+main_folder+"/preferences/";
-		/*
-		import_path = sketchPath(0)+main_folder+"/import/";
-		items_path = sketchPath(0)+main_folder+"/items/";
-		autosave_path = sketchPath(0)+main_folder+"/autosave.csv";
-		*/
 	}
 }
-
-
-
 
 String version = "";
 String prettyVersion = "";
@@ -67,133 +48,6 @@ void version() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-void display_setup() {
-	background(r.GRIS[1]);
-}
-
-void color_setup() {
-	colorMode(HSB,360,100,100);
-	c1 = color(r.ORANGE);
-	c2 = color(r.SANG);
-	c3 = color(r.VERT);
-	c4 = color(r.SAPIN);
-	//common data
-	colorIN = color (r.VERT);
-	colorOUT = color (r.SAPIN);
-}
-
-
-void set_structure() {
-	vec2 pos_reset = vec2(width -150,40);
-	vec2 size_reset = vec2(240,40);
-
-	reset_location = new Button(pos_reset, size_reset, c1, c2, c3, c4, "reset location");
-
-
-	vec2 pos_home = vec2(100,40);
-	vec2 pos_live = vec2(180,40);
-	vec2 pos_mirror = vec2 (240,40);
-	vec2 size_home = vec2(85,20);
-	vec2 size_live = vec2(85,20);
-	vec2 size_mirror = vec2(85,20);
-	renderer[0] = new Button(pos_home, size_home, c1, c2, c3, c4, "Home");
-	renderer[1] = new Button(pos_live, size_live, c1, c2, c3, c4, "Live");
-	renderer[2] = new Button(pos_mirror, size_mirror, c1, c2, c3, c4, "Mirror");
-	
-	// size and display type
-	vec2 pos_window = vec2(10,70);
-	vec2 pos_fullscreen = vec2(120,70);
-
-	vec2 size_window = vec2(120,20);
-	vec2 size_fullscreen = vec2(180,20);
-
-	buttonWindow = new Button(pos_window, size_window, c1, c2, c3, c4, "Window");
-	buttonFullscreen = new Button(pos_fullscreen, size_fullscreen, c1, c2, c3, c4, "Full Screen");
-	
-	// start
-	vec2 pos_start = vec2(10, 190);
-	vec2 size_start = vec2(210, 20);
-
-	buttonStart = new Button(pos_start, size_start, colorIN, colorOUT, colorIN, colorOUT, "Launch Romanesco");
-
-	//quantityScreen count the number of screen available
-	GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-	GraphicsDevice[] devices = ge.getScreenDevices();
-	int quantityScreen = devices.length;
-	set_which_screen(quantityScreen, posWhichScreenButton) ;
-	
-	color colorBG = color(r.GRIS[3]);
-	color colorBoxIn = color(r.SAPIN);
-	color colorBoxOut = color(r.SANG);
-	
-	sliderWidth = new Slider(posSliderWidth, posMoletteWidth, sizeSlider, colorBG, colorBoxIn, colorBoxOut);
-	sliderWidth.sliderSetting();
-	sliderHeight = new Slider(posSliderHeight, posMoletteHeight, sizeSlider, colorBG, colorBoxIn, colorBoxOut);
-	sliderHeight.sliderSetting();
-}
-
-
-String path_controller,path_controller_live;
-String path_prescene,path_prescene_live;
-String path_scene_live,path_scene_live_fullscreen;
-
-
-
-void set_data() {
-	FuturaStencil = loadFont ("FuturaStencilICG-20.vlw");
-	text_info = loadFont ("Frutiger-Roman-14.vlw");
-
-	String app_path = sketchPath("");
-
-	path_controller = (app_path+"sources/control_"+version+".app");
-	path_controller_live = (app_path+"sources/control_"+version+"_live.app");
-	// path to OPENING APP
-	path_prescene = (app_path + "sources/prescene_"+version+".app");
-	path_prescene_live = (app_path + "sources/prescene_"+version+"_live.app");
-	// path_scene_window = (app_path+"sources/scene_"+version+"_window.app");
-
-	path_scene_live = (app_path+"sources/scene_"+version+"_live.app");
-	path_scene_live_fullscreen = (app_path+"sources/scene_"+version+"_live_fullscreen.app");
-
-	String[] l = split( ("1"), " ");
-	saveStrings(app_path+"sources/preferences/language.txt", l);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /**
 * draw launcher
 */
@@ -201,11 +55,13 @@ void reset_window_location() {
 	textFont(text_info,14);
 	fill(r.NOIR);
 	textFont(FuturaStencil,20);
-	reset_location.displayButton();
+	button_reset.update(mouseX,mouseY);
+	button_reset.rollover(true);
+	button_reset.show_label();
 }
 
 void launcher_background() {
-	background(r.GRIS[1]) ;
+	background(r.GRIS[1]);
 	fill(r.ORANGE);
 	textFont(FuturaStencil,20);
 	fill(r.SANG);
@@ -222,22 +78,26 @@ void launcher() {
 	fill(r.GRIS[14]);
 	textFont(FuturaStencil,20);
 
-	text("Choice", pos_choice.x, pos_choice.y);
+	text("choice", pos_choice.x, pos_choice.y);
 
 	choice_rendering();
 	//fork choice menu
-	for(int i = 0 ; i < num_renderer ; i++) {
-		 if (renderer[i].OnOff || renderer_setting[i]) {
-			select_renderer_to_launch_app(i) ;
+	for(int i = 0 ; i < num_mode ; i++) {
+		 if (button_mode[i].is() || mode_setting[i]) {
+			select_renderer_to_launch_app(i);
 		}
 	}
 }
 
 void choice_rendering() {
-	renderer[0].displayButton(renderer_setting[0]) ; // HOME
-	renderer[1].displayButton(renderer_setting[1]) ; // LIVE
-	// renderer[2].displayButton(renderer_setting[2]) ; // MIRROR
-	if(renderer_setting[2]) {
+	// remove 1 to don't update the mirror 
+	for(int i = 0 ; i < button_mode.length - 1 ; i++) {
+		button_mode[i].update(mouseX,mouseY);
+		button_mode[i].rollover(true);
+		button_mode[i].show_label();
+	}
+
+	if(mode_setting[2]) {
 		bool_open_scene =("true") ; 
 	} else {
 		bool_open_scene =("false") ;
@@ -249,85 +109,95 @@ select renderer
 */
 void select_renderer_to_launch_app(int which_one) {
 	if(which_one == 0) {
-		select_renderer_home(which_one) ;
+		select_renderer_home(which_one);
 	} else if(which_one == 1) {
-		select_renderer_live(which_one) ;
+		select_renderer_live(which_one);
 	} else if(which_one == 2) {
-		select_renderer_live(which_one) ;
+		select_renderer_live(which_one);
 	}
 }
 
 void select_renderer_home(int which_one) {
-	renderer_is(which_one) ;
-	HOME = true ;
+	renderer_is(which_one);
+	HOME = true;
 	LIVE = false;
 	MIRROR = false;
 	fullscreen_or_window(true,false) ;
-	ready_to_launch() ; 
+	ready_to_launch(); 
 }
 
 void select_renderer_live(int which_one) {
-	renderer_is(which_one) ;
-	HOME = false ;
+	renderer_is(which_one);
+	HOME = false;
 	LIVE = true;
 	MIRROR = false;
 	fullscreen_or_window(true,true) ;
-	ready_to_launch() ; 
+	ready_to_launch(); 
 }
 
 
 void select_renderer_mirror(int which_one) {
-	renderer_is(which_one) ;
+	renderer_is(which_one);
 	HOME = false;
 	LIVE = false;
 	MIRROR = true;
 	fullscreen_or_window(true,false);
-	addressLocal(pos_local_adress.x,pos_local_adress.y) ;
+	addressLocal(pos_local_adress.x,pos_local_adress.y);
 	ready_to_launch() ;
 }
 
 void renderer_is(int which_one) {
-	for(int i = 0 ; i < num_renderer ; i++) {
+	for(int i = 0 ; i < num_mode ; i++) {
 		if(i == which_one) {
-			renderer_setting[i] = true ;
+			mode_setting[i] = true;
 		} else {
-			renderer_setting[i] = false ;
+			mode_setting[i] = false;
 		}
 	}  
 }
 
 void ready_to_launch() {
-	if (screen_to_display > -1 && buttonFullscreen.OnOff) {
-		buttonStart.displayButton() ;
+	if(screen_to_display > -1 && button_full_screen.is()) {
+		button_start.update(mouseX,mouseY);
+		button_start.rollover(true);
+		button_start.show_label();
 		// window mode the user must choice a window size  
-	} else if (buttonWindow.OnOff && heightSlider > 1 && widthSlider > 1) {
-		buttonStart.displayButton() ;
+	} else if(button_window.is() && index_height > 1 && index_width > 1) {
+		button_start.update(mouseX,mouseY);
+		button_start.rollover(true);
+		button_start.show_label();
 	} else {
-		fill(r.ORANGE) ;
-		text("Please finish the configuration",10,210) ;
+		fill(r.ORANGE);
+		text("Please finish the configuration",10,210);
 	}
 }
 
 void fullscreen_or_window(boolean window_is, boolean fullscreen_is) {
-	if(window_is) buttonWindow.displayButton();
+	if(window_is) {
+		button_window.update(mouseX,mouseY);
+		button_window.rollover(true);
+		button_window.show_label();
+	}
 
 	if(screen_num > 1 && fullscreen_is) {
-		buttonFullscreen.displayButton();
+		button_full_screen.update(mouseX,mouseY);
+		button_full_screen.rollover(true);
+		button_full_screen.show_label();
 	}
 	
-	if (buttonWindow.OnOff) {
-		screen = ("false") ; 
-	} else if (buttonFullscreen.OnOff) {
-		screen = ("true") ;
+	if(button_window.is()) {
+		screen = ("false"); 
+	} else if (button_full_screen.is()) {
+		screen = ("true");
 	}
 
-	if (buttonFullscreen.OnOff) {
+	if(button_full_screen.is()) {
 		FULLSCREEN = true;
-		choice_screen_for_fullscreen() ;
-	} else if (buttonWindow.OnOff) {
-		 FULLSCREEN = false;
+		choice_screen_for_fullscreen();
+	} else if (button_window.is()) {
+		FULLSCREEN = false;
 		screen = ("false") ;
-		size_window() ;
+		update_button_size_window();
 	}
 }
 
@@ -343,37 +213,50 @@ void fullscreen_or_window(boolean window_is, boolean fullscreen_is) {
 * mousePressed
 */
 void mousePressed_button() {
-	reset_location.mouseClic();
+	if(button_reset.inside()) {
+  	button_reset.switch_is();
+  }
 	//which type of SCENE display full screen or window
   //to re-init the button
-  if (buttonFullscreen.inside || buttonWindow.inside || renderer[0].inside || renderer[1].inside || renderer[2].inside) {
-    for(int i = 0 ; i < renderer.length ; i++) {
-      renderer[i].OnOff = false ;
+  if (button_full_screen.inside() || button_window.inside() 
+  		|| button_mode[0].inside() || button_mode[1].inside() || button_mode[2].inside()) {
+    for(int i = 0 ; i < button_mode.length ; i++) {
+      button_mode[i].is(false);
     }
 
-    buttonFullscreen.OnOff = false ;
-    buttonWindow.OnOff = false ;
+    button_full_screen.is(false);
+    button_window.is(false);
   }
   // after the re-init we can check what's happen on the button
-  for(int i = 0 ; i < renderer.length ; i++) {
-    renderer[i].mouseClic() ;
+  for(int i = 0 ; i < button_mode.length ; i++) {
+    if(button_mode[i].inside()) {
+			button_mode[i].switch_is();
+		}
   }
-  buttonFullscreen.mouseClic() ;
-  buttonWindow.mouseClic() ;
+
+  if(button_full_screen.inside()) {
+  	button_full_screen.switch_is();
+  }
+
+  if(button_window.inside()) {
+  	button_window.switch_is();
+  }
   
   //which screen for the fullscreen mode
-  if(buttonFullscreen.OnOff) {
-  	which_screen_pressed();
+  if(button_full_screen.is()) {
+  	button_which_screen_pressed();
   }
   
   //button start
-  buttonStart.mouseClic() ;
-  if(buttonStart.OnOff) {
+  if(button_start.inside()) {
+  	button_start.switch_is();
+  }
+  if(button_start.is()) {
     save_app_properties();
     open_app_is(true);
     // open_app();
   }
-  buttonStart.OnOff = false;
+  button_start.is(false);
 }
 
 
@@ -476,14 +359,12 @@ void save_app_properties() {
 	
 	TableRow newRow = properies.addRow();
 
-
-
-	println("display 0",0,get_display_size(0));
-	println("display 1",1,get_display_size(1));
+	// println("display 0",0,get_display_size(0));
+	// println("display 1",1,get_display_size(1));
 	// println("display 2",2,get_display_size(2));
 	
-	int w = standard_size_width[widthSlider-1];
-	int h = standard_size_height[heightSlider -1];
+	int w = standard_size_width[index_width -1];
+	int h = standard_size_height[index_height -1];
 	int preview_w = 500 ;
 	int preview_h = 350;
 
@@ -538,39 +419,46 @@ We mut use the boolean to indicate to the launcher, the problem after that it's 
 */
 // boolean resize_bug = true ;
 
-void size_window() {
+void update_button_size_window() {
 	int correctionPosY = -14 ;
 	// size_window_width(standard_format_for_Processing_bug, correctionPosY) ;
 	/**
 	This lines bellow must use when the bug will be fix !!!!
 	*/
-	size_window_width(standard_size_width, correctionPosY) ;
-	size_window_height(standard_size_height, correctionPosY) ;
+	update_button_size_window_width(standard_size_width, correctionPosY) ;
+	update_button_size_window_height(standard_size_height, correctionPosY) ;
 }
 
-void size_window_width(int [] format_width, int pos_y) {
-	sliderWidth.sliderUpdate() ;
-	widthSlider = int(map(sliderWidth.getValue(),0,1,1,format_width.length))  ;
-	String w = Integer.toString(format_width[widthSlider-1]) ;
-	if (widthSlider <= 1 ) {
-		fill(r.SANG) ;
-		text("Width " + w, posSliderWidth.x, posSliderWidth.y +pos_y);
+void update_button_size_window_width(int [] format_width, int pos_y) {
+	slider_width.update(mouseX,mouseY);
+	// slider_width.select(mousePressed);
+	slider_width.show_structure();
+  slider_width.show_molette();
+  slider_width.show_label(); 
+	index_width = int(map(slider_width.get(0),0,1,1,format_width.length));
+	String w = Integer.toString(format_width[index_width -1]) ;
+	if (index_width <= 1) {
+		fill(r.SANG);
+		text("width " + w, slider_width.pos().x(), slider_width.pos().y() + pos_y);
 	} else {
-		fill(r.SAPIN) ;
-		text("Width " + w, posSliderWidth.x, posSliderWidth.y +pos_y);
+		fill(r.SAPIN);
+		text("width " + w, slider_width.pos().x(), slider_width.pos().y() + pos_y);
 	}
 }
 
-void size_window_height(int[] format_height, int pos_y) {
-	sliderHeight.sliderUpdate() ;
-	heightSlider = int(map(sliderHeight.getValue(),0,1,1,format_height.length))  ;
-	String h = Integer.toString(format_height[heightSlider -1]) ;
-	if (heightSlider <= 1 ) {
-		fill(r.SANG) ;
-		text("Heigth " + h, posSliderHeight.x, posSliderHeight.y +pos_y);
+void update_button_size_window_height(int[] format_height, int pos_y) {
+	slider_height.update(mouseX,mouseY);
+	slider_height.show_structure();
+  slider_height.show_molette();
+  slider_height.show_label(); 
+	index_height = int(map(slider_height.get(0),0,1,1,format_height.length));
+	String h = Integer.toString(format_height[index_height -1]) ;
+	if (index_height <= 1) {
+		fill(r.SANG);
+		text("heigth " + h, slider_height.pos().x(), slider_height.pos().y() +pos_y);
 	} else {
-		fill(r.SAPIN) ;
-		text("Heigth " + h, posSliderHeight.x, posSliderHeight.y +pos_y);
+		fill(r.SAPIN);
+		text("heigth " + h, slider_height.pos().x(), slider_height.pos().y() +pos_y);
 	}
 }
 
@@ -585,47 +473,32 @@ void size_window_height(int[] format_height, int pos_y) {
 
 /**
 SCREEN
-v 1.1.0
+v 1.2.0
 */
-int screen_num  ;
-//SETUP 
-void set_which_screen(int n , PVector infoPos) {
-	//quantity of button choice
-	screen_num = n ;
-	whichScreenButton = new Button [screen_num] ;
-	//position of the button  
-	int x = (int)infoPos.x ;
-	int y = (int)infoPos.y ;
-	int space = (int)infoPos.z ;
-	
-	for ( int i = 0 ; i <  screen_num ; i++) {
-		vec2 pos = vec2( x +( i *space), y ) ;
-		vec2 size = vec2(20,20) ;
-		String title = Integer.toString(i+1) ;
-		whichScreenButton[i] = new Button(pos, size, c1, c2, c3, c4, title) ;
-	}
-}
-
 void choice_screen_for_fullscreen() {
 	fill(r.ORANGE);
-	text("on screen",10.,120.);
+	text("on screen",10.0,120.0);
 	which_screen();
 }
 
-
+int screen_num;
 void which_screen() {
 	for(int i = 0 ; i < screen_num ; i++) {
-		whichScreenButton[i].displayButton() ;
+		button_which_screen[i].update(mouseX,mouseY);
+		button_which_screen[i].rollover(true);
+		button_which_screen[i].show_label();
 	}
 }
 
 //MOUSEPRESSED
-void which_screen_pressed() {
-	for(int i =0 ; i< screen_num ; i++ ) {
-		if (whichScreenButton[i].inside ) {
-			for( int j =0 ; j < screen_num ; j++ ) {
-				whichScreenButton[j].OnOff = false;
+void button_which_screen_pressed() {
+	for(int i = 0 ; i < screen_num ; i++) {
+		if(button_which_screen[i].inside()) {
+			
+			for(int j = 0 ; j < screen_num ; j++) {
+				button_which_screen[j].is(false);
 			}
+			button_which_screen[i].switch_is();
 		}
 	}
 }
@@ -634,8 +507,8 @@ void which_screen_pressed() {
 int screen_to_display;
 void which_screen_released() {
 	for(int i = 0 ; i < screen_num ; i++ ) {
-		whichScreenButton[i].mouseClic() ;
-		if(whichScreenButton[i].OnOff) {
+		button_which_screen[i].inside();
+		if(button_which_screen[i].is()) {
 			screen_to_display = i;
 		}
 	}
@@ -647,12 +520,12 @@ int get_which_screen() {
 	boolean [] screen_is = new boolean[screen_num];
 	for(int i = 0 ; i < screen_num ; i++) {
 		if(get_screen(i) != null) {
-			println("size display",i,get_screen(i).getWidth(),get_screen(i).getHeight());
+			println("size display", i, get_screen(i).getWidth(),get_screen(i).getHeight());
 			screen_is[i] = true;
 		}
 	}
 	for(int i = 0 ; i < screen_num ; i++ ) { 
-		if(whichScreenButton[i].OnOff == true ) {
+		if(button_which_screen[i].is()) {
 			if(screen_is[i]) {
 				id_screen = i; 
 				break;
