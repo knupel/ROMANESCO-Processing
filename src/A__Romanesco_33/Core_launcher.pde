@@ -8,7 +8,7 @@ String preference_path;
 String load_data_path;
 void path_setting() {
 	String main_folder = "/sources";
-	if(DEV) {
+	if(DEV_MODE) {
 		load_data_path = sketchPath(1)+main_folder+"/preferences/";
 		preference_path = sketchPath(1)+main_folder+"/preferences/";
 	} else {
@@ -28,10 +28,19 @@ void version() {
 	nameVersion = v[2];
 }
 
-
-
-
-
+void structure_background() {
+	background(r.GRIS[1]);
+	fill(r.ORANGE);
+	textFont(FuturaStencil,20);
+	fill(r.SANG);
+	rect(0,0, width,30);
+	fill(r.ORANGE);
+	rect(0,30,width,2);
+	fill(r.GRIS[14]);
+	text(nameVersion, pos_name_version.x, pos_name_version.y);
+	textFont(text_info,14);
+	text("version " +prettyVersion + "."+version, pos_pretty_version.x, pos_pretty_version.y);
+}
 
 
 
@@ -53,41 +62,21 @@ void version() {
 */
 void reset_window_location() {
 	textFont(text_info,14);
-	fill(r.NOIR);
 	textFont(FuturaStencil,20);
 	button_reset.update(mouseX,mouseY);
 	button_reset.rollover(true);
 	button_reset.show_label();
 }
 
-void launcher_background() {
-	background(r.GRIS[1]);
-	fill(r.ORANGE);
-	textFont(FuturaStencil,20);
-	fill(r.SANG);
-	rect(0,0, width,30);
-	fill(r.ORANGE);
-	rect(0,30,width,2);
-	fill(r.GRIS[14]);
-	text(nameVersion, pos_name_version.x, pos_name_version.y);
-}
-
 void launcher() {
-	textFont(text_info,14);
-	text("version " +prettyVersion + "."+version, pos_pretty_version.x, pos_pretty_version.y);
-	fill(r.GRIS[14]);
-	textFont(FuturaStencil,20);
-
-	text("choice", pos_choice.x, pos_choice.y);
-
 	choice_rendering();
-	//fork choice menu
 	for(int i = 0 ; i < num_mode ; i++) {
 		 if (button_mode[i].is() || mode_setting[i]) {
 			select_renderer_to_launch_app(i);
 		}
 	}
 }
+
 
 void choice_rendering() {
 	// remove 1 to don't update the mirror 
@@ -215,6 +204,11 @@ void fullscreen_or_window(boolean window_is, boolean fullscreen_is) {
 void mousePressed_button() {
 	if(button_reset.inside()) {
   	button_reset.switch_is();
+  	if(button_reset.is()) {
+  		println("reset all windows location");
+  		save_window_location_reset();
+  		button_reset.is(false);
+  	}
   }
 	//which type of SCENE display full screen or window
   //to re-init the button
@@ -329,10 +323,9 @@ void addressLocal(float x, float y) {
 
 
 /**
-SAVE DISPLAY PROPERTY
-v 0.2.0
+* SAVE DISPLAY PROPERTY
+* v 0.2.0
 */
-// Table sceneProperty;
 void save_app_properties() {
 	Table properies = new Table();
 	String[] col = new String[13];
@@ -358,10 +351,6 @@ void save_app_properties() {
 	}
 	
 	TableRow newRow = properies.addRow();
-
-	// println("display 0",0,get_display_size(0));
-	// println("display 1",1,get_display_size(1));
-	// println("display 2",2,get_display_size(2));
 	
 	int w = standard_size_width[index_width -1];
 	int h = standard_size_height[index_height -1];
@@ -393,9 +382,16 @@ void save_app_properties() {
 	saveTable(properies, path);
 }
 
-
-
-
+void save_window_location_reset() {
+	if(!DEV_MODE) {
+		String loc [] = new String[2];
+		loc[0] = Integer.toString(10);
+		loc[1] = Integer.toString(10);
+		saveStrings(preference_path+"window/controller_location.loc",loc);
+		saveStrings(preference_path+"window/prescene_location.loc",loc);
+		saveStrings(preference_path+"window/scene_location.loc",loc);
+	}
+}
 
 
 
@@ -411,27 +407,16 @@ void save_app_properties() {
 
 
 /**
-SIZE WINDOW
-actually there is bug with Processing for the resize window in P3D, so we need to
-create few apps dedicated and launch... that's growth the size of the zip file...
-C'est la vie...
-We mut use the boolean to indicate to the launcher, the problem after that it's possible to choice which app must be launch
+* SIZE WINDOW
 */
-// boolean resize_bug = true ;
-
 void update_button_size_window() {
 	int correctionPosY = -14 ;
-	// size_window_width(standard_format_for_Processing_bug, correctionPosY) ;
-	/**
-	This lines bellow must use when the bug will be fix !!!!
-	*/
 	update_button_size_window_width(standard_size_width, correctionPosY) ;
 	update_button_size_window_height(standard_size_height, correctionPosY) ;
 }
 
 void update_button_size_window_width(int [] format_width, int pos_y) {
 	slider_width.update(mouseX,mouseY);
-	// slider_width.select(mousePressed);
 	slider_width.show_structure();
   slider_width.show_molette();
   slider_width.show_label(); 
@@ -472,8 +457,8 @@ void update_button_size_window_height(int[] format_height, int pos_y) {
 
 
 /**
-SCREEN
-v 1.2.0
+* SCREEN
+* v 1.2.0
 */
 void choice_screen_for_fullscreen() {
 	fill(r.ORANGE);
@@ -490,7 +475,7 @@ void which_screen() {
 	}
 }
 
-//MOUSEPRESSED
+// MOUSE PRESSED
 void button_which_screen_pressed() {
 	for(int i = 0 ; i < screen_num ; i++) {
 		if(button_which_screen[i].inside()) {
@@ -503,7 +488,7 @@ void button_which_screen_pressed() {
 	}
 }
 
-//MOUSERELEASED
+// MOUSE RELEASED
 int screen_to_display;
 void which_screen_released() {
 	for(int i = 0 ; i < screen_num ; i++ ) {

@@ -5,11 +5,21 @@
 * Processing 3.5.3
 */
 
-boolean DEV = false;
+
+// DEV MODE
+boolean DEV_MODE = true;
 boolean LIVE = false;
 boolean HOME = false;
 boolean MIRROR = false;
 boolean FULLSCREEN = false;
+
+
+// EXPORT
+// boolean DEV_MODE = false;
+// boolean LIVE = false;
+// boolean HOME = false;
+// boolean MIRROR = false;
+// boolean FULLSCREEN = false;
 
 void settings() {
   size(450,220);
@@ -27,8 +37,8 @@ void setup() {
 
 void draw() {
   surface.setTitle(nameVersion + " " +prettyVersion+"."+version+ " - Launcher");
+  structure_background();
   reset_window_location();
-  launcher_background();
   launcher();
   open_romanesco();
 }

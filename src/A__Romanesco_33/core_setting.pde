@@ -11,7 +11,7 @@ void set_structure() {
 	set_button_location();
 	set_button_mode();
 	set_button_window();
-	//quantityScreen count the number of screen available
+	//quantity Screen count the number of screen available
 	GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 	GraphicsDevice[] devices = ge.getScreenDevices();
 	int quantityScreen = devices.length;
@@ -68,17 +68,17 @@ void set_button_window() {
 }
 
 void set_button_mode() {
-	vec2 pos_home = vec2(100,40);
+	vec2 pos_home = vec2(10,40);
 	vec2 size_home = vec2(85,20);
 	button_mode[0] = new Button(pos_home, size_home);
 	button_mode[0].set_label("home");
 
-	vec2 pos_live = vec2(180,40);
+	vec2 pos_live = vec2(90,40);
 	vec2 size_live = vec2(85,20);
 	button_mode[1] = new Button(pos_live, size_live);
 	button_mode[1].set_label("live");
 
-	vec2 pos_mirror = vec2 (240,40);
+	vec2 pos_mirror = vec2 (150,40);
 	vec2 size_mirror = vec2(85,20);
 	button_mode[2] = new Button(pos_mirror, size_mirror);
 	button_mode[2].set_label("mirror");
@@ -93,8 +93,8 @@ void set_button_mode() {
 }
 
 void set_button_location() {
-	vec2 pos = vec2(width -150,40);
-	vec2 size = vec2(200,40);
+	vec2 size = vec2(200,20);
+	vec2 pos = vec2(width -size.x(),40);
 	button_reset = new Button(pos, size);
 	button_reset.set_colour_in_on(r.GREEN);
 	button_reset.set_colour_out_on(r.SAPIN);
@@ -106,15 +106,15 @@ void set_button_location() {
 
 void set_which_screen(int n, ivec3 infoPos) {
 	screen_num = n ;
-	button_which_screen = new Button[screen_num] ;
+	button_which_screen = new Button[screen_num];
 	int x = infoPos.x();
 	int y = infoPos.y();
 	int space = infoPos.z();
 	
 	for ( int i = 0 ; i <  screen_num ; i++) {
-		vec2 pos = vec2( x +( i *space), y ) ;
+		vec2 pos = vec2( x +( i *space), y);
 		vec2 size = vec2(20,20) ;
-		String title = Integer.toString(i+1) ;
+		String title = Integer.toString(i+1);
 		button_which_screen[i] = new Button(pos, size);
 		button_which_screen[i].set_colour_in_on(r.GREEN);
 		button_which_screen[i].set_colour_out_on(r.SAPIN);
