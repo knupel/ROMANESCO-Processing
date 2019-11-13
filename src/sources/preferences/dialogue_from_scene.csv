@@ -1,2 +1,2 @@
 fx active,fx slider active
-dither bayer/blur radial/,red/green/blue/strength X/
+halftone dot/,angle/quantity/

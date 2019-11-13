@@ -39,6 +39,8 @@
 >when the camera item is use the global camera is locked.
 >fix: midi bug controller with the last input selected.
 >fix: selection media, when the length of media change.
+>change: remove key space to reset item, now it's only backspace and delete when parameter or move option is on.
+>add: button to reset the window location from the launcher.
 
 *SHADER
 

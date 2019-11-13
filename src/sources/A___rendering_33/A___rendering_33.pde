@@ -150,7 +150,7 @@ LIVE must change from the launcher, the info must be write in the external loadi
 
 
 void settings() {
-	size(800,500,P3D); // DEV MODE PARAM
+	size(2400,1400,P3D); // DEV MODE PARAM
 
 	rope_version();
 	
@@ -351,7 +351,7 @@ EVENT
 v 2.0.0
 2014-2018
 */
-void keyPressed () {
+void keyPressed() {
 	if (key == 'i') displayInfo = !displayInfo;
 	if (key == 'g') show_info_camera = !show_info_camera;
 

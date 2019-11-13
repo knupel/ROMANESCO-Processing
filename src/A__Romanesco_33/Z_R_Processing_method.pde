@@ -1,6 +1,6 @@
 /**
 * ROPE PROCESSING METHOD
-* v 2.7.10
+* v 2.8.0
 * Copyleft (c) 2014-2019
 * Stan le Punk > http://stanlepunk.xyz/
 * @author @stanlepunk
@@ -13,7 +13,7 @@ import rope.costume.R_Shape;
 
 /**
 ADVANCED GHOST METHOD
-v 1.0.1
+v 1.1.0
 All advanced ghost push Processing method further.
 Processing and vec, ivec and bvec method
 the idea here is create method directly insprating from Processing to simplify the coder life
@@ -479,12 +479,39 @@ void ellipse(vec p, vec s, PGraphics other) {
 
 
 
+/**
+* square
+*/
+void square(float px, float py, float extent, PGraphics other) {
+  if(other != null) {
+    other.square(px,py,extent);
+  } else {
+    square(px,py,extent);
+  }
+}
+
+void square(vec p, float extent) {
+  square(p,extent,null);
+}
+
+void square(vec p, float extent, PGraphics other) {
+  if(renderer_P3D() && p instanceof vec3) {
+    push(other);
+    translate(p.x(),p.y(),p.z(),other);
+    square(0,0,extent,other);
+    pop(other);
+  } else {
+    square(p.x(),p.y(),extent,other);
+  }
+}
+
+
+
 
 
 /**
 * Rect
 */
-
 void rect(float px, float py, float sx, float sy, PGraphics other) {
   if(other != null) {
     other.rect(px,py,sx,sy);
@@ -1711,7 +1738,7 @@ void pop(PGraphics other) {
 /**
 * GHOST METHODS for PROCESSING
 * 2018-2019
-* v 0.2.3
+* v 0.3.0
 */
 boolean get_layer_is_correct() {
   if(get_layer() != null && get_layer().width > 0 && get_layer().height > 0) {
@@ -2048,6 +2075,17 @@ void ellipseMode(int mode) {
   }
 }
 
+
+// square
+void square(float px, float py, float extent) {
+  if(get_layer_is_correct()) {
+    get_layer().square(px,py,extent);
+  } else {
+    g.square(px,py,extent);
+  }
+}
+
+
 // rect
 void rect(float px, float py, float sx, float sy) {
   if(get_layer_is_correct()) {
@@ -2058,7 +2096,7 @@ void rect(float px, float py, float sx, float sy) {
 }
 
 
-void rect(float  px, float py, float sx, float sy, float r) {
+void rect(float px, float py, float sx, float sy, float r) {
   if(get_layer_is_correct()) {
     get_layer().rect(px,py,sx,sy,r);
   } else {
