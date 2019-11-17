@@ -1,7 +1,7 @@
 /**
 * COSTUME classes
 * Copyleft (c) 2019-2019
-* v 0.10.3
+* v 0.10.4
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 * Here you finf the class Costume and all the class shape used.
@@ -93,7 +93,7 @@ final int VIRUS = 88_888_888;
 /**
 class Costume 
 2018-2019
-v 0.6.0
+v 0.6.1
 */
 import rope.costume.R_Primitive;
 public class Costume {
@@ -359,13 +359,13 @@ public class Costume {
 	public void aspect(int fill, int stroke, float thickness) {
 	  //checkfill color
 	  if(alpha(fill) <= 0 || !this.fill_is)  {
-	    noFill(); 
+	    noFill(other); 
 	  } else {
 	  	manage_fill(fill);
 	  } 
 	  //check stroke color
 	  if(alpha(stroke) <=0 || thickness <= 0 || !this.stroke_is) {
-	    noStroke();
+	    noStroke(other);
 	  } else {
 	  	manage_stroke(stroke);
 	    manage_thickness(thickness);
@@ -383,26 +383,26 @@ public class Costume {
 	    // 
 		} else if(costume != r.NULL || costume != POINT) {
 	    if(alpha(fill) <= 0 || !fill_rope_is) {
-	    	noFill(); 
+	    	noFill(other); 
 	    } else {
 	    	manage_fill(fill);
 	    }
 
 	    if(alpha(stroke) <= 0  || thickness <= 0 || !stroke_rope_is) {
-	    	noStroke(); 
+	    	noStroke(other); 
 	    } else {
 	    	manage_stroke(stroke);
 	      manage_thickness(thickness);
 	    }   
 	  } else {
 	    if(alpha(fill) == 0) {
-	    	noStroke(); 
+	    	noStroke(other); 
 	    } else {
 	    	// case where the fill is use like a stroke, for point, pixel...
 	    	manage_stroke(fill);
 	    	manage_thickness(thickness);
 	    }
-	    noFill();   
+	    noFill(other);   
 	  }
 	  //
 	  init_bool_aspect();
@@ -413,13 +413,13 @@ public class Costume {
 	public void aspect(vec fill, vec stroke, float thickness) {
 	  //checkfill color
 	  if(fill.w <=0 || !this.fill_is)  {
-	    noFill() ; 
+	    noFill(other) ; 
 	  } else {
 	    manage_fill(fill);
 	  } 
 	  //check stroke color
 	  if(stroke.w <=0 || thickness <= 0 || !this.stroke_is) {
-	    noStroke();
+	    noStroke(other);
 	  } else {
 	    manage_stroke(stroke);
 	    manage_thickness(thickness);
@@ -438,27 +438,26 @@ public class Costume {
 	    // 
 		} else if(costume != r.NULL || costume != POINT) {
 	    if(fill.w <= 0 || !this.fill_is) {
-	    	noFill() ; 
+	    	noFill(other) ; 
 	    } else {
 	    	manage_fill(fill);
 	    } 
 	    if(stroke.w <= 0  || thickness <= 0 || !this.stroke_is) {
-	    	noStroke(); 
+	    	noStroke(other); 
 	    } else {
 	    	manage_stroke(stroke);
 	    	manage_thickness(thickness);
 	    }   
 	  } else {
 	    if(fill.w <= 0 || !this.fill_is) {
-	    	noStroke(); 
+	    	noStroke(other); 
 	    } else {
 	    	// case where the fill is use like a stroke, for point, pixel...
 	    	manage_stroke(fill); 
 	    	manage_thickness(thickness);
 	    }
-	    noFill();   
+	    noFill(other);   
 	  }
-	  //
 	  init_bool_aspect();
 	}
 
@@ -471,11 +470,11 @@ public class Costume {
 			} else { 
 				this.fill = color(c.x(),c.x(),c.x(),g.colorModeA);
 			}
-			fill(this.fill);
+			fill(this.fill,other);
 		} else if(arg instanceof vec3) {
 			vec3 c = (vec3)arg;
 			this.fill = color(c.x(),c.y(),c.z(),g.colorModeA);
-			fill(this.fill);
+			fill(this.fill,other);
 		} else if(arg instanceof vec4) {
 			vec4 c = (vec4)arg;
 			if(alpha_is()) {
@@ -483,18 +482,18 @@ public class Costume {
 			} else {
 				this.fill = color(c.x(),c.y(),c.z(),g.colorModeA);
 			}
-			fill(this.fill);
+			fill(this.fill,other);
 		} else if(arg instanceof Integer) {
 			int c = (int)arg;
 			if(alpha_is()) {
-				fill(c);	
+				fill(c,other);	
 			} else {
 				if(g.colorMode == 3) {
 					this.fill = color(hue(c),saturation(c),brightness(c),g.colorModeA);
 				} else {
 					this.fill = color(red(c),green(c),blue(c),g.colorModeA);
 				}
-				fill(this.fill);
+				fill(this.fill,other);
 			}
 			
 		}
@@ -508,11 +507,11 @@ public class Costume {
 			} else {
 				this.stroke = color(c.x(),c.x(),c.x(),g.colorModeA);
 			}
-			stroke(this.stroke);
+			stroke(this.stroke,other);
 		} else if(arg instanceof vec3) {
 			vec3 c = (vec3)arg;
 			this.stroke = color(c.x(),c.y(),c.z(),g.colorModeA);
-			stroke(this.stroke);
+			stroke(this.stroke,other);
 		} else if(arg instanceof vec4) {
 			vec4 c = (vec4)arg;
 			if(alpha_is()) {
@@ -524,14 +523,14 @@ public class Costume {
 		} else if(arg instanceof Integer) {
 			int c = (int)arg;
 			if(alpha_is()) {
-				stroke(c);	
+				stroke(c,other);	
 			} else {
 				if(g.colorMode == 3) {
 					this.stroke = color(hue(c),saturation(c),brightness(c),g.colorModeA);
 				} else {
 					this.stroke = color(red(c),green(c),blue(c),g.colorModeA);
 				}
-				stroke(this.stroke);
+				stroke(this.stroke,other);
 			}
 		}
 	}
@@ -539,7 +538,7 @@ public class Costume {
 
 	private void manage_thickness(float thickness) {
 		this.thickness = thickness;
-		strokeWeight(this.thickness);
+		strokeWeight(this.thickness,other);
 	}
 
 
