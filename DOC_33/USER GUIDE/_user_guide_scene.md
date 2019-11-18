@@ -95,20 +95,27 @@ save png a window Scene or Prescene is on a full rendering mode
 *MASK *S
 
 SHIFT + 'm'
-> set mask
+> set mask move point
 
-SHIFT + 'h'
+SHIFT + 'M'
+> set mask move bloc
+
+
+SHIFT + 'N'
+> build new bloc
+
+SHIFT + 'H'
 > display mask
 
-SHIFT + 'l'
-> load mast
+SHIFT + 'L'
+> load mask
 
-SHIF + 's'
+SHIF + 'S'
 > save mask
 
 *WARP FORCE FLUID *S
 
-SHIFT + 'N'
+SHIFT + 'W'
 > ????
 
 

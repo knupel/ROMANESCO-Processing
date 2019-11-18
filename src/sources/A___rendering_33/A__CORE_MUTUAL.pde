@@ -1,14 +1,10 @@
 /**
 * CORE MUTUAL ROMANESCO
 *
-*
 * WARNING
 * common code for CONTROLLER and RENDERER
 * 2018-2019
-* v 0.6.2
-*
-* Processing 3.5.3
-* Rope library 0.6.2
+* v 0.6.3
 */
 int NUM_COL_SLIDER = 4;
 int NUM_SLIDER_ITEM_BY_COL = 16;
@@ -77,6 +73,7 @@ int ITEM_GROUP = 1;
 String preference_path;
 String import_path;
 String font_path;
+String mask_path;
 String items_path;
 String autosave_path;
 void path_setting() {
@@ -90,7 +87,8 @@ void path_setting() {
 		font_path = import_path+"font/typo_OTF_TTF";
 	}
 	items_path = sketchPath(folder_position)+"/items/";
-	autosave_path = sketchPath(folder_position)+"/autosave.csv";
+	autosave_path = sketchPath(folder_position)+"/save/autosave.csv";
+	mask_path = "/save/default_mask.blc";
 }
 
 String version = "";

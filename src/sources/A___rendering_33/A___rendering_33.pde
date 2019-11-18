@@ -228,7 +228,6 @@ void setup() {
 	init_fx_filter();
 	init_background();
 	init_fx_background();
-	init_masking();
 }
 
 
@@ -315,7 +314,7 @@ void romanesco() {
 
 	// mask
 	if(FULL_RENDERING) {
-		masking(set_mask_is());
+		mask();
 	}
 
 	// cursor
@@ -363,12 +362,12 @@ void keyPressed() {
 		key_true();
 	}
 
-	keyPressed_mask_set('M');
-	keyPressed_mask_border_hide('H');
+	keyPressed_mask_set('m','M','N');
+	keyPressed_mask_hide('H');
 	keyPressed_mask_save('S');
 	keyPressed_mask_load('L');
 
-	warp_force_keyPressed('N');
+	warp_force_keyPressed('W');
 }
 
 
