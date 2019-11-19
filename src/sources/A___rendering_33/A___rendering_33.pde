@@ -16,6 +16,7 @@ release 33
 2016 may 27_500 lines of code
 2017 March 40_000 lines of code
 2019 August 65_000 lines of code
+2019 November 68_000 lines of code
 */
 
 
@@ -354,13 +355,7 @@ void keyPressed() {
 	if (key == 'i') displayInfo = !displayInfo;
 	if (key == 'g') show_info_camera = !show_info_camera;
 
-	if(IAM.equals("prescene")) {
-		if(LIVE) {
-			send_message(true);
-		}
-		keyboard[keyCode] = true;
-		key_true();
-	}
+	keyPressed_event();
 
 	keyPressed_mask_set('m','M','N');
 	keyPressed_mask_hide('H');
@@ -370,74 +365,32 @@ void keyPressed() {
 	warp_force_keyPressed('W');
 }
 
-
 void keyReleased() {
-	if(IAM.equals("prescene")) {
-		if(LIVE) {
-			send_message(true);
-		}
-		key_long_false();
-		keyboard[keyCode] = false;
-	}
-
-	if(key == 'c') {
-		camera_global_is = camera_global_is ? false:true;
-	}
+	keyReleased_event();
+	keyReleased_event_camera('c');
 }
 
-
 void mousePressed() {
-	if(IAM.equals("prescene")) {
-		if(LIVE) {
-			send_message(true);
-		}
-		if(mouseButton == LEFT) {
-			clickShortLeft[0] = true;
-			clickLongLeft[0] = true;
-		}
-		if (mouseButton == RIGHT ) {
-			clickShortRight[0] = true;
-			clickLongRight[0] = true;
-		}
-	}
+	mousePressed_event();
+	mousePressed_event_mask();
 }
 
 void mouseReleased() {
-	if(IAM.equals("prescene")){
-		if(LIVE) {
-			send_message(true);
-		}
-		clickLongLeft[0] = false;
-		clickLongRight[0] = false;
-	}
+	mouseReleased_event();
+	mouseReleased_event_mask();
 }
 
 // Mouse in or out of the sketch
 public void mouseEntered(MouseEvent e) {
-	if(IAM.equals("prescene")){
-		if(LIVE) {
-			send_message(true);
-		}
-		MOUSE_IN_OUT = true ;
-	}
+	mouseEntered_event(e);
 }
 
 public void mouseExited(MouseEvent e) {
-	if(IAM.equals("prescene")) {
-		if(LIVE) {
-			send_message(true);
-		}
-		MOUSE_IN_OUT = false ;
-	}
+	mouseExited_event(e);
 }
 
 void mouseWheel(MouseEvent e) {
-	if(IAM.equals("prescene")) {
-		if(LIVE) {
-			send_message(true);
-		}
-		wheel[0] = e.getCount() *speedWheel;
-	} 
+	mouseWheel_event(e);
 }
 
 

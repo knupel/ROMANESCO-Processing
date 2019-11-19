@@ -1,7 +1,7 @@
 Type,ID slider,Min slider,Max slider,Value length,Value slider 0,Value slider 1,Value slider 2,Value slider 3,ID button,On Off,ID midi,Item ID,Item On Off,Item Name,Item Class Name,Path
-Slider background,0,0.0,1.0,1,0.31746033,,,,,,16,,,,,
-Slider background,1,0.0,1.0,1,0.65873015,,,,,,17,,,,,
-Slider background,2,0.0,1.0,1,0.95555556,,,,,,18,,,,,
+Slider background,0,0.0,1.0,1,0.0,,,,,,16,,,,,
+Slider background,1,0.0,1.0,1,0.9,,,,,,17,,,,,
+Slider background,2,0.0,1.0,1,0.4888889,,,,,,18,,,,,
 Slider background,3,0.0,1.0,1,1.0,,,,,,0,,,,,
 Slider background,4,0.0,1.0,1,0.18888889,,,,,,-2,,,,,
 Slider background,5,0.0,1.0,1,0.18888889,,,,,,-2,,,,,
@@ -49,7 +49,7 @@ Slider sound setting,1,0.0,1.0,2,0.0,0.094736844,,,,,-2,,,,,
 Slider sound setting,2,0.0,1.0,2,0.0,0.094736844,,,,,-2,,,,,
 Slider sound setting,3,0.0,1.0,2,0.0,0.094736844,,,,,-2,,,,,
 Slider sound setting,4,0.0,1.0,2,0.0,0.094736844,,,,,-2,,,,,
-Slider camera,0,0.0,1.0,1,0.32222223,,,,,,-2,,,,,
+Slider camera,0,0.0,1.0,1,0.0,,,,,,-2,,,,,
 Slider camera,1,0.0,1.0,1,0.5,,,,,,-2,,,,,
 Slider camera,2,0.0,1.0,1,0.5,,,,,,-2,,,,,
 Slider camera,3,0.0,1.0,1,0.5,,,,,,-2,,,,,
@@ -123,7 +123,7 @@ Slider item d,60,0.0,1.0,1,0.0,,,,,,-2,,,,,
 Slider item d,61,0.0,1.0,1,0.0,,,,,,-2,,,,,
 Slider item d,62,0.0,1.0,1,0.0,,,,,,-2,,,,,
 Slider item d,63,0.0,1.0,1,0.0,,,,,,-2,,,,,
-Item,,,,,,,,,,,,1,0,Arbre,ArbreRomanesco,
+Item,,,,,,,,,,,,1,1,Arbre,ArbreRomanesco,
 Item,,,,,,,,,,,,2,0,Atome,Atome,
 Item,,,,,,,,,,,,3,0,Balise,BaliseRomanesco,
 Item,,,,,,,,,,,,4,0,Boids,Boids,
@@ -157,16 +157,8 @@ Item,,,,,,,,,,,,31,0,Surface,Surface,
 Item,,,,,,,,,,,,32,0,The Abbyss,The_Abbyss,
 Item,,,,,,,,,,,,33,0,Vectorial,Vectorial,
 Item,,,,,,,,,,,,34,0,Webcam,Webcam,
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Bapteme Lysandre/source/bapteme_lysandre_7.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Bapteme Lysandre/source/bapteme_lysandre_6.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Bapteme Lysandre/source/Lysandre_0.txt
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Bapteme Lysandre/source/bapteme_lysandre_4.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Bapteme Lysandre/source/bapteme_lysandre_5.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Bapteme Lysandre/source/bapteme_lysandre_1.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Bapteme Lysandre/source/bapteme_lysandre_0.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Bapteme Lysandre/source/bapteme_lysandre_2.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Bapteme Lysandre/source/bapteme_lysandre_3.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/MEDIA/MEDIA ROMANESCO/FILM/Film/Prometheus_2012.mp4
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/code/github/PROJET/Vies_paralleles/Hermine_et_Joconde_vp1/data/HD_hermine_joconde_vert/joconde_3500x4500.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/code/github/PROJET/Vies_paralleles/Hermine_et_Joconde_vp1/data/HD_hermine_joconde_vert/hermine_3500x4500.jpg
 Button item,,,,,,,,,0,0,0,,,,,
 Button item,,,,,,,,,1,0,0,,,,,
 Button item,,,,,,,,,2,0,0,,,,,
@@ -177,8 +169,8 @@ Button reset camera,,,,,,,,,2,0,-2,,,,,
 Button reset ative item position,,,,,,,,,3,0,-2,,,,,
 Button birth,,,,,,,,,4,0,-2,,,,,
 Button 3D,,,,,,,,,5,0,-2,,,,,
-Button fx filter,,,,,,,,,6,1,64,,,,,
-Button fx filter,,,,,,,,,7,1,-2,,,,,
+Button fx filter,,,,,,,,,6,0,64,,,,,
+Button fx filter,,,,,,,,,7,0,-2,,,,,
 Button fx filter,,,,,,,,,8,0,-2,,,,,
 Button fx mix,,,,,,,,,9,0,-2,,,,,
 Button fx mix,,,,,,,,,10,0,-2,,,,,
@@ -192,7 +184,7 @@ Button transient,,,,,,,,,17,0,0,,,,,
 Button transient,,,,,,,,,18,0,0,,,,,
 Button transient,,,,,,,,,19,0,0,,,,,
 Button transient,,,,,,,,,20,0,0,,,,,
-Button item,,,,,,,,,4,0,-2,,,,,
+Button item,,,,,,,,,4,1,-2,,,,,
 Button item,,,,,,,,,5,0,-2,,,,,
 Button item,,,,,,,,,6,0,-2,,,,,
 Button item,,,,,,,,,7,0,-2,,,,,

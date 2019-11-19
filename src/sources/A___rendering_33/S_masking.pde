@@ -56,6 +56,10 @@ void mask() {
 		}
 		mask_manage(mask,mask_layer);
 		g.image(mask_layer,0,0);
+	} else if (!show_mask_is()) {
+		mask_move_point_is = false;
+		mask_move_bloc_is = false;
+		mask_build_is = false;
 	}
 }
 
@@ -66,7 +70,7 @@ void init_mask() {
 	mask = new R_Megabloc(this);
 	mask.set_magnetism(2);
 	mask_layer = createGraphics(width,height,P2D);
-	String [] data = load_megabloc(sketchPath(1)+mask_path);
+	String [] data = load_megabloc(sketchPath(1) + mask_path);
 	mask = read_megabloc(data);
 	println("mask ready to use");
 }
@@ -79,14 +83,11 @@ void mask_show(PGraphics pg) {
 
 void mask_manage(R_Megabloc mb, PGraphics other) {
 	if(mask_move_point_is) {
-		println("methode mask_manage(): move point", frameCount);
 		bloc_select_single_point(mb, mouseX, mouseY, mousePressed);
 		// bloc_select_all_point(megabloc, mouseX, mouseY, mousePressed);
 		bloc_move_point(mb, mouseX, mouseY, mousePressed);
-		// bloc_move_point_key(megabloc);
 	}
 	if(mask_move_bloc_is) {
-		println("methode mask_manage(): move bloc", frameCount);
 		bloc_select(mb, mouseX, mouseY, mousePressed);
 		bloc_move(mb, mouseX, mouseY, mousePressed);
 	}
@@ -125,14 +126,26 @@ boolean set_mask_is() {
 
 void set_mask_move_point_switch() {
 	mask_move_point_is = !!((mask_move_point_is == false));
+	if(mask_move_point_is) {
+		mask_move_bloc_is = false;
+		mask_build_is = false;
+	}
 }
 
 void set_mask_move_bloc_switch() {
 	mask_move_bloc_is = !!((mask_move_bloc_is == false));
+	if(mask_move_bloc_is) {
+		mask_move_point_is = false;
+		mask_build_is = false;
+	}
 }
 
 void set_mask_build_switch() {
 	mask_build_is = !!((mask_build_is == false));
+	if(mask_build_is) {
+		mask_move_bloc_is = false;
+		mask_move_point_is = false;
+	}
 }
 
 boolean show_mask_is() {
@@ -150,11 +163,31 @@ void show_mask_switch() {
 /**
 * GUI
 */
-void keyPressed_mask_set(char c_point_move, char c_bloc_move, char c_bloc_build) {
-	if(key == c_point_move || key == c_bloc_move || key == c_bloc_build) {
-		if(!show_mask_is()) {
-			show_mask_is(true);
+void mousePressed_event_mask() {
+	if(show_mask_is() && mask != null) {
+		if(mask_build_is && add_new_bloc_is) {
+			new_bloc(mask);
+			add_new_bloc_is = false;
 		}
+		if(!bloc_move_event_is()) {
+			for(R_Bloc b : mask.get()) {
+				b.select_is(false);
+			}
+		}
+	}
+}
+
+void mouseReleased_event_mask() {
+	if(show_mask_is() && mask != null) {
+		if(mask_build_is) {
+			add_point_to_bloc_is(true);
+		}
+		bloc_move_event_is(false);
+	}
+}
+
+void keyPressed_mask_set(char c_point_move, char c_bloc_move, char c_bloc_build) {
+	if(show_mask_is() && (key == c_point_move || key == c_bloc_move || key == c_bloc_build)) {
 		if(key == c_point_move) {
 			set_mask_move_point_switch();
 		}
@@ -170,18 +203,24 @@ void keyPressed_mask_set(char c_point_move, char c_bloc_move, char c_bloc_build)
 void keyPressed_mask_hide(char c) {
 	if(key == c) {
 		show_mask_switch();
+		if(mask != null) {
+			init_mask();
+		}
 	}
 }
 
 void keyPressed_mask_save(char c) {
-	if(key == c) {
-		save_mask();
+	if(show_mask_is() && mask != null) {
+		if(key == c) {
+			save_mask();
+		}
 	}
 }
 
 void keyPressed_mask_load(char c) {
 	if(key == c) {
 		selectInput("Select a file to load mask:", "load_mask");
+		show_mask_is(true);
 	}
 }
 

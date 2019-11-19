@@ -1,7 +1,7 @@
 /**
 * CORE RENDERING
 * 2015-2019
-* v 1.11.0
+* v 1.12.0
 */
 import java.net.*;
 import java.io.*;
@@ -18,6 +18,84 @@ import processing.net.*;
 import processing.pdf.*;
 
 import codeanticode.syphon.*;
+
+
+/**
+* event
+*/
+void keyPressed_event() {
+  if(IAM.equals("prescene")) {
+    if(LIVE) {
+      send_message(true);
+    }
+    keyboard[keyCode] = true;
+    key_true();
+  }
+}
+
+void keyReleased_event() {
+  if(IAM.equals("prescene")) {
+    if(LIVE) {
+      send_message(true);
+    }
+    key_long_false();
+    keyboard[keyCode] = false;
+  }
+}
+
+void mousePressed_event() {
+  if(IAM.equals("prescene")) {
+    if(LIVE) {
+      send_message(true);
+    }
+    if(mouseButton == LEFT) {
+      clickShortLeft[0] = true;
+      clickLongLeft[0] = true;
+    }
+    if (mouseButton == RIGHT ) {
+      clickShortRight[0] = true;
+      clickLongRight[0] = true;
+    }
+  }
+}
+
+void mouseReleased_event() {
+  if(IAM.equals("prescene")){
+    if(LIVE) {
+      send_message(true);
+    }
+    clickLongLeft[0] = false;
+    clickLongRight[0] = false;
+  }
+}
+
+void mouseEntered_event(MouseEvent e) {
+  if(IAM.equals("prescene")){
+    if(LIVE) {
+      send_message(true);
+    }
+    MOUSE_IN_OUT = true ;
+  }
+}
+
+void mouseExited_event(MouseEvent e) {
+  if(IAM.equals("prescene")) {
+    if(LIVE) {
+      send_message(true);
+    }
+    MOUSE_IN_OUT = false ;
+  }
+}
+
+void mouseWheel_event(MouseEvent e) {
+  if(IAM.equals("prescene")) {
+    if(LIVE) {
+      send_message(true);
+    }
+    wheel[0] = e.getCount() *speedWheel;
+  } 
+}
+
 
 
 
@@ -124,25 +202,6 @@ void load_dial_controller() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /**
 Color Romanesco 
 v 1.0.1.1
@@ -184,12 +243,6 @@ int pad_inc(int target, int pad) {
   }
   return target;
 }
-
-
-
-
-
-
 
 
 
@@ -318,28 +371,6 @@ void list_cameras() {
     CAMERA_AVAILABLE = false ;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

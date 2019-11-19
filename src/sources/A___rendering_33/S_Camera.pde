@@ -1,7 +1,7 @@
 /**
 * Camera RENDER
 * 2013-2019
-* v 1.4.1
+* v 1.4.2
 */
 //travelling
 boolean goto_camera_position_is;
@@ -30,6 +30,14 @@ float ref_cam_deceleration;
 float ref_cam_ratio_rotate;
 float ref_cam_ratio_translate;
 
+/**
+* EVENT
+*/
+void keyReleased_event_camera(char c) {
+	if(key == 'c') {
+		camera_global_is = camera_global_is ? false:true;
+	}
+}
 
 // Camera SETUP
 void camera_setup() {
