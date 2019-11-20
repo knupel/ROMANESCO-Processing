@@ -1,7 +1,7 @@
 /**
 * Costume method
 * Copyleft (c) 2014-2019
-* v 1.10.1
+* v 1.10.0
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 */
@@ -1098,6 +1098,31 @@ void flower_static(vec2 petal_left, float strength_left, vec2 petal_right, float
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**
 ANNEXE COSTUME
 SHAPE CATALOGUE
@@ -1169,9 +1194,26 @@ void star_ratio(float... ratio) {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**
 * CROSS
-* v 0.2.1
+* v 0.2.0
 */
 void cross_rect(ivec2 pos, int thickness, int radius) { 
 	cross_rect(pos,thickness,radius,null);
@@ -1199,8 +1241,9 @@ void cross_box_2(vec2 size) {
 }
 
 void cross_box_2(vec2 size, PGraphics other) {
-	float scale_cross = size.sum();
+	float scale_cross = size.sum() *.5;
 	float small_part = scale_cross *ratio_costume_size *.3;
+
 	box(size.x,small_part,small_part,other);
 	box(small_part,size.y,small_part,other);
 }
@@ -1210,8 +1253,9 @@ void cross_box_3(vec3 size) {
 }
 
 void cross_box_3(vec3 size, PGraphics other) {
-	float scale_cross = size.sum();
+	float scale_cross = size.sum() *.3;
 	float small_part = scale_cross *ratio_costume_size *.3;
+	 
 	box(size.x,small_part,small_part,other);
 	box(small_part,size.y,small_part,other);
 	box(small_part,small_part,size.z,other);
@@ -1284,6 +1328,17 @@ void virus_node(int node) {
 		virus_costume_rope.set_node(abs(node));
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 

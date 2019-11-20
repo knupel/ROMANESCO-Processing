@@ -312,15 +312,19 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 	* build
 	*/
 	public void build(float x, float y, boolean event_is) {
+		build(x, y, event_is, true);
+	}
+
+	public void build(float x, float y, boolean event_is, boolean security_is) {
 		update(x,y);
 		if(event_is) {
 			vec2 point = vec2(x,y);
 			if(list.size() > 1) {
 				if(list.size() > 2 && end(point)) {
 					add(vec2(list.get(index)));
-				} else if(near_of(point)) {
+				} else if(security_is && near_of(point)) {
 					list.remove(index);
-				} else if(intersection(point)) {
+				} else if(security_is && intersection(point)) {
 					add(index, point);
 				} else {
 					add(point);

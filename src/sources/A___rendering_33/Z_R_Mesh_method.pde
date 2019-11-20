@@ -13,7 +13,7 @@ R_Bloc create_bloc(vec2 [] points) {
 
 /**
 * R_Megabloc method
-* v 0.1.2
+* v 0.1.4
 * 2019-2019
 */
 boolean add_point_to_bloc_is;
@@ -316,6 +316,10 @@ String [] load_megabloc(String path_name) {
 }
 
 R_Megabloc read_megabloc(String [] file_type_blc) {
+	return read_megabloc(file_type_blc, false, false);
+}
+
+R_Megabloc read_megabloc(String [] file_type_blc, boolean original_canvas_is, boolean fit_is) {
 	R_Megabloc mb = new R_Megabloc(this);
 	boolean is = true;
 	String [] header = file_type_blc[0].split(",");
@@ -326,16 +330,20 @@ R_Megabloc read_megabloc(String [] file_type_blc) {
 	} else {
 		is = false;
 	}
-		// dimension
-	int w = 0;
+	// dimension
+	int original_width = 0;
 	if(header[2].contains("width")) {
-		w = atoi(header[2].split(":")[1]);
+		original_width = atoi(header[2].split(":")[1]);
 	}
-	int h = 0;
+	int original_height = 0;
 	if(header[3].contains("height")) {
-		h = atoi(header[3].split(":")[1]);
+		original_height = atoi(header[3].split(":")[1]);
 	}
-	mb.set(w,h);
+	if(original_canvas_is) {
+		mb.set(original_width,original_height);
+	} else {
+		mb.set(width,height);
+	}
 	// magnetism
 	int mag = 2;
 	if(header[4].contains("magnetism")) {
@@ -346,7 +354,7 @@ R_Megabloc read_megabloc(String [] file_type_blc) {
 		String bloc_info [] = file_type_blc[i].split(",");
 		if(bloc_info[0].contains("bloc") && bloc_info[2].contains("complexity")
 				&& bloc_info[3].contains("fill") && bloc_info[4].contains("stroke") && bloc_info[5].contains("thickness")) {
-			R_Bloc b = new R_Bloc(this,mb.width,mb.height);
+			R_Bloc b = new R_Bloc(this,mb.width,mb.height);;
 			b.set_magnetism(mag);
 			b.set_fill(atoi(bloc_info[3].split(":")[1]));
 			b.set_stroke(atoi(bloc_info[4].split(":")[1]));
@@ -357,7 +365,13 @@ R_Megabloc read_megabloc(String [] file_type_blc) {
 					String [] coord = bloc_info[n].split("<>");
 					float ax = atof(coord[1].split(":")[1]);
 					float ay = atof(coord[2].split(":")[1]);
-					b.build(ax,ay,true);
+					if(fit_is && (original_width != width || original_height != height)) {
+						ax /= original_width;
+						ax *= width;
+						ay /= original_height;
+						ay *= height;
+					}
+					b.build(ax,ay,true,false);
 				}
 			}
 			mb.add(b);

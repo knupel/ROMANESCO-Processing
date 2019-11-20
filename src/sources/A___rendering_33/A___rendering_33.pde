@@ -151,7 +151,7 @@ LIVE must change from the launcher, the info must be write in the external loadi
 
 
 void settings() {
-	size(800,600,P3D); // DEV MODE PARAM
+	size(1000,600,P3D); // DEV MODE PARAM
 
 	rope_version();
 	

@@ -71,7 +71,7 @@ void init_mask() {
 	mask.set_magnetism(2);
 	mask_layer = createGraphics(width,height,P2D);
 	String [] data = load_megabloc(sketchPath(1) + mask_path);
-	mask = read_megabloc(data);
+	mask = read_megabloc(data,false,true);
 	println("mask ready to use");
 }
 
@@ -258,7 +258,7 @@ void save_mask() {
 
 void load_mask(File selection) {
 	String [] data = load_megabloc(selection.getAbsolutePath());
-	mask = read_megabloc(data);
+	mask = read_megabloc(data,false,false);
 }
 
 void selected_file_to_save(File selection) {
