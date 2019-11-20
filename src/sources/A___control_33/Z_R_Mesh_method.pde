@@ -13,7 +13,7 @@ R_Bloc create_bloc(vec2 [] points) {
 
 /**
 * R_Megabloc method
-* v 0.1.0
+* v 0.1.2
 * 2019-2019
 */
 boolean add_point_to_bloc_is;
@@ -287,7 +287,7 @@ boolean bloc_move(R_Megabloc mb, float x, float y, boolean event_is) {
 /**
 * load save
 */
-void save_megabloc(R_Megabloc mb, String file_name, String path) {
+void save_megabloc(R_Megabloc mb, String path, String file_name) {
 	String [] save = new String[1];
 	// header
 	String name = "bloc file name:"+file_name;
@@ -326,6 +326,16 @@ R_Megabloc read_megabloc(String [] file_type_blc) {
 	} else {
 		is = false;
 	}
+		// dimension
+	int w = 0;
+	if(header[2].contains("width")) {
+		w = atoi(header[2].split(":")[1]);
+	}
+	int h = 0;
+	if(header[3].contains("height")) {
+		h = atoi(header[3].split(":")[1]);
+	}
+	mb.set(w,h);
 	// magnetism
 	int mag = 2;
 	if(header[4].contains("magnetism")) {

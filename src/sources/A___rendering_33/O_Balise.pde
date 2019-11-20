@@ -1,7 +1,7 @@
 /**
 * BALISE
 * 2011-2019
-* v 1.4.2
+* v 1.4.3
 */
 Balise balise ;
 //object three
@@ -125,9 +125,8 @@ class BaliseRomanesco extends Romanesco {
     }
 
     // aspect
-    aspect(get_fill(), get_stroke(), get_thickness().value(), get_costume());
+    aspect(get_fill(), get_stroke(), get_thickness().value());
 
-    
     
 
     // SIZE

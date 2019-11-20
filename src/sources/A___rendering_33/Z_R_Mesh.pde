@@ -142,7 +142,7 @@ public class R_Megabloc {
 /**
 * R_Bloc
 * 2019-2019
-* 0.2.2
+* 0.2.3
 */
 public class R_Bloc implements rope.core.R_Constants_Colour {
 	private ArrayList<vec3> list;
@@ -153,7 +153,6 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 	private boolean select_point_is;
 	private boolean action_available_is;
 	private int index;
-	// private mag_angle_is = false;
 	private int magnetism = 1;
 	private int colour_build;
 	private int fill;
@@ -529,13 +528,11 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 				square(sub(vec2(list.get(index)),vec2(size).mult(.5)),size,other);
 			}
 		}
-
 		// current selection
 		fill(colour_build,other);
 		if(max >= 0) {
 			square(sub(vec2(list.get(max)),vec2(size).mult(.5)),size,other);
 		}
-		// aspect(fill,stroke,thickness,other);
 	}
 
 	public void show_struct() {
@@ -543,11 +540,13 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 	}
 
 	public void show_struct(PGraphics other) {
-		if(other != null)
+		if(other != null) {
 			beginDraw(other);
+		}
 		calc_show_struct(true,other);
-		if(other != null)
+		if(other != null) {
 			endDraw(other);
+		}
 	}
 
 	private void calc_show_struct(boolean draw_is, PGraphics other) {
@@ -575,15 +574,16 @@ public class R_Bloc implements rope.core.R_Constants_Colour {
 	}
 
 	public void show(PGraphics other) {
-		if(other != null)
+		if(other != null) {
 			beginDraw(other);
+		}
 		calc_show(other);
-		if(other != null)
+		if(other != null) {
 			endDraw(other);
+		}
 	}
 
 	private void calc_show(PGraphics other) {
-		// println(fill,frameCount);
 		aspect(fill,stroke,thickness,other);
 		if(list.size() == 2) {
 			line(vec2(list.get(0)),vec2(list.get(1)),other);

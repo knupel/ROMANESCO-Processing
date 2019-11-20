@@ -56,7 +56,7 @@ public void init_rope() {
   println("Romanesco Processing Environment - 2015-2019");
 }
 */
-String rope_framework_version = "1.3.1.70";
+String rope_framework_version = "1.3.2.71";
 public void rope_version() {
 	r = new Rope();
 	println("Romanesco Processing Environment - 2015-2019");

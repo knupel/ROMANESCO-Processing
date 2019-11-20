@@ -1,7 +1,7 @@
 /**
 SPIRALE
 2011-2019
-v 1.4.1
+v 1.4.2
 */
 
 Spirale spirale ; 
@@ -11,7 +11,7 @@ class Spirale_romanesco extends Romanesco {
     //from the index_objects.csv
     item_name = "Spirale" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.4.1";
+    item_version = "Version 1.4.2";
     item_pack = "Base 2011-2019" ;
     item_costume = "point/ellipse/triangle/rect/cross/pentagon/flower/Star 5/Star 7/Super Star 8/Super Star 12" ;
     item_mode = "" ;
@@ -160,7 +160,7 @@ class Spirale_romanesco extends Romanesco {
     }
 
     // aspect
-    aspect(get_fill(), get_stroke(), get_thickness().value(), get_costume()) ;
+    aspect(get_fill(), get_stroke(), get_thickness().value());
 
     // mode    
     vec3 pos = vec3() ; // we write that because the first part of the void is not available any more.

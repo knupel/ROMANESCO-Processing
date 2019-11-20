@@ -1,12 +1,10 @@
 /**
 * COSTUME classes
 * Copyleft (c) 2019-2019
-* v 0.10.4
+* v 0.10.5
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 * Here you finf the class Costume and all the class shape used.
-* Processing 3.5.3.269
-* Rope Library 0.8.3.28
 */
 
 
@@ -93,15 +91,15 @@ final int VIRUS = 88_888_888;
 /**
 class Costume 
 2018-2019
-v 0.6.1
+v 0.6.2
 */
 import rope.costume.R_Primitive;
 public class Costume {
 	PGraphics other;
 
-	boolean fill_is;
-	boolean stroke_is;
-	boolean alpha_is;
+	boolean fill_is = true;
+	boolean stroke_is = true;
+	boolean alpha_is = true;
 
 	vec3 pos;
 	vec3 size;
@@ -412,13 +410,13 @@ public class Costume {
 
 	public void aspect(vec fill, vec stroke, float thickness) {
 	  //checkfill color
-	  if(fill.w <=0 || !this.fill_is)  {
+	  if(fill.w() <= 0 || !this.fill_is)  {
 	    noFill(other) ; 
 	  } else {
 	    manage_fill(fill);
 	  } 
 	  //check stroke color
-	  if(stroke.w <=0 || thickness <= 0 || !this.stroke_is) {
+	  if(stroke.w() <=0 || thickness <= 0 || !this.stroke_is) {
 	    noStroke(other);
 	  } else {
 	    manage_stroke(stroke);
@@ -437,19 +435,19 @@ public class Costume {
 	  if(costume == r.NULL) {
 	    // 
 		} else if(costume != r.NULL || costume != POINT) {
-	    if(fill.w <= 0 || !this.fill_is) {
+	    if(fill.w() <= 0 || !this.fill_is) {
 	    	noFill(other) ; 
 	    } else {
 	    	manage_fill(fill);
 	    } 
-	    if(stroke.w <= 0  || thickness <= 0 || !this.stroke_is) {
+	    if(stroke.w() <= 0  || thickness <= 0 || !this.stroke_is) {
 	    	noStroke(other); 
 	    } else {
 	    	manage_stroke(stroke);
 	    	manage_thickness(thickness);
 	    }   
 	  } else {
-	    if(fill.w <= 0 || !this.fill_is) {
+	    if(fill.w() <= 0 || !this.fill_is) {
 	    	noStroke(other); 
 	    } else {
 	    	// case where the fill is use like a stroke, for point, pixel...
@@ -495,7 +493,6 @@ public class Costume {
 				}
 				fill(this.fill,other);
 			}
-			
 		}
 	}
 

@@ -323,8 +323,9 @@ void costume_DNA(Helix helix, int target, vec3 size, float direction, Costume co
   
 
 
-  aspect_is(display_fill_is, display_stroke_is, use_alpha_is) ;
-  aspect(fill_strand_a, stroke_strand_a, thickness,costume);
+  aspect_is(display_fill_is, display_stroke_is, use_alpha_is);
+  aspect(fill_strand_a, stroke_strand_a, thickness);
+  // aspect(fill_strand_a, stroke_strand_a, thickness,costume);
 
   if(costume.get_type() == TEXT_ROPE) {
     String nuc_a = "" +helix.get_DNA(0).sequence_a.get(target).nac ;
@@ -335,10 +336,9 @@ void costume_DNA(Helix helix, int target, vec3 size, float direction, Costume co
   costume_rotate_y() ;
   costume(pos_a,size,angle_a,costume);
 
-  
 
   aspect_is(display_fill_is, display_stroke_is, use_alpha_is);
-  aspect(fill_strand_b, stroke_strand_b, thickness,costume) ;
+  aspect(fill_strand_b, stroke_strand_b, thickness);
   
   if(costume.get_type() == TEXT_ROPE) {
     String nuc_b = "" +helix.get_DNA(0).sequence_b.get(target).nac ;

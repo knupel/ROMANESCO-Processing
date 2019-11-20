@@ -1,7 +1,7 @@
 /**
 RUBIS
 2013-2019
-v 1.1.1
+v 1.1.2
 */
 
 class Rubis extends Romanesco {
@@ -9,7 +9,7 @@ class Rubis extends Romanesco {
     //from the index_objects.csv
     item_name = "Rubis" ;
     item_author  = "Stan le Punk";
-    item_version = "version 1.1.1";
+    item_version = "version 1.1.2";
     item_pack = "Base 2013-2019";
     item_costume = "";
     item_mode = "Vertex/Point";
@@ -110,16 +110,11 @@ class Rubis extends Romanesco {
     float radiusMax = get_canvas_x().value() *.7 ;
     float radiusMin = map(get_swing_x().value(), get_swing_x().min(), get_swing_x().max(), radiusMax, radiusMax /10) ;
 
-
      // stop motion
     if(!motion_is()) { 
       speed = 0 ; 
       jitter.set(0) ;
     }
-
- 
-
-
     
     // new population
     int max_people = 150 ;
@@ -136,7 +131,8 @@ class Rubis extends Romanesco {
     
     
     if(get_mode_id() == 1) {
-      aspect(get_fill(), get_stroke(), get_thickness().value(), POINT) ;
+      aspect(get_fill(), get_stroke(), get_thickness().value());
+      costume(vec3(),(int)get_size_x().value(),POINT);
     } else {
       aspect(get_fill(), get_stroke(), get_thickness().value()) ;
     }
@@ -146,9 +142,7 @@ class Rubis extends Romanesco {
 
   }
   
-  ////////////////
-  // VOID
-  //setting
+  // annexe
   void amiSetting(int num, int size) {
     for ( int i = 0 ; i < num ; i++ ) {
       int ID = i ;
