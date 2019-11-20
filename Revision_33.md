@@ -17,6 +17,7 @@
 >add: mix mode to use multiply, overlay... and other incrustation effect
 >pass allmethod to get slider value from the old style to the new class Varom > Varom for VAriable ROManesco.
 >fix: freezing bug when the display is smallest than controller or rendering window.
+>change totaly the mask system
 
 *MINOR
 
@@ -41,6 +42,7 @@
 >fix: selection media, when the length of media change.
 >change: remove key space to reset item, now it's only backspace and delete when parameter or move option is on.
 >add: button to reset the window location from the launcher.
+>change the shortcut to stop motion, before it's key 'm' now it's key space.
 
 *SHADER
 

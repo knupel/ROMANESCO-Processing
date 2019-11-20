@@ -1,14 +1,14 @@
 /**
 BOIDS
 2015-2019
-V 1.1.0
+V 1.1.1
 */
 
 class Boids extends Romanesco {
   public Boids() {
     item_name = "Boids" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.1.0";
+    item_version = "Version 1.1.1";
     item_pack = "Base 2015-2019" ;
     item_costume = "";
     item_mode = "Tetra monochrome/Tetra camaieu" ; // separate the differentes mode by "/"
@@ -104,7 +104,7 @@ class Boids extends Romanesco {
     // ANNEXE methods
     
     // GOAL of the boids
-    if(key_space_long) {
+    if(shift_long_is()) {
       float depthGoal =sin(frameCount *.002) *width ;
       float pos_x = map(mouse[ID_item].x,0,width, -get_canvas_x().value(), get_canvas_x().value()) ;
       float pos_y = map(mouse[ID_item].y,0,height, -get_canvas_y().value(), get_canvas_y().value()) ;

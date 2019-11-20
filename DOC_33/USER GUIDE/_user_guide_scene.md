@@ -4,11 +4,31 @@
 * 2013-2019
 * v 2.1.0.33
 * 
+
+
+
+*EXPERIMENTAL SHADER FX 
+
+'SHIFT' long press + mouse
+> on few filter that move few stuff
+
+*EXPERIMENTAL WARP FORCE FLUID *S
+
+SHIFT + 'W'
+> ????
+
+*EXPERIMENTAL LIGHT
+
+'SHIFT' + 'l'
+> move the light...but it's very weird and not convenient
+
+
 *INFO
 
 *P > Prescene
 *S > Scene
 When you're not in live mode Prescene is the Scene
+
 
 
 
@@ -30,7 +50,7 @@ click right + actived camera
 >swich rotateY and rotate2 of main camera
 
 'SPACE'
->stop and reset inertia
+>stop motion
 
 
 *CAMERA ITEM *P
@@ -94,29 +114,25 @@ save png a window Scene or Prescene is on a full rendering mode
 
 *MASK *S
 
-SHIFT + 'm'
+'m'
 > set mask move point
 
-SHIFT + 'M'
+'M'
 > set mask move bloc
 
-
-SHIFT + 'N'
+'N'
 > build new bloc
 
-SHIFT + 'H'
+'H'
 > display mask
 
-SHIFT + 'L'
+'L'
 > load mask
 
-SHIF + 'S'
+'S'
 > save mask
 
-*WARP FORCE FLUID *S
 
-SHIFT + 'W'
-> ????
 
 
 

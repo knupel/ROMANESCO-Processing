@@ -713,7 +713,7 @@ void update_camera_romanesco(boolean leapMotion) {
 		reset_inertia = false;
 	} 
 
-	if(key_space_long) {
+	if(space_long_is()) {
 		reset_inertia = true;   
 	} 
 }

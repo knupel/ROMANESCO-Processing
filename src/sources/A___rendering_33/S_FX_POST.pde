@@ -382,7 +382,7 @@ void update_fx_filter(ArrayList<FX> fx_list) {
     mouse_fx_filter = vec3(.5,.5,0);
   }
 
-  if(space_is()) {
+  if(shift_long_is()) {
     float norm_x = map(mouse[0].x(),get_render_canvas().x(),get_render_canvas().y(),0,1);
     float norm_y = map(mouse[0].y(),get_render_canvas().z(),get_render_canvas().w(),0,1);
     float norm_z = map(mouse[0].z(),get_render_canvas().e(),get_render_canvas().f(),0,1);

@@ -11,7 +11,7 @@ class Atome extends Romanesco {
     //from the index_objects.csv
     item_name = "Atome" ;
     item_author  = "Stan le Punk";
-    item_version = "version 1.4.1";
+    item_version = "version 1.4.2";
     item_pack = "Base 2012-2019" ;
     item_costume = "";
     item_mode = "Chemical Name/File text/Electronic cloud/Ellipse circle/Ellipse triangle/Ellipse cloud/Triangle circle/Triangle triangle/Triangle cloud/Rectangle rectangle/Rectangle cloud" ;
@@ -138,7 +138,7 @@ class Atome extends Romanesco {
     
     //VELOCITY and DIRECTION of atom
     if(motion_is()) {
-      if(space_is() && action_is()) {
+      if(shift_long_is() && action_is()) {
         newDirection = new PVector (-pen[ID_item].x, -pen[ID_item].y ) ;
       } else { 
         newDirection = normal_direction(int(get_dir_x().value())) ;

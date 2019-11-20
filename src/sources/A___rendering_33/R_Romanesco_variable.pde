@@ -76,17 +76,20 @@ void update_var_items(Romanesco item) {
   }
   update_var_sound(item);
   
-  if(item.action_is()){
+  if(item.action_is()) {
+    /*
     if(space_is()) {
       pen[id].set(pen[0]);
       mouse[id].set(mouse[0]);
     }
+    */
     
     if(key_n || birth_button_alert_is()) item.switch_birth();
     if(key_x) item.switch_colour();
     if(key_d || dimension_button_alert_is()) item.switch_dimension();
     if(key_h) item.switch_horizon();
-    if(key_m) item.switch_motion();
+    // if(key_m) item.switch_motion();
+    if(key_space) item.switch_motion();
     if(key_f) item.switch_follow();
     if(key_r) item.switch_reverse();
     if(key_w) item.switch_wire();

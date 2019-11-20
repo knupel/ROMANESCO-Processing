@@ -200,6 +200,20 @@ void keyPressed_mask_set(char c_point_move, char c_bloc_move, char c_bloc_build)
 	}
 }
 
+void keyPressed_mask_delete_bloc(char rm_1, char rm_2) {
+	// may be we are in P3D we must check 
+	// https://processing.org/reference/keyCode.html 
+	// https://jogamp.org/deployment/jogamp-next/javadoc/jogl/javadoc/com/jogamp/newt/event/KeyEvent.html
+	// there is a story problem about keyEvent in those renderer...
+	if(keyCode == rm_2) {
+		bloc_remove_single_select(mask);
+	}
+
+	if (keyCode == rm_2) {
+		mask.clear();
+	}
+}
+
 void keyPressed_mask_hide(char c) {
 	if(key == c) {
 		show_mask_switch();

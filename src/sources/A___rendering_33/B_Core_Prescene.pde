@@ -272,7 +272,7 @@ void key_false() {
   check for the key and put false here, but it's less reactive that put false just after the use the boolean...here you display false three time !
   */
   // we add modulo to be sure the information about the boolean is transmit to the scene
-  if(key_a) key_space = false;
+  if(key_space) key_space = false;
 
   if(key_a) key_a = false;
   if(key_b) key_b = false;

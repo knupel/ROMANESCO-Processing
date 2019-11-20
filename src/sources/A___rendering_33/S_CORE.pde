@@ -1,7 +1,7 @@
 /**
 * CORE RENDERING
 * 2015-2019
-* v 1.12.0
+* v 1.12.1
 */
 import java.net.*;
 import java.io.*;
@@ -97,6 +97,32 @@ void mouseWheel_event(MouseEvent e) {
 }
 
 
+boolean space_long_is() {
+  return key_space_long;
+}
+
+boolean shift_long_is() {
+  return key_shift_long;
+}
+
+boolean v_long_is() {
+  return key_v_long;
+}
+
+boolean n_long_is() {
+  return key_n_long;
+}
+
+boolean l_long_is() {
+  return key_l_long;
+}
+
+
+
+
+
+
+
 
 
 
@@ -112,10 +138,6 @@ boolean camera_global_is() {
 boolean camera_item_is() {
   camera_item_is = key_v_long;
   return camera_item_is;
-}
-
-boolean space_is() {
-  return key_space_long;
 }
 
 ivec6 get_render_canvas() {

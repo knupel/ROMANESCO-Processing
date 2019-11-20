@@ -361,6 +361,7 @@ void keyPressed() {
 	keyPressed_mask_hide('H');
 	keyPressed_mask_save('S');
 	keyPressed_mask_load('L');
+	keyPressed_mask_delete_bloc(BACKSPACE, 'D');
 
 	warp_force_keyPressed('W');
 }

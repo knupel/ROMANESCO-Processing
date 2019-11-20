@@ -10,7 +10,7 @@ Yes
 
 KEYBOARD
 --
->'M' enable or disable motion
+>'SHIFT long' enable or disable motion
 
 SOUND
 --
