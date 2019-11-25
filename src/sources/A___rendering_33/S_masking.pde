@@ -69,6 +69,7 @@ void mask() {
 void init_mask() {
 	mask = new R_Megabloc(this);
 	mask.set_magnetism(2);
+	// mask_layer = createGraphics(width,height,P3D);
 	mask_layer = createGraphics(width,height,P2D);
 	String [] data = load_megabloc(sketchPath(1) + mask_path);
 	mask = read_megabloc(data,false,true);

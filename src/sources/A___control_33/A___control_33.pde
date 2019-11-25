@@ -70,6 +70,7 @@ void settings() {
 
 void setup() {
 	colorMode(HSB,360,100,100);
+
 	path_setting();
 	set_window();
 
@@ -97,11 +98,13 @@ void setup() {
 	set_OSC();
 	set_data();
 	reset();
-
 }
 
 void draw() {
 	// print_debug_tempo(240,"void draw(): sketch controller is",focused);
+	// String mess = "" +frameCount;
+	// surface.setTitle(mess);
+	
 	check_size_window();
 	update_window_location();
 	check_slider_item();
@@ -137,7 +140,6 @@ void draw() {
 	credit();
 }
 
-
 void mouseWheel(MouseEvent e) {
 	scroll(e);
 }
@@ -161,3 +163,4 @@ void keyReleased() {
 	key_false();
 	keyboard[keyCode] = false;
 }
+

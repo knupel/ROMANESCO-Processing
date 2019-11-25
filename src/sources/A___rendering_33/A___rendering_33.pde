@@ -27,12 +27,12 @@ BUG with warp on MacBook Pro 2018 or HighSierra / Mojave
 
 
 // DEVELOPER SETTING
-boolean DEBUG_MODE = true;
-boolean USE_LAYER = false; // cause a bug when the  shader effect is used
-boolean DEV_MODE = true; // inter alia, path preferences folder, curtain
-String IAM = "prescene";
-boolean LIVE = false;
-boolean FULL_RENDERING = true;
+// boolean DEBUG_MODE = true;
+// boolean USE_LAYER = false; // cause a bug when the  shader effect is used
+// boolean DEV_MODE = true; // inter alia, path preferences folder, curtain
+// String IAM = "prescene";
+// boolean LIVE = false;
+// boolean FULL_RENDERING = true;
 
 // PRESCENE LIVE
 // boolean DEBUG_MODE = true;
@@ -109,12 +109,12 @@ boolean FULL_RENDERING = true;
 // for the scene live export, two export set in void settings() 
 // APP: scene_##_live_fullscreen  > change for  fullScreen() in settings()
 // APP: scene_##_live > change for size(124,124) in settings()
-// boolean USE_LAYER = false;
-// boolean DEV_MODE = false; // inter alia, path preferences folder, curtain
-// String IAM = "scene";
-// boolean LIVE = false; 
-// boolean FULL_RENDERING = true;
-// boolean DEBUG_MODE = false;
+boolean USE_LAYER = false;
+boolean DEV_MODE = false; // inter alia, path preferences folder, curtain
+String IAM = "scene";
+boolean LIVE = false; 
+boolean FULL_RENDERING = true;
+boolean DEBUG_MODE = false;
 
 
 
