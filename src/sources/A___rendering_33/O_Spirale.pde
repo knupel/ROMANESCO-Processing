@@ -117,15 +117,8 @@ class Spirale_romanesco extends Romanesco {
     float transient_map = map(transient_value[1][ID_item] +transient_value[3][ID_item] +transient_value[4][ID_item],1,9,1,50) ;
     float minValueSize = .5 ;
     float maxValueSize = width *.003 ;
-    
-    // float sx = map(get_size_x(), .1, width, minValueSize, maxValueSize) ;
-    // float sy = map(get_size_y(), .1, width, minValueSize, maxValueSize) ;
-    // float sz  = map(get_size_z(), .1, width, minValueSize, maxValueSize) ; 
-    // sx *= sx ;
-    // sy *= sy ;
-    // sz *= sz ;
 
-    vec3 s = map(get_size(),get_size_x().min, get_size_x().max(),minValueSize,maxValueSize);
+    vec3 s = map(get_size(),get_size_x().min(), get_size_x().max(),minValueSize,maxValueSize);
     s.pow(4);
     float temp_size_x = s.x() *volumeLeft *transient_map;
     float temp_size_y = s.y() *volumeRight *transient_map;

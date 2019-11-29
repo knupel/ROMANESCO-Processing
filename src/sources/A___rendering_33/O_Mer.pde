@@ -10,8 +10,9 @@ class Mer extends Romanesco {
 		item_author  = "Stan le Punk";
 		item_references = "";
 		item_version = "Version 0.1.2";
-		item_pack = "Base 2019-2019" ;
-		item_costume = "ellipse/triangle/rect/cross/pentagon/flower/Star 5/Star 7/Super Star 8/Super Star 12/point"; // costume available from get_costume();
+		item_pack = "Base 2019-2019";
+		item_costume = "ellipse/triangle/rect/"; // costume available from get_costume();
+		// item_costume = "ellipse/triangle/rect/pentagon/flower/Star 5/Star 7/Super Star 8/Super Star 12/point"; // costume available from get_costume();
 		item_mode = "";
 		// define slider
 		// COL 1
@@ -19,10 +20,10 @@ class Mer extends Romanesco {
 		sat_fill_is = true;
 		bright_fill_is = true;
 		alpha_fill_is = true;
-		// hue_stroke_is = true;
-		// sat_stroke_is = true;
-		// bright_stroke_is = true;
-		// alpha_stroke_is = true;
+		hue_stroke_is = true;
+		sat_stroke_is = true;
+		bright_stroke_is = true;
+		alpha_stroke_is = true;
 		thickness_is = true;
 		size_x_is = true;
 		size_y_is = true;
@@ -97,9 +98,6 @@ class Mer extends Romanesco {
 	
 	
 	void draw_2D() {
-	
-		// here if you want code in 2D mode
-		
 		if(birth_is()) {
 			build_sea_is = false;
 			birth_is(false);
@@ -122,8 +120,16 @@ class Mer extends Romanesco {
 			build_sea_is = true;
 		}
 
-		// show
-		// float max_speed = get_speed_x();
+		// size shape
+		float min_size = height * 0.01;
+    float max_size = height * 0.2;
+		float size = map(get_diameter().value(), get_diameter().min(), get_diameter().max(), min_size, max_size);
+    
+    // show
+    if(mer_pg != null) {
+    	beginDraw(mer_pg);
+			background(get_background(),mer_pg);
+		}
 		int count = 0;
 		for(int j = 0; j < rows ; j++) {
 			for(int i = 0 ; i < cols ; i++) {  
@@ -133,34 +139,19 @@ class Mer extends Romanesco {
 					ani[count].update();
 					// ani[count].set_speed(get_speed_x());
 					// ani[count].set_radius(get_size_x(),get_size_y());
-					/**
-					* there is a bug for stroke gestion with the mask because Processing don't manage the overlap on image()
-						ani[count].aspect(get_fill_alp().value(), get_stroke_alp().value(), get_thickness().value());
-					*/
-					beginDraw(mer_pg);
+
+					// there is a bug for stroke gestion with the mask because Processing don't manage the overlap on image()
+					// ani[count].aspect(get_fill_alp().value(), get_stroke_alp().value(), get_thickness().value());
 					ani[count].aspect_wave(get_fill_alp().value(), 0, 0, mer_pg);
-					ani[count].render_shape(x,y, get_diameter().value(), get_costume(), mer_pg);
-					endDraw(mer_pg);
+					// ani[count].aspect_wave(get_fill_alp().value(), get_stroke(), get_thickness().value(), mer_pg);
+					ani[count].render_shape(x,y, size, get_costume(), mer_pg);
 					count++; 
 				}
 			}
 		}
-
-		// int count = 0;
-		// for(int i = 0; i < cols ; i++) {
-		//   for(int j = 0 ; j < rows ; j++) {  
-		//     int x = i * cell_x +offset_x;
-		//     int y = j * cell_y +offset_y;
-		//     if(count < ani.length) {
-		//       ani[count].update();
-		//       // ani[count].set_speed(get_speed_x());
-		//       // ani[count].set_radius(get_size_x(),get_size_y());
-		//       ani[count].apparence(get_fill_alp(),get_stroke_alp(),get_thickness());
-		//       ani[count].render_shape(x,y,get_diameter(),get_costume());
-		//       count++; 
-		//     }
-		//   }
-		// }
+		if(mer_pg != null) {
+			endDraw(mer_pg);
+		}	
 		// info("info about the item","more","more");
 	}
 
@@ -197,7 +188,6 @@ class Mer extends Romanesco {
 			this.start_hue = start_hue;
 		}
 
-
 		void set_radius(float rx, float ry) {
 			this.rx = rx;
 			this.ry = ry;
@@ -208,18 +198,18 @@ class Mer extends Romanesco {
 			cycle++;
 		}
 
-		void aspect_wave(float fill_alpha, float stroke_alpha, float thickness, PGraphics other) {
+		void aspect_wave(float fill_alpha, int stroke_alpha, float thickness, PGraphics other) {
 			float hue = (cycle*speed+start_hue)%g.colorModeX; // ici c'est égale à 360, définit avec colorMode dans le setup;
 			float saturation = g.colorModeY;
 			float brightness = g.colorModeZ;
 			int colour_fill = color(hue,saturation,brightness,fill_alpha);
+			// int colour_stroke = stroke;
 			int colour_stroke = color(hue,saturation,brightness,stroke_alpha);
 			if(other != null) {
 				aspect(colour_fill,colour_stroke,thickness,other);
 			} else {
 				aspect(colour_fill,colour_stroke,thickness);
 			}
-			// fill(r.WHITE);
 		}
 
 		void render_shape(int x, int y, float max_size, Costume costume, PGraphics other) {

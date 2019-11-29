@@ -465,12 +465,12 @@ void write_fx_backgound_index(ArrayList<FX> fx_list) {
 * 2013-2019
 * v 1.1.0
 */
-int colour_bg;
-int colour_bg_ref;
+int colour_romanesco_bg;
+int colour_romanesco_bg_ref;
 int colour_bg_prescene;
 void init_background() {
-  colour_bg_ref = 0;
-  colour_bg = 0;
+  colour_romanesco_bg_ref = 0;
+  colour_romanesco_bg = 0;
   colour_bg_prescene = color(0,0,20,g.colorModeA) ;
 }
 
@@ -485,7 +485,7 @@ void background_romanesco() {
   // in preview mode the background is always on, to remove the trace effect
   if(!FULL_RENDERING) { 
     background_button_is(false) ;
-    colour_bg = colour_bg_prescene;
+    colour_romanesco_bg = colour_bg_prescene;
     background_rope(0,0,get_layer().colorModeZ *.2,get_layer().colorModeA) ;
   } else if(FULL_RENDERING) {
     if(background_button_is()) {
@@ -500,14 +500,14 @@ void background_romanesco() {
           // choice the rendering color palette for the classic background
           if(FULL_RENDERING) {
             // check if the slider background are move, if it's true update the color background
-            if(colour_bg_ref != get_background()) {
-              colour_bg = get_background();
+            if(colour_romanesco_bg_ref != get_background_controller()) {
+              colour_romanesco_bg = get_background_controller();
             } else {
-              colour_bg_ref = get_background();
+              colour_romanesco_bg_ref = get_background_controller();
             }
-            background_rope(colour_bg) ;
+            background_rope(colour_romanesco_bg) ;
           }
-          background_rope(colour_bg) ;
+          background_rope(colour_romanesco_bg) ;
         } else {
           fx_background(which_shader); 
         }
@@ -527,6 +527,10 @@ void background_romanesco() {
 
 // ANNEXE VOID BACKGROUND
 int get_background() {
+  return colour_romanesco_bg;
+}
+
+int get_background_controller() {
   //to smooth the curve of transparency background
   // HSB
   float hue_bg = map(value_slider_background[0],0,MAX_VALUE_SLIDER,0,HSBmode.hue());
