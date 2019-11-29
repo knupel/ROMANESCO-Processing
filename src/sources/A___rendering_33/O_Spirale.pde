@@ -1,7 +1,7 @@
 /**
 SPIRALE
 2011-2019
-v 1.4.2
+v 1.4.3
 */
 
 Spirale spirale ; 
@@ -11,9 +11,9 @@ class Spirale_romanesco extends Romanesco {
     //from the index_objects.csv
     item_name = "Spirale" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.4.2";
+    item_version = "Version 1.4.3";
     item_pack = "Base 2011-2019" ;
-    item_costume = "point/ellipse/triangle/rect/cross/pentagon/flower/Star 5/Star 7/Super Star 8/Super Star 12" ;
+    item_costume = "ellipse/triangle/rect/cross/pentagon/flower/Star 5/Star 7/Super Star 8/Super Star 12/point" ;
     item_mode = "" ;
 
     // item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Quantity,Speed X,Canvas X,Canvas Y,Swing X,Alignment" ;

@@ -1,7 +1,7 @@
 /**
 * Rosace
 * 2019-2019
-* V 0.1.2
+* V 0.1.3
 */
 
 class Rosace extends Romanesco {
@@ -11,10 +11,10 @@ class Rosace extends Romanesco {
     //from the index_objects.csv
     item_name = "Rosace" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 0.1.2";
+    item_version = "Version 0.1.3";
     item_pack = "Base 2019-2019";
     item_mode ="rosace/rose/crown/pillar";
-    item_costume = "surface/point/line/face";
+    item_costume = "surface/line/face/point";
 
 
     //item_slider = "Fill hue,Fill sat,Fill bright,Fill alpha,Stroke hue,Stroke sat,Stroke bright,Stroke alpha,Thickness,Size X,Size Y,Size Z,Canvas X,Canvas Y,Quantity,Speed X,Influence" ;

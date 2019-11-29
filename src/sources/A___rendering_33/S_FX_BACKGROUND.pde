@@ -463,13 +463,15 @@ void write_fx_backgound_index(ArrayList<FX> fx_list) {
 /** 
 * BACKGROUND
 * 2013-2019
-* v 1.0.1
+* v 1.1.0
 */
-vec4 colorBackground, colorBackgroundRef, colorBackgroundPrescene;
+int colour_bg;
+int colour_bg_ref;
+int colour_bg_prescene;
 void init_background() {
-  colorBackgroundRef = vec4();
-  colorBackground = vec4();
-  colorBackgroundPrescene = vec4(0,0,20,g.colorModeA) ;
+  colour_bg_ref = 0;
+  colour_bg = 0;
+  colour_bg_prescene = color(0,0,20,g.colorModeA) ;
 }
 
 PImage background_romanesco;
@@ -483,7 +485,7 @@ void background_romanesco() {
   // in preview mode the background is always on, to remove the trace effect
   if(!FULL_RENDERING) { 
     background_button_is(false) ;
-    colorBackground = colorBackgroundPrescene.copy() ;
+    colour_bg = colour_bg_prescene;
     background_rope(0,0,get_layer().colorModeZ *.2,get_layer().colorModeA) ;
   } else if(FULL_RENDERING) {
     if(background_button_is()) {
@@ -498,14 +500,14 @@ void background_romanesco() {
           // choice the rendering color palette for the classic background
           if(FULL_RENDERING) {
             // check if the slider background are move, if it's true update the color background
-            if(!compare(colorBackgroundRef,update_background())) {
-              colorBackground.set(update_background()) ;
+            if(colour_bg_ref != get_background()) {
+              colour_bg = get_background();
             } else {
-              colorBackgroundRef.set(update_background()) ;
+              colour_bg_ref = get_background();
             }
-            background_rope(colorBackground) ;
+            background_rope(colour_bg) ;
           }
-          background_rope(colorBackground) ;
+          background_rope(colour_bg) ;
         } else {
           fx_background(which_shader); 
         }
@@ -516,15 +518,15 @@ void background_romanesco() {
           }
           background(background_romanesco,mode_bg_romanesco);
         }
-        
       }
     }
     set_background(null,0);
   }
 }
 
+
 // ANNEXE VOID BACKGROUND
-vec4 update_background() {
+int get_background() {
   //to smooth the curve of transparency background
   // HSB
   float hue_bg = map(value_slider_background[0],0,MAX_VALUE_SLIDER,0,HSBmode.hue());
@@ -535,7 +537,7 @@ vec4 update_background() {
   float nx = norm(value_slider_background[3],.0,MAX_VALUE_SLIDER);
   float alpha = pow (nx, factorSmooth);
   alpha = map(alpha,0,1,.8,HSBmode.alp());
-  return vec4(hue_bg,saturation_bg,brigthness_bg,alpha) ;
+  return color(hue_bg,saturation_bg,brigthness_bg,alpha);
 }
 
 

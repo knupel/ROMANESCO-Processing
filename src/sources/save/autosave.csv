@@ -1,7 +1,7 @@
 Type,ID slider,Min slider,Max slider,Value length,Value slider 0,Value slider 1,Value slider 2,Value slider 3,ID button,On Off,ID midi,Item ID,Item On Off,Item Name,Item Class Name,Path
-Slider background,0,0.0,1.0,1,0.64444447,,,,,,16,,,,,
-Slider background,1,0.0,1.0,1,0.9444444,,,,,,17,,,,,
-Slider background,2,0.0,1.0,1,0.2888889,,,,,,18,,,,,
+Slider background,0,0.0,1.0,1,0.0,,,,,,16,,,,,
+Slider background,1,0.0,1.0,1,0.0,,,,,,17,,,,,
+Slider background,2,0.0,1.0,1,1.0,,,,,,18,,,,,
 Slider background,3,0.0,1.0,1,0.8,,,,,,0,,,,,
 Slider background,4,0.0,1.0,1,0.18888889,,,,,,-2,,,,,
 Slider background,5,0.0,1.0,1,0.18888889,,,,,,-2,,,,,
@@ -157,13 +157,65 @@ Item,,,,,,,,,,,,31,0,Surface,Surface,
 Item,,,,,,,,,,,,32,0,The Abbyss,The_Abbyss,
 Item,,,,,,,,,,,,33,0,Vectorial,Vectorial,
 Item,,,,,,,,,,,,34,0,Webcam,Webcam,
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/MEDIA/MEDIA ROMANESCO/IMAGE/small/small_nancy_cameron.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/MEDIA/MEDIA ROMANESCO/IMAGE/small/small_banc_public.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/MEDIA/MEDIA ROMANESCO/IMAGE/small/small_puros_girl.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/MEDIA/MEDIA ROMANESCO/IMAGE/small/small_pirate.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/MEDIA/MEDIA ROMANESCO/IMAGE/small/small_joconde.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/MEDIA/MEDIA ROMANESCO/IMAGE/small/small_carnaval_rio.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/MEDIA/MEDIA ROMANESCO/IMAGE/small/small_dame_hermine.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/veg_12.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/veg_6.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/veg_7.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/veg_13.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/veg_11.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/veg_5.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/veg_4.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/veg_10.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/veg_1.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/veg_3.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/veg_2.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_11.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_5.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/bete_3.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_17.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_16.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/bete_2.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_4.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_10.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_12.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_6.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_14.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_15.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/bete_1.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_7.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_13.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_3.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_17.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/bete_5.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_11.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_10.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/bete_4.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_16.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_2.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_8.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_14.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/bete_6.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_12.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_13.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_15.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_1.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_9.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_4.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_18.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_19.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_5.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_7.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_6.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_2.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/ferme.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_18.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_19.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_3.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_1.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_9.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_8.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/veg_9.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/veg_8.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/cheval.jpg
 Button item,,,,,,,,,0,0,0,,,,,
 Button item,,,,,,,,,1,0,0,,,,,
 Button item,,,,,,,,,2,0,0,,,,,
@@ -277,10 +329,10 @@ Button item,,,,,,,,,88,0,-2,,,,,
 Button item,,,,,,,,,89,0,-2,,,,,
 Button item,,,,,,,,,90,0,-2,,,,,
 Button item,,,,,,,,,91,0,-2,,,,,
-Button item,,,,,,,,,92,1,-2,,,,,
-Button item,,,,,,,,,93,1,-2,,,,,
+Button item,,,,,,,,,92,0,-2,,,,,
+Button item,,,,,,,,,93,0,-2,,,,,
 Button item,,,,,,,,,94,0,-2,,,,,
-Button item,,,,,,,,,95,1,-2,,,,,
+Button item,,,,,,,,,95,0,-2,,,,,
 Button item,,,,,,,,,96,0,-2,,,,,
 Button item,,,,,,,,,97,0,-2,,,,,
 Button item,,,,,,,,,98,0,-2,,,,,
@@ -299,7 +351,7 @@ Button item,,,,,,,,,110,0,-2,,,,,
 Button item,,,,,,,,,111,0,-2,,,,,
 Button item,,,,,,,,,112,0,-2,,,,,
 Button item,,,,,,,,,113,0,-2,,,,,
-Button item,,,,,,,,,114,1,-2,,,,,
+Button item,,,,,,,,,114,0,-2,,,,,
 Button item,,,,,,,,,115,0,-2,,,,,
 Button item,,,,,,,,,116,0,-2,,,,,
 Button item,,,,,,,,,117,0,-2,,,,,

@@ -10,9 +10,9 @@ class BaliseRomanesco extends Romanesco {
     //from the index_objects.csv
     item_name = "Balise" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.4.2";
+    item_version = "Version 1.4.3";
     item_pack = "Base 2011-2019" ; 
-    item_costume = "point/ellipse/triangle/rect/cross/pentagon/flower/Star 5/Star 7/Super Star 8/Super Star 12" ;
+    item_costume = "ellipse/triangle/rect/cross/pentagon/flower/Star 5/Star 7/Super Star 8/Super Star 12/point";
     // item_mode = "Disc/Rectangle/Box/Box Snake" ;
     item_mode = "" ;
 

@@ -2,7 +2,7 @@
 * Grillo
 * the tab is the template that you can duplicate to add the item you want in your Romanesco.
 * You must change the class name and this one must be unique.
-v 0.1.1
+v 0.1.2
 */
 class Grillo extends Romanesco {
   public Grillo() {
@@ -10,9 +10,9 @@ class Grillo extends Romanesco {
     item_name = "Grillo" ;
     item_author  = "Stan le Punk";
     item_references = "";
-    item_version = "Version 0.1.1";
+    item_version = "Version 0.1.2";
     item_pack = "Base 2018-2019";
-    item_costume = "point/ellipse/triangle/rect/cross/pentagon/flower/Star 5/Star 7/Super Star 8/Super Star 12"; // costume available from get_costume();
+    item_costume = "ellipse/triangle/rect/cross/pentagon/flower/Star 5/Star 7/Super Star 8/Super Star 12"; // costume available from get_costume();
     item_mode = "Random/Automata/Full";
     // define slider
     // COL 1

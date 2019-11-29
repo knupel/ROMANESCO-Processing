@@ -4,7 +4,8 @@
 * 2013-2019
 * v 2.1.0.33
 * Processing 3.5.3
-* Rope Library 0.6.2
+* lastest rope library
+* latest rope framework
 * 
 
 
@@ -33,10 +34,13 @@ void draw_2D()
 
 *BACKGROUND
 
-set_background(PImage img, int mode);
+void set_background(PImage img, int mode);
 > mode : SCREEN
 > mode : CENTER
 > this method can be use to pass an Image to the background, if that happen the main background is disable for the last PImage passed.
+
+int get_background();
+> return the int colour of the background set by the controller
 
 
 *FORCE FIELD

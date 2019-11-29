@@ -1,15 +1,15 @@
 /**
 KOFOSPHERE 
 2013-2019
-v 1.4.1
+v 1.4.2
 */
 class Kofosphere extends Romanesco {
   public Kofosphere() {
     item_name = "Kofosphere" ;
     item_author  = "Kof";
-    item_version = "Version 1.4.1";
+    item_version = "Version 1.4.2";
     item_pack = "Base 2013-2019" ;
-    item_costume = "point/ellipse/triangle/rect/cross/pentagon/flower/Star 5/Star 7/Super Star 8/Super Star 12";
+    item_costume = "ellipse/triangle/rect/cross/pentagon/flower/Star 5/Star 7/Super Star 8/Super Star 12/point";
     item_mode = "monochrome/polychrome" ;
     /*
     item_costume = "";
@@ -99,7 +99,11 @@ class Kofosphere extends Romanesco {
     float ratio_speed = .1 ;
     float norm_speed = map(get_speed_x().value(),get_speed_x().min(),get_speed_x().max(),0,1.5) ;
     norm_speed *= norm_speed ;
-    if(reverse_is()) norm_speed *= ratio_speed ; else norm_speed *= -ratio_speed;
+    if(reverse_is()) {
+      norm_speed *= ratio_speed ; 
+    } else {
+      norm_speed *= -ratio_speed;
+    }
     vec2 speed = vec2(norm_speed) ;
     speed.mult(.5 +left[ID_item], .5 +right[ID_item]) ;
 

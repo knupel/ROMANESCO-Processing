@@ -1,7 +1,7 @@
 /**
 * Wave
 * 2019-2019
-* v 0.1.1
+* v 0.1.2
 */
 class Mer extends Romanesco {
 	public Mer() {
@@ -9,9 +9,9 @@ class Mer extends Romanesco {
 		item_name = "Mer" ;
 		item_author  = "Stan le Punk";
 		item_references = "";
-		item_version = "Version 0.1.1";
+		item_version = "Version 0.1.2";
 		item_pack = "Base 2019-2019" ;
-		item_costume = "ellipse/triangle/rect/cross/pentagon/flower/Star 5/Star 7/Super Star 8/Super Star 12"; // costume available from get_costume();
+		item_costume = "ellipse/triangle/rect/cross/pentagon/flower/Star 5/Star 7/Super Star 8/Super Star 12/point"; // costume available from get_costume();
 		item_mode = "";
 		// define slider
 		// COL 1
@@ -81,6 +81,7 @@ class Mer extends Romanesco {
 	int offset_y = cell_y/2;
 	Wave [] ani ;
 	boolean build_sea_is;
+	PGraphics mer_pg;
 
 	void setup() {
 		// give the starting position of your item on the 3D grid
@@ -102,6 +103,9 @@ class Mer extends Romanesco {
 		if(birth_is()) {
 			build_sea_is = false;
 			birth_is(false);
+			if(mer_pg == null) {
+				mer_pg = createGraphics(width,height,P2D);
+			}
 		}
 		if(!build_sea_is) {
 			cols = (int)map(get_canvas_x().value(),get_canvas_x().min(),get_canvas_x().max(),2,width/10);
@@ -133,8 +137,10 @@ class Mer extends Romanesco {
 					* there is a bug for stroke gestion with the mask because Processing don't manage the overlap on image()
 						ani[count].aspect(get_fill_alp().value(), get_stroke_alp().value(), get_thickness().value());
 					*/
-					ani[count].aspect_wave(get_fill_alp().value(), 0, 0);
-					ani[count].render_shape(x,y, get_diameter().value(), get_costume());
+					beginDraw(mer_pg);
+					ani[count].aspect_wave(get_fill_alp().value(), 0, 0, mer_pg);
+					ani[count].render_shape(x,y, get_diameter().value(), get_costume(), mer_pg);
+					endDraw(mer_pg);
 					count++; 
 				}
 			}
@@ -202,24 +208,36 @@ class Mer extends Romanesco {
 			cycle++;
 		}
 
-		void aspect_wave(float fill_alpha, float stroke_alpha, float thickness) {
+		void aspect_wave(float fill_alpha, float stroke_alpha, float thickness, PGraphics other) {
 			float hue = (cycle*speed+start_hue)%g.colorModeX; // ici c'est égale à 360, définit avec colorMode dans le setup;
 			float saturation = g.colorModeY;
 			float brightness = g.colorModeZ;
 			int colour_fill = color(hue,saturation,brightness,fill_alpha);
 			int colour_stroke = color(hue,saturation,brightness,stroke_alpha);
-			aspect(colour_fill,colour_stroke,thickness);
+			if(other != null) {
+				aspect(colour_fill,colour_stroke,thickness,other);
+			} else {
+				aspect(colour_fill,colour_stroke,thickness);
+			}
 			// fill(r.WHITE);
 		}
 
-		void render_shape(int x, int y, float max_size, Costume costume) {
+		void render_shape(int x, int y, float max_size, Costume costume, PGraphics other) {
 			vec2 pos = to_cartesian_2D(dir);
 			pos.mult(rx,ry);
 			float size = abs(sin(frameCount *speed) *max_size);
-			push();
-			translate(x,y);
-			costume(vec3(pos),vec3(size),costume);
-			pop();
+			if(other != null) {
+				push(other);
+				translate(x,y,other);
+				costume(vec3(pos),vec3(size),costume,other);
+				pop(other);
+				set_background(other,CENTER);
+			} else {
+				push();
+				translate(x,y);
+				costume(vec3(pos),vec3(size),costume);
+				pop();
+			}
 		}
 	}
 }
