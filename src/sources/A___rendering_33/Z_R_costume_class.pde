@@ -79,9 +79,9 @@ final int VIRUS = 88_888_888;
 
 
 /**
-class Costume 
-2018-2019
-v 0.7.0
+* class Costume 
+* 2018-2019
+* v 0.7.1
 */
 import rope.costume.R_Primitive;
 public class Costume {
@@ -199,7 +199,7 @@ public class Costume {
 		this.align = align;
 	} 
 
-/*
+	/**
 	public void set_angle(float angle) {
 		this.angle = angle;
 	}
@@ -226,9 +226,7 @@ public class Costume {
 	}
 
 
-
 	// get
-
 	public vec3 pos() {
 		return pos;
 	}
@@ -277,7 +275,7 @@ public class Costume {
 	public int get_num() {
 		return num;
 	}
-  /*
+	/**
 	public float get_angle() {
 		return angle;
 	}
@@ -358,7 +356,6 @@ public class Costume {
 	  	manage_stroke(stroke);
 	    manage_thickness(thickness);
 	  }
-	  //
 	  init_bool_aspect();
 	}
 
@@ -392,7 +389,6 @@ public class Costume {
 	    }
 	    noFill(other);   
 	  }
-	  //
 	  init_bool_aspect();
 	}
 
@@ -412,7 +408,6 @@ public class Costume {
 	    manage_stroke(stroke);
 	    manage_thickness(thickness);
 	  }
-	  //
 	  init_bool_aspect();
 	}
 
@@ -842,7 +837,6 @@ public class Costume {
 			} else {
 				house(size.xyz(),other);
 			}
-			
 			pop(other);
 		}
 
@@ -859,7 +853,7 @@ public class Costume {
 
 		else if(this.get_type() < 0) {
 			push() ;
-			translate(pos) ;
+			translate(pos);
 			costume_rotate(rot) ;
 			for(int i = 0 ; i < costume_pic_list.size() ; i++) {
 				Costume_pic p = costume_pic_list.get(i);
@@ -881,15 +875,14 @@ public class Costume {
 							scale = vec2(size.x / p.get_svg().width(), size.y / p.get_svg().height());
 						}
 						
-						p.get_svg().scaling(scale) ;
-						p.get_svg().draw() ;
-						break ;
+						p.get_svg().scaling(scale);
+						p.get_svg().draw();
+						break;
 					}		
 				}
 			}
-			pop() ;
+			pop();
 		}
-
 	  // reset variable can be change the other costume, if the effect is don't use.
 		ratio_costume_size = 1;
 	}
@@ -908,19 +901,19 @@ public class Costume {
 
 /**
 * COSTUME PIC CLASS
-* v 0.0.2
+* v 0.0.3
 * 2014-2019
 */
 public class Costume_pic {
-	PImage img ;
-	ROPE_svg svg ;
-	int type = -1 ; 
-	String name ;
+	PImage img;
+	ROPE_svg svg;
+	int type = -1; 
+	String name;
 	int id;
 	public Costume_pic(PApplet p5, String path, int id) {
 		// add png
 		if(path.endsWith("png") || path.endsWith("PNG")) {
-			img = loadImage(path) ;
+			img = loadImage(path);
 			type = 1;
 		}
 

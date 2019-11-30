@@ -740,13 +740,11 @@ void costume_impl(vec pos, vec size, vec rot, Costume costume, PGraphics pg) {
 
 /**
 ASPECT ROPE 2016-2019
-v 0.2.1
+v 0.2.0
 */
 Costume aspect_rope;
 void aspect_is(boolean fill_is, boolean stroke_is, boolean alpha_is) {
-	if(aspect_rope == null) {
-		aspect_rope = new Costume(this);
-	}
+	if(aspect_rope == null) aspect_rope = new Costume(this);
 	aspect_rope.aspect_is(fill_is,stroke_is,alpha_is);
 	fill_rope_is = aspect_rope.fill_is();
 	stroke_rope_is = aspect_rope.stroke_is();
@@ -777,9 +775,7 @@ void aspect(vec fill, vec stroke, float thickness) {
 }
 
 void aspect(vec fill, vec stroke, float thickness, PGraphics other) {
-	if(aspect_rope == null) {
-		aspect_rope = new Costume(this);
-	}
+	if(aspect_rope == null) aspect_rope = new Costume(this);
 	aspect_is(aspect_rope.fill_is(),aspect_rope.stroke_is(),aspect_rope.alpha_is());
 	aspect_rope.pass_graphic(other);
 	aspect_rope.aspect(fill,stroke,thickness);
