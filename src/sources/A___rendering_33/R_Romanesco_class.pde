@@ -1,6 +1,6 @@
 /**
 Abstract CLASS ROMANESCO
-v 1.7.1
+v 1.7.2
 2013-2019
 */
 public abstract class Romanesco implements rope.core.R_Constants {
@@ -158,6 +158,7 @@ public abstract class Romanesco implements rope.core.R_Constants {
     ID_group = 0;
     ID_item = 0;
 
+    alpha_is = true;
     hue_fill_is = false;
     sat_fill_is = false;
   }

@@ -13,7 +13,7 @@ R_Bloc create_bloc(vec2 [] points) {
 
 /**
 * R_Megabloc method
-* v 0.1.4
+* v 0.1.5
 * 2019-2019
 */
 boolean add_point_to_bloc_is;
@@ -126,14 +126,16 @@ void bloc_draw(R_Megabloc mb, int x, int y, boolean event_is, boolean show_struc
 
 void bloc_remove_single_select(R_Megabloc mb) {
 	int index = -1;
-	for(int i = 0 ; i < mb.size() ; i++) {
-		R_Bloc b = mb.get().get(i);
-		if(b.select_is()) {
-			index = i;
+	if (mb != null) {
+		for(int i = 0 ; i < mb.size() ; i++) {
+			R_Bloc b = mb.get().get(i);
+			if(b.select_is()) {
+				index = i;
+			}
 		}
-	}
-	if(index > -1) {
-		mb.remove(index);
+		if(index > -1) {
+			mb.remove(index);
+		}
 	}
 }
 
@@ -288,19 +290,22 @@ boolean bloc_move(R_Megabloc mb, float x, float y, boolean event_is) {
 * load save
 */
 void save_megabloc(R_Megabloc mb, String path, String file_name) {
-	String [] save = new String[1];
-	// header
-	String name = "bloc file name:"+file_name;
-	String elem = "elements:"+ mb.size();
-	String w = "width:" + width;
-	String h = "height:" + height;
-	String mag = "magnetism:" + mb.get_magnetism();
-	save[0] =  name + "," + elem + "," + w + ","+ h + "," + mag + "\n";
-	// details
-	for(R_Bloc r : mb.get()) {
-		save[0] += (r.get_data() + "\n");
+	if(mb != null) {
+		String [] save = new String[1];
+		// header
+		String name = "bloc file name:"+file_name;
+		String elem = "elements:"+ mb.size();
+		String w = "width:" + width;
+		String h = "height:" + height;
+		String mag = "magnetism:" + mb.get_magnetism();
+		save[0] =  name + "," + elem + "," + w + ","+ h + "," + mag + "\n";
+		// details
+		for(R_Bloc r : mb.get()) {
+			save[0] += (r.get_data() + "\n");
+		}
+		saveStrings(path+file_name+".blc",save);
+
 	}
-	saveStrings(path+file_name+".blc",save);
 }
 
 String [] load_megabloc(String path_name) {
