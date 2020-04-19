@@ -179,7 +179,7 @@ void mousePressed_event_mask() {
 }
 
 void mouseReleased_event_mask() {
-	if(show_mask_is() && mask != null) {
+	if(mask != null && show_mask_is()) {
 		if(mask_build_is) {
 			add_point_to_bloc_is(true);
 		}
@@ -206,17 +206,19 @@ void keyPressed_mask_delete_bloc(char rm_1, char rm_2) {
 	// https://processing.org/reference/keyCode.html 
 	// https://jogamp.org/deployment/jogamp-next/javadoc/jogl/javadoc/com/jogamp/newt/event/KeyEvent.html
 	// there is a story problem about keyEvent in those renderer...
-	if(keyCode == rm_2) {
-		bloc_remove_single_select(mask);
-	}
+	if(mask != null) {
+		if(keyCode == rm_2) {
+			bloc_remove_single_select(mask);
+		}
 
-	if (keyCode == rm_2) {
-		mask.clear();
+		if (keyCode == rm_2) {
+			mask.clear();
+		}
 	}
 }
 
 void keyPressed_mask_hide(char c) {
-	if(key == c) {
+	if(mask != null && key == c) {
 		show_mask_switch();
 		if(mask != null) {
 			init_mask();
@@ -225,7 +227,7 @@ void keyPressed_mask_hide(char c) {
 }
 
 void keyPressed_mask_save(char c) {
-	if(show_mask_is() && mask != null) {
+	if(mask != null && show_mask_is()) {
 		if(key == c) {
 			save_mask();
 		}

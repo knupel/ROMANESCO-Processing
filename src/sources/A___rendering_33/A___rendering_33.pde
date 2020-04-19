@@ -157,7 +157,6 @@ void settings() {
 	
 	// EXPORTING PARAM 
 	// size(124,124,P3D);
-  
 
 	// fullScreen(P3D);
 	// FULL_SCREEN = true;
