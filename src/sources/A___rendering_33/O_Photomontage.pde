@@ -343,7 +343,7 @@ class Photomontage extends Romanesco {
 		cloud_mask_coord = new vec2[num];
 		int marge = 50;
 		for(int i = 0 ; i < cloud_mask_coord.length ; i++) {
-			cloud_mask_coord[i] = vec2().rand(vec2(-marge,width+marge),vec2(-marge,height+marge));
+			cloud_mask_coord[i] = vec2().rand(vec2(-marge),vec2(width+marge,height+marge));
 		}
 	}
 

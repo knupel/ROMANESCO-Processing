@@ -215,7 +215,7 @@ class Vectorial extends Romanesco {
       int length = svg.list_svg_vec(ID).length ;
       vec3 [] value = new vec3[length] ;
       for(int i = 0 ; i < value.length ; i++) {
-        value[i] = vec3().rand(vec2(-swing.x,swing.x),vec2(-swing.y,swing.y),vec2(-swing.z,swing.z));
+        value[i] = vec3().rand(vec3(-swing.x(),-swing.y(),-swing.z()), vec3(swing.x(),swing.y(),swing.z()));
         value[i].mult(.1) ;
       }
       svg.add_def(ID, value) ;

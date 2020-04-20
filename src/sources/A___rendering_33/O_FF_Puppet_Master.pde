@@ -263,7 +263,7 @@ class Puppet_master extends Romanesco {
   	sz *= sz;
   	sz *= (width/50);	
   	for(int i = 0 ; i < get_spot_num() ; i++) {
-  		vec3 vel = vec3().rand(vec2(-sx,sx),vec2(-sy,sy),vec2(-sz,sz));
+  		vec3 vel = vec3().rand(vec3(-sx,-sy,-sz),vec3(sx,sy,sz));
   		vec3 tempo_pos = get_spot_pos(i);
   		tempo_pos.add(vel);
   		set_spot_pos(tempo_pos,i);
@@ -275,7 +275,7 @@ class Puppet_master extends Romanesco {
       if(in_vec(limit_w,pos.x) && in_vec(limit_h,pos.y) && in_vec(limit_d,pos.z)) {
         // nothing happen
       } else {
-        vec2 new_pos = vec2().rand(vec2(-canvas.x,canvas.x),vec2(-canvas.y,canvas.y));
+        vec2 new_pos = vec2().rand(vec2(-canvas.x(),-canvas.y()),vec2(canvas.x(),canvas.y()));
         set_spot_pos(vec3(new_pos),i);
       }
     }
