@@ -356,6 +356,8 @@ vec3 to_cartesian_3D(float latitude, float longitude) {
 // main method
 vec3 to_cartesian_3D(float latitude, float longitude,  float radius) {
   // https://en.wikipedia.org/wiki/List_of_common_coordinate_transformations
+  // https://en.wikipedia.org/wiki/Spherical_coordinate_system
+  // https://fr.wikipedia.org/wiki/Coordonn%C3%A9es_sph%C3%A9riques
   
 
   /*

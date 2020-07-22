@@ -1,8 +1,8 @@
 Type,ID slider,Min slider,Max slider,Value length,Value slider 0,Value slider 1,Value slider 2,Value slider 3,ID button,On Off,ID midi,Item ID,Item On Off,Item Name,Item Class Name,Path
 Slider background,0,0.0,1.0,1,0.0,,,,,,16,,,,,
-Slider background,1,0.0,1.0,1,1.0,,,,,,17,,,,,
-Slider background,2,0.0,1.0,1,0.64444447,,,,,,18,,,,,
-Slider background,3,0.0,1.0,1,1.0,,,,,,0,,,,,
+Slider background,1,0.0,1.0,1,0.8333333,,,,,,17,,,,,
+Slider background,2,0.0,1.0,1,0.8666667,,,,,,18,,,,,
+Slider background,3,0.0,1.0,1,0.35555556,,,,,,0,,,,,
 Slider background,4,0.0,1.0,1,0.18888889,,,,,,-2,,,,,
 Slider background,5,0.0,1.0,1,0.18888889,,,,,,-2,,,,,
 Slider background,6,0.0,1.0,1,0.2,,,,,,-2,,,,,
@@ -13,26 +13,26 @@ Slider background,10,0.0,1.0,1,0.0,,,,,,-2,,,,,
 Slider background,11,0.0,1.0,1,0.5,,,,,,-2,,,,,
 Slider background,12,0.0,1.0,1,0.5,,,,,,-2,,,,,
 Slider background,13,0.0,1.0,1,0.5,,,,,,-2,,,,,
-Slider filter,0,0.0,1.0,1,0.08888889,,,,,,-2,,,,,
-Slider filter,1,0.0,1.0,1,0.08888889,,,,,,-2,,,,,
-Slider filter,2,0.0,1.0,1,0.08888889,,,,,,-2,,,,,
+Slider filter,0,0.0,1.0,1,0.011111111,,,,,,-2,,,,,
+Slider filter,1,0.0,1.0,1,0.67777777,,,,,,-2,,,,,
+Slider filter,2,0.0,1.0,1,0.95555556,,,,,,-2,,,,,
 Slider filter,3,0.0,1.0,1,0.0,,,,,,-2,,,,,
 Slider filter,4,0.0,1.0,1,0.0,,,,,,-2,,,,,
-Slider filter,5,0.0,1.0,1,0.18888889,,,,,,-2,,,,,
+Slider filter,5,0.0,1.0,1,0.13333334,,,,,,-2,,,,,
 Slider filter,6,0.0,1.0,1,0.13333334,,,,,,-2,,,,,
-Slider filter,7,0.0,1.0,1,0.055555556,,,,,,-2,,,,,
-Slider filter,8,0.0,1.0,1,0.18888889,,,,,,-2,,,,,
-Slider filter,9,0.0,1.0,1,0.011111111,,,,,,-2,,,,,
+Slider filter,7,0.0,1.0,1,0.16666667,,,,,,-2,,,,,
+Slider filter,8,0.0,1.0,1,0.11111111,,,,,,-2,,,,,
+Slider filter,9,0.0,1.0,1,0.06666667,,,,,,-2,,,,,
 Slider filter,10,0.0,1.0,1,0.0,,,,,,-2,,,,,
-Slider filter,11,0.0,1.0,1,0.0,,,,,,-2,,,,,
+Slider filter,11,0.0,1.0,1,0.07777778,,,,,,-2,,,,,
 Slider filter,12,0.0,1.0,1,0.0,,,,,,-1,,,,,
 Slider filter,13,0.0,1.0,1,0.0,,,,,,-1,,,,,
-Slider mix,0,0.0,1.0,1,0.5,,,,,,-1,,,,,
-Slider mix,1,0.0,1.0,1,0.5,,,,,,-1,,,,,
-Slider mix,2,0.0,1.0,1,0.5,,,,,,-1,,,,,
-Slider mix,3,0.0,1.0,1,0.51111114,,,,,,-1,,,,,
-Slider mix,4,0.0,1.0,1,0.51111114,,,,,,-1,,,,,
-Slider mix,5,0.0,1.0,1,0.51111114,,,,,,-1,,,,,
+Slider mix,0,0.0,1.0,1,0.5777778,,,,,,-1,,,,,
+Slider mix,1,0.0,1.0,1,0.9,,,,,,-1,,,,,
+Slider mix,2,0.0,1.0,1,0.93333334,,,,,,-1,,,,,
+Slider mix,3,0.0,1.0,1,0.98888886,,,,,,-1,,,,,
+Slider mix,4,0.0,1.0,1,0.7888889,,,,,,-1,,,,,
+Slider mix,5,0.0,1.0,1,0.0,,,,,,-1,,,,,
 Slider light,0,0.0,1.0,1,0.6,,,,,,-2,,,,,
 Slider light,1,0.0,1.0,1,1.0,,,,,,-2,,,,,
 Slider light,2,0.0,1.0,1,1.0,,,,,,-2,,,,,
@@ -40,8 +40,8 @@ Slider light,3,0.0,1.0,1,0.62222224,,,,,,-2,,,,,
 Slider light,4,0.0,1.0,1,0.84444445,,,,,,-2,,,,,
 Slider light,5,0.0,1.0,1,0.84444445,,,,,,-2,,,,,
 Slider light,6,0.0,1.0,1,0.56666666,,,,,,-2,,,,,
-Slider light,7,0.0,1.0,1,0.8111111,,,,,,-2,,,,,
-Slider light,8,0.0,1.0,1,0.8111111,,,,,,-2,,,,,
+Slider light,7,0.0,1.0,1,0.7777778,,,,,,-2,,,,,
+Slider light,8,0.0,1.0,1,0.73333335,,,,,,-2,,,,,
 Slider sound,0,0.0,1.0,1,0.5,,,,,,-2,,,,,
 Slider sound,1,0.0,1.0,1,0.5,,,,,,-2,,,,,
 Slider sound setting,0,0.0,1.0,3,0.094736844,0.094736844,0.094736844,,,,-2,,,,,
@@ -49,7 +49,7 @@ Slider sound setting,1,0.0,1.0,2,0.0,0.094736844,,,,,-2,,,,,
 Slider sound setting,2,0.0,1.0,2,0.0,0.094736844,,,,,-2,,,,,
 Slider sound setting,3,0.0,1.0,2,0.0,0.094736844,,,,,-2,,,,,
 Slider sound setting,4,0.0,1.0,2,0.0,0.094736844,,,,,-2,,,,,
-Slider camera,0,0.0,1.0,1,0.32222223,,,,,,-2,,,,,
+Slider camera,0,0.0,1.0,1,0.0,,,,,,-2,,,,,
 Slider camera,1,0.0,1.0,1,0.5,,,,,,-2,,,,,
 Slider camera,2,0.0,1.0,1,0.5,,,,,,-2,,,,,
 Slider camera,3,0.0,1.0,1,0.5,,,,,,-2,,,,,
@@ -59,24 +59,24 @@ Slider camera,6,0.0,1.0,1,0.5,,,,,,-2,,,,,
 Slider camera,7,0.0,1.0,1,0.1,,,,,,-2,,,,,
 Slider camera,8,0.0,1.0,1,0.1,,,,,,-2,,,,,
 Slider camera,9,0.0,1.0,1,0.1,,,,,,-2,,,,,
-Slider item a,0,0.0,1.0,1,0.82222223,,,,,,19,,,,,
-Slider item a,1,0.0,1.0,1,0.0,,,,,,20,,,,,
-Slider item a,2,0.0,1.0,1,0.0,,,,,,21,,,,,
-Slider item a,3,0.0,1.0,1,0.9222222,,,,,,3,,,,,
-Slider item a,4,0.0,1.0,1,0.14444445,,,,,,22,,,,,
+Slider item a,0,0.0,1.0,1,0.65555555,,,,,,19,,,,,
+Slider item a,1,0.0,1.0,1,0.5777778,,,,,,20,,,,,
+Slider item a,2,0.0,1.0,1,0.7777778,,,,,,21,,,,,
+Slider item a,3,0.0,1.0,1,0.82222223,,,,,,3,,,,,
+Slider item a,4,0.0,1.0,1,0.13333334,,,,,,22,,,,,
 Slider item a,5,0.0,1.0,1,1.0,,,,,,23,,,,,
-Slider item a,6,0.0,1.0,1,0.0,,,,,,7,,,,,
-Slider item a,7,0.0,1.0,1,0.6666667,,,,,,6,,,,,
-Slider item a,8,0.0,1.0,1,0.2888889,,,,,,5,,,,,
-Slider item a,9,0.0,1.0,1,0.8111111,,,,,,-2,,,,,
-Slider item a,10,0.0,1.0,1,0.4,,,,,,-2,,,,,
-Slider item a,11,0.0,1.0,1,0.34444445,,,,,,-2,,,,,
-Slider item a,12,0.0,1.0,1,0.22222222,,,,,,-2,,,,,
-Slider item a,13,0.0,1.0,1,1.0,,,,,,-2,,,,,
-Slider item a,14,0.0,1.0,1,0.9,,,,,,-2,,,,,
-Slider item a,15,0.0,1.0,1,0.2,,,,,,-2,,,,,
-Slider item a,16,0.0,1.0,1,0.65555555,,,,,,-2,,,,,
-Slider item b,17,0.0,1.0,1,0.56666666,,,,,,-2,,,,,
+Slider item a,6,0.0,1.0,1,1.0,,,,,,7,,,,,
+Slider item a,7,0.0,1.0,1,1.0,,,,,,6,,,,,
+Slider item a,8,0.0,1.0,1,0.14444445,,,,,,5,,,,,
+Slider item a,9,0.0,1.0,1,0.7888889,,,,,,-2,,,,,
+Slider item a,10,0.0,1.0,1,0.4888889,,,,,,-2,,,,,
+Slider item a,11,0.0,1.0,1,0.43333334,,,,,,-2,,,,,
+Slider item a,12,0.0,1.0,1,1.0,,,,,,-2,,,,,
+Slider item a,13,0.0,1.0,1,0.65555555,,,,,,-2,,,,,
+Slider item a,14,0.0,1.0,1,0.41111112,,,,,,-2,,,,,
+Slider item a,15,0.0,1.0,1,0.41111112,,,,,,-2,,,,,
+Slider item a,16,0.0,1.0,1,0.31111112,,,,,,-2,,,,,
+Slider item b,17,0.0,1.0,1,0.5777778,,,,,,-2,,,,,
 Slider item b,18,0.0,1.0,1,0.0,,,,,,-2,,,,,
 Slider item b,19,0.0,1.0,1,0.0,,,,,,-2,,,,,
 Slider item b,20,0.0,1.0,1,0.0,,,,,,-2,,,,,
@@ -85,35 +85,35 @@ Slider item b,22,0.0,1.0,1,0.0,,,,,,-2,,,,,
 Slider item b,23,0.0,1.0,1,0.0,,,,,,-2,,,,,
 Slider item b,24,0.0,1.0,1,0.0,,,,,,-2,,,,,
 Slider item b,25,0.0,1.0,1,0.0,,,,,,-2,,,,,
-Slider item b,26,0.0,1.0,1,0.0,,,,,,-2,,,,,
-Slider item b,27,0.0,1.0,1,0.0,,,,,,-2,,,,,
-Slider item b,28,0.0,1.0,1,0.0,,,,,,-2,,,,,
+Slider item b,26,0.0,1.0,1,0.15555556,,,,,,-2,,,,,
+Slider item b,27,0.0,1.0,1,0.22222222,,,,,,-2,,,,,
+Slider item b,28,0.0,1.0,1,0.08888889,,,,,,-2,,,,,
 Slider item b,29,0.0,1.0,1,0.0,,,,,,-2,,,,,
 Slider item b,30,0.0,1.0,1,0.0,,,,,,-2,,,,,
 Slider item b,31,0.0,1.0,1,0.0,,,,,,-2,,,,,
-Slider item b,32,0.0,1.0,1,0.31111112,,,,,,-2,,,,,
-Slider item c,33,0.0,1.0,1,0.54444444,,,,,,-2,,,,,
-Slider item c,34,0.0,1.0,1,0.2888889,,,,,,-2,,,,,
-Slider item c,35,0.0,1.0,1,0.31111112,,,,,,-2,,,,,
-Slider item c,36,0.0,1.0,1,0.36666667,,,,,,-2,,,,,
-Slider item c,37,0.0,1.0,1,0.13333334,,,,,,-2,,,,,
-Slider item c,38,0.0,1.0,1,0.0,,,,,,-2,,,,,
+Slider item b,32,0.0,1.0,1,0.46666667,,,,,,-2,,,,,
+Slider item c,33,0.0,1.0,1,0.22222222,,,,,,-2,,,,,
+Slider item c,34,0.0,1.0,1,0.22222222,,,,,,-2,,,,,
+Slider item c,35,0.0,1.0,1,0.22222222,,,,,,-2,,,,,
+Slider item c,36,0.0,1.0,1,0.22222222,,,,,,-2,,,,,
+Slider item c,37,0.0,1.0,1,0.74444443,,,,,,-2,,,,,
+Slider item c,38,0.0,1.0,1,0.26666668,,,,,,-2,,,,,
 Slider item c,39,0.0,1.0,1,0.32222223,,,,,,-2,,,,,
 Slider item c,40,0.0,1.0,1,0.32222223,,,,,,-2,,,,,
-Slider item c,41,0.0,1.0,1,0.31111112,,,,,,-2,,,,,
+Slider item c,41,0.0,1.0,1,0.15555556,,,,,,-2,,,,,
 Slider item c,42,0.0,1.0,1,0.31111112,,,,,,-2,,,,,
 Slider item c,43,0.0,1.0,1,0.31111112,,,,,,-2,,,,,
-Slider item c,44,0.0,1.0,1,0.6666667,,,,,,-2,,,,,
+Slider item c,44,0.0,1.0,1,0.33333334,,,,,,-2,,,,,
 Slider item c,45,0.0,1.0,1,0.31111112,,,,,,-2,,,,,
 Slider item c,46,0.0,1.0,1,0.31111112,,,,,,-2,,,,,
-Slider item c,47,0.0,1.0,1,0.22222222,,,,,,-2,,,,,
-Slider item c,48,0.0,1.0,1,0.22222222,,,,,,-2,,,,,
-Slider item d,49,0.0,1.0,1,0.22222222,,,,,,-2,,,,,
-Slider item d,50,0.0,1.0,1,0.25555557,,,,,,-2,,,,,
-Slider item d,51,0.0,1.0,1,0.25555557,,,,,,-2,,,,,
-Slider item d,52,0.0,1.0,1,0.26666668,,,,,,-2,,,,,
+Slider item c,47,0.0,1.0,1,0.14444445,,,,,,-2,,,,,
+Slider item c,48,0.0,1.0,1,0.23333333,,,,,,-2,,,,,
+Slider item d,49,0.0,1.0,1,0.23333333,,,,,,-2,,,,,
+Slider item d,50,0.0,1.0,1,0.23333333,,,,,,-2,,,,,
+Slider item d,51,0.0,1.0,1,0.23333333,,,,,,-2,,,,,
+Slider item d,52,0.0,1.0,1,0.23333333,,,,,,-2,,,,,
 Slider item d,53,0.0,1.0,1,0.0,,,,,,-2,,,,,
-Slider item d,54,0.0,1.0,1,0.0,,,,,,-2,,,,,
+Slider item d,54,0.0,1.0,1,0.84444445,,,,,,-2,,,,,
 Slider item d,55,0.0,1.0,1,0.0,,,,,,-2,,,,,
 Slider item d,56,0.0,1.0,1,0.0,,,,,,-2,,,,,
 Slider item d,57,0.0,1.0,1,0.0,,,,,,-2,,,,,
@@ -123,9 +123,9 @@ Slider item d,60,0.0,1.0,1,0.0,,,,,,-2,,,,,
 Slider item d,61,0.0,1.0,1,0.0,,,,,,-2,,,,,
 Slider item d,62,0.0,1.0,1,0.0,,,,,,-2,,,,,
 Slider item d,63,0.0,1.0,1,0.0,,,,,,-2,,,,,
-Item,,,,,,,,,,,,1,0,Arbre,ArbreRomanesco,
+Item,,,,,,,,,,,,1,1,Arbre,ArbreRomanesco,
 Item,,,,,,,,,,,,2,0,Atome,Atome,
-Item,,,,,,,,,,,,3,0,Balise,BaliseRomanesco,
+Item,,,,,,,,,,,,3,1,Balise,BaliseRomanesco,
 Item,,,,,,,,,,,,4,0,Boids,Boids,
 Item,,,,,,,,,,,,5,0,BoumBoum,BoumBoum,
 Item,,,,,,,,,,,,6,0,Boxolyzer,Boxolyzer,
@@ -142,40 +142,103 @@ Item,,,,,,,,,,,,16,1,Kino,Kino,
 Item,,,,,,,,,,,,17,0,Kofosphere,Kofosphere,
 Item,,,,,,,,,,,,18,0,Lignes,Lignes,
 Item,,,,,,,,,,,,19,0,Lorenz attractor,Lorenz,
-Item,,,,,,,,,,,,20,1,Lyric,Lyric,
-Item,,,,,,,,,,,,21,0,Mer,Mer,
+Item,,,,,,,,,,,,20,0,Lyric,Lyric,
+Item,,,,,,,,,,,,21,1,Mer,Mer,
 Item,,,,,,,,,,,,22,0,Orbital,Orbital,
 Item,,,,,,,,,,,,23,1,Photomontage,Photomontage,
 Item,,,,,,,,,,,,24,0,Pulsar,Pulsar,
 Item,,,,,,,,,,,,25,0,FF Puppet Master,Puppet_master,
 Item,,,,,,,,,,,,26,0,Rosace,Rosace,
 Item,,,,,,,,,,,,27,0,Rubis,Rubis,
-Item,,,,,,,,,,,,28,0,Simple,Simple,
+Item,,,,,,,,,,,,28,1,Simple,Simple,
 Item,,,,,,,,,,,,29,0,Soleil,Soleil,
-Item,,,,,,,,,,,,30,0,Spirale,Spirale_romanesco,
+Item,,,,,,,,,,,,30,1,Spirale,Spirale_romanesco,
 Item,,,,,,,,,,,,31,0,Surface,Surface,
-Item,,,,,,,,,,,,32,0,Tartan,Tartan,
-Item,,,,,,,,,,,,33,0,The Abbyss,The_Abbyss,
-Item,,,,,,,,,,,,34,0,Vectorial,Vectorial,
-Item,,,,,,,,,,,,35,0,Webcam,Webcam,
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ecoutons nos pochettes/Ecoutons_Stan_19_9_25/Rolling Stones/Rolling Stones_6.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ecoutons nos pochettes/Ecoutons_Stan_19_9_25/Rolling Stones/Rolling Stones_1.jpeg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ecoutons nos pochettes/Ecoutons_Stan_19_9_25/Rolling Stones/Rolling Stones_0.txt
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ecoutons nos pochettes/Ecoutons_Stan_19_9_25/Rolling Stones/Rolling Stones_5.jpeg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ecoutons nos pochettes/Ecoutons_Stan_19_9_25/Rolling Stones/Rolling Stones_4.jpeg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ecoutons nos pochettes/Ecoutons_Stan_19_9_25/Rolling Stones/Rolling Stones_3.jpeg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ecoutons nos pochettes/Ecoutons_Stan_19_9_25/Rolling Stones/Rolling Stones_2.jpeg
+Item,,,,,,,,,,,,32,0,The Abbyss,The_Abbyss,
+Item,,,,,,,,,,,,33,0,Vectorial,Vectorial,
+Item,,,,,,,,,,,,34,0,Webcam,Webcam,
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/MEDIA/MEDIA ROMANESCO/FILM/extrait_film/aliens_ripley_exosquelette.mov
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/MEDIA/MEDIA ROMANESCO/FILM/extrait_film/Snatch_fight.mov
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/MEDIA/MEDIA ROMANESCO/FILM/extrait_film/blade_runner_intro.mp4
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/MEDIA/MEDIA ROMANESCO/FILM/extrait_film/Mad_Max_Fury.mov
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/MEDIA/MEDIA ROMANESCO/FILM/extrait_film/Temps_moderne_chaplin.mov
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/MEDIA/MEDIA ROMANESCO/FILM/extrait_film/alien_1_9e_pasager_ripley_extrait.mov
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/MEDIA/MEDIA ROMANESCO/FILM/extrait_film/français/Singe_en_hiver_bistro_0.mov
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/MEDIA/MEDIA ROMANESCO/FILM/extrait_film/français/Singe_en_hiver_bistro_1.mov
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/MEDIA/MEDIA ROMANESCO/FILM/extrait_film/français/Les_galettes_de_Pont_aven.mov
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/MEDIA/MEDIA ROMANESCO/FILM/extrait_film/français/Zazie_tour_eiffel.mov
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/MEDIA/MEDIA ROMANESCO/FILM/extrait_film/français/La_haine_la_merguez.mov
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/MEDIA/MEDIA ROMANESCO/FILM/extrait_film/français/Traversée_de_paris_bistro.mov
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/MEDIA/MEDIA ROMANESCO/FILM/extrait_film/français/Bernie_oiseau.mov
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/MEDIA/MEDIA ROMANESCO/FILM/extrait_film/français/Calmos_intro.mov
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/veg_12.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/veg_6.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/veg_13.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/veg_11.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/veg_5.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/veg_4.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/veg_10.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/veg_1.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/veg_3.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/veg_2.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_11.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_5.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/bete_3.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_17.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_16.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/bete_2.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_4.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_10.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_12.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_6.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_14.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_15.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/bete_1.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_7.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_13.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_3.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_17.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/bete_5.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_11.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_10.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/bete_4.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_16.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_2.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_8.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_14.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/bete_6.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_12.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_13.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/bete_7.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_15.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_1.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_9.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_4.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_19.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_5.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_7.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_6.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_2.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/ferme.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_18.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_19.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_3.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_1.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_9.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_8.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/veg_9.jpg
+Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/veg_8.jpg
 Button item,,,,,,,,,0,0,0,,,,,
 Button item,,,,,,,,,1,0,0,,,,,
 Button item,,,,,,,,,2,0,0,,,,,
 Button item,,,,,,,,,3,0,0,,,,,
-Button background,,,,,,,,,0,1,-2,,,,,
-Button curtain,,,,,,,,,1,0,-2,,,,,
+Button background,,,,,,,,,0,1,48,,,,,
+Button curtain,,,,,,,,,1,0,32,,,,,
 Button reset camera,,,,,,,,,2,0,-2,,,,,
 Button reset ative item position,,,,,,,,,3,0,-2,,,,,
 Button birth,,,,,,,,,4,0,-2,,,,,
 Button 3D,,,,,,,,,5,0,-2,,,,,
-Button fx filter,,,,,,,,,6,0,-2,,,,,
+Button fx filter,,,,,,,,,6,0,64,,,,,
 Button fx filter,,,,,,,,,7,0,-2,,,,,
 Button fx filter,,,,,,,,,8,0,-2,,,,,
 Button fx mix,,,,,,,,,9,0,-2,,,,,
@@ -193,7 +256,7 @@ Button transient,,,,,,,,,20,0,0,,,,,
 Button item,,,,,,,,,4,0,-2,,,,,
 Button item,,,,,,,,,5,0,-2,,,,,
 Button item,,,,,,,,,6,0,-2,,,,,
-Button item,,,,,,,,,7,0,-2,,,,,
+Button item,,,,,,,,,7,1,-2,,,,,
 Button item,,,,,,,,,8,0,-2,,,,,
 Button item,,,,,,,,,9,0,-2,,,,,
 Button item,,,,,,,,,10,0,-2,,,,,
@@ -250,10 +313,10 @@ Button item,,,,,,,,,60,0,-2,,,,,
 Button item,,,,,,,,,61,0,-2,,,,,
 Button item,,,,,,,,,62,0,-2,,,,,
 Button item,,,,,,,,,63,0,-2,,,,,
-Button item,,,,,,,,,64,0,-2,,,,,
-Button item,,,,,,,,,65,0,-2,,,,,
+Button item,,,,,,,,,64,1,-2,,,,,
+Button item,,,,,,,,,65,1,-2,,,,,
 Button item,,,,,,,,,66,0,-2,,,,,
-Button item,,,,,,,,,67,0,-2,,,,,
+Button item,,,,,,,,,67,1,-2,,,,,
 Button item,,,,,,,,,68,0,-2,,,,,
 Button item,,,,,,,,,69,0,-2,,,,,
 Button item,,,,,,,,,70,0,-2,,,,,
@@ -306,10 +369,10 @@ Button item,,,,,,,,,116,0,-2,,,,,
 Button item,,,,,,,,,117,0,-2,,,,,
 Button item,,,,,,,,,118,0,-2,,,,,
 Button item,,,,,,,,,119,0,-2,,,,,
-Button item,,,,,,,,,120,0,-2,,,,,
-Button item,,,,,,,,,121,0,-2,,,,,
+Button item,,,,,,,,,120,1,-2,,,,,
+Button item,,,,,,,,,121,1,-2,,,,,
 Button item,,,,,,,,,122,0,-2,,,,,
-Button item,,,,,,,,,123,0,-2,,,,,
+Button item,,,,,,,,,123,1,-2,,,,,
 Button item,,,,,,,,,124,0,-2,,,,,
 Button item,,,,,,,,,125,0,-2,,,,,
 Button item,,,,,,,,,126,0,-2,,,,,
@@ -326,7 +389,3 @@ Button item,,,,,,,,,136,0,-2,,,,,
 Button item,,,,,,,,,137,0,-2,,,,,
 Button item,,,,,,,,,138,0,-2,,,,,
 Button item,,,,,,,,,139,0,-2,,,,,
-Button item,,,,,,,,,140,0,-2,,,,,
-Button item,,,,,,,,,141,0,-2,,,,,
-Button item,,,,,,,,,142,0,-2,,,,,
-Button item,,,,,,,,,143,0,-2,,,,,
