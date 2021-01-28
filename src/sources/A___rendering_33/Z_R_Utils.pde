@@ -1,7 +1,7 @@
 /**
-Rope UTILS 
-v 1.63.0
-* Copyleft (c) 2014-2019
+* Rope UTILS 
+* v 1.63.1
+* Copyleft (c) 2014-2020
 * Rope – Romanesco Processing Environment – 
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
@@ -1814,7 +1814,7 @@ vec4 array_to_vec4_rgba(float... f) {
 
 /**
 print
-v 0.2.0
+v 0.2.1
 */
 // print Err
 void printErr(Object... obj) {
@@ -1845,21 +1845,21 @@ void printArrayTempo(int tempo, Object[] obj) {
 	}
 }
 
-void printArrayTempo(int tempo, float[] var) {
+void printArrayTempo(int tempo, float[] arg) {
 	if(frameCount%tempo == 0 || frameCount <= 10) {
-		printArray(var);
+		printArray(arg);
 	}
 }
 
-void printArrayTempo(int tempo, int[] var) {
+void printArrayTempo(int tempo, int[] arg) {
 	if(frameCount%tempo == 0 || frameCount <= 10) {
-		printArray(var);
+		printArray(arg);
 	}
 }
 
-void printArrayTempo(int tempo, String[] var) {
+void printArrayTempo(int tempo, String[] arg) {
 	if(frameCount%tempo == 0 || frameCount <= 10) {
-		printArray(var);
+		printArray(arg);
 	}
 }
 

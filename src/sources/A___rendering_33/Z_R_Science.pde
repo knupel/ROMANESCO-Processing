@@ -1,10 +1,10 @@
 /**
 * ROPE SCIENCE
-* v 0.7.8
-* Copyleft (c) 2014-2019 
+* v 0.7.9
+* Copyleft (c) 2014-2020
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
-* Processing 3.5.3
+* Processing 4.0.a2
 */
 
 
@@ -84,16 +84,16 @@ float random_next_gaussian(float range) {
 
 float random_next_gaussian(float range, int n) {
   float roots = (float)random.nextGaussian();
-  float var = map(roots,-2.5,2.5,-1,1);  
+  float arg = map(roots,-2.5,2.5,-1,1);  
   if(n > 1) {
-    if(n%2 ==0 && var < 0) {
-       var = -1 *pow(var,n);
+    if(n%2 ==0 && arg < 0) {
+       arg = -1 *pow(arg,n);
      } else {
-       var = pow(var,n);
+       arg = pow(arg,n);
      }
-     return var *range ;
+     return arg *range ;
   } else {
-    return var *range ;
+    return arg *range ;
   }
 }
 
@@ -158,9 +158,9 @@ float roots(float valueToRoots, int n) {
 
 // Decimal
 // @return a specific quantity of decimal after comma
-float decimale(float var, int n) {
+float decimale(float arg, int n) {
   float div = pow(10, abs(n)) ;
-  return Math.round(var *div) / div;
+  return Math.round(arg *div) / div;
 }
 
 

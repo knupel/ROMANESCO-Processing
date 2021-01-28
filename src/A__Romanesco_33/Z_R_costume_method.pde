@@ -1,7 +1,7 @@
 /**
 * Costume method
 * Copyleft (c) 2014-2019
-* v 1.9.10
+* v 1.10.0
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 */
@@ -740,7 +740,7 @@ void costume_impl(vec pos, vec size, vec rot, Costume costume, PGraphics pg) {
 
 /**
 ASPECT ROPE 2016-2019
-v 0.1.4
+v 0.2.0
 */
 Costume aspect_rope;
 void aspect_is(boolean fill_is, boolean stroke_is, boolean alpha_is) {
@@ -751,7 +751,6 @@ void aspect_is(boolean fill_is, boolean stroke_is, boolean alpha_is) {
 	alpha_rope_is = aspect_rope.alpha_is();
 }
 
-
 void init_bool_aspect() {
 	if(aspect_rope == null) {
 		aspect_rope = new Costume(this);
@@ -760,19 +759,19 @@ void init_bool_aspect() {
 }
 
 void aspect(int fill, int stroke, float thickness) {
-	PGraphics other = null;
-	aspect(fill,stroke,thickness,other);
+	aspect(fill,stroke,thickness,g);
 }
 void aspect(int fill, int stroke, float thickness, PGraphics other) {
-	if(aspect_rope == null) aspect_rope = new Costume(this);
+	if(aspect_rope == null) {
+		aspect_rope = new Costume(this);
+	}
 	aspect_is(aspect_rope.fill_is(),aspect_rope.stroke_is(),aspect_rope.alpha_is());
 	aspect_rope.pass_graphic(other);
 	aspect_rope.aspect(fill,stroke,thickness);
 }
 
 void aspect(vec fill, vec stroke, float thickness) {
-	PGraphics other = null;
-	aspect(fill,stroke,thickness,other);
+	aspect(fill,stroke,thickness,g);
 }
 
 void aspect(vec fill, vec stroke, float thickness, PGraphics other) {
@@ -781,72 +780,6 @@ void aspect(vec fill, vec stroke, float thickness, PGraphics other) {
 	aspect_rope.pass_graphic(other);
 	aspect_rope.aspect(fill,stroke,thickness);
 }
-
-
-/**
-* Deprecated part
-*/
-@Deprecated
-void aspect(int fill, int stroke, float thickness, Costume costume) {
-	PGraphics other = null;
-	aspect(fill,stroke,thickness,costume,other);
-}
-
-@Deprecated
-void aspect(int fill, int stroke, float thickness, Costume costume, PGraphics other) {
-	if(aspect_rope == null) aspect_rope = new Costume(this);
-	aspect_is(aspect_rope.fill_is(),aspect_rope.stroke_is(),aspect_rope.alpha_is());
-	aspect_rope.pass_graphic(other);
-	aspect_rope.aspect(fill,stroke,thickness,costume.get_type());
-}
-
-@Deprecated
-void aspect(int fill, int stroke, float thickness, int costume) {
-	PGraphics other = null;
-	aspect(fill,stroke,thickness,costume,other);
-}
-
-@Deprecated
-void aspect(int fill, int stroke, float thickness, int costume, PGraphics other) {
-	if(aspect_rope == null) aspect_rope = new Costume(this);
-	aspect_is(aspect_rope.fill_is(),aspect_rope.stroke_is(),aspect_rope.alpha_is());
-	aspect_rope.pass_graphic(other);
-	aspect_rope.aspect(fill,stroke,thickness,costume);
-}
-
-@Deprecated
-void aspect(vec fill, vec stroke, float thickness, Costume costume) {
-	PGraphics other = null;
-	aspect(fill,stroke,thickness,costume,other);
-}
-
-@Deprecated
-void aspect(vec fill, vec stroke, float thickness, Costume costume, PGraphics other) {
-	if(aspect_rope == null) aspect_rope = new Costume(this);
-	aspect_is(aspect_rope.fill_is(),aspect_rope.stroke_is(),aspect_rope.alpha_is());
-	aspect_rope.pass_graphic(other);
-	aspect_rope.aspect(fill,stroke,thickness,costume.get_type());
-}
-
-@Deprecated
-void aspect(vec fill, vec stroke, float thickness, int costume) {
-	PGraphics other = null;
-	aspect(fill,stroke,thickness,costume,other);
-}
-
-@Deprecated
-void aspect(vec fill, vec stroke, float thickness, int costume, PGraphics other) {
-	if(aspect_rope == null) aspect_rope = new Costume(this);
-	aspect_is(aspect_rope.fill_is(),aspect_rope.stroke_is(),aspect_rope.alpha_is());
-	aspect_rope.pass_graphic(other);
-	aspect_rope.aspect(fill,stroke,thickness,costume);
-}
-
-
-
-
-
-
 
 int get_fill_rope() {
 	if(aspect_rope != null) {

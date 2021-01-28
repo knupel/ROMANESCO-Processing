@@ -424,11 +424,3 @@ boolean in_plane(vec3 a, vec3 b, vec3 c, vec3 any, float range) {
 vec3 get_plane_normal(vec3 a, vec3 b, vec3 c) {
 	return new R_Plane().get_plane_normal(a,b,c);
 }
-
-
-
-
-
-
-
-

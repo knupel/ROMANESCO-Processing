@@ -1,11 +1,10 @@
 /**
-ROPE FRAMEWORK - Romanesco processing environment – 
-* Copyleft (c) 2014-2019
+* ROPE FRAMEWORK - Romanesco processing environment – 
+* Copyleft (c) 2014-2020
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 * ROPE core
-* v 0.2.0
-* 2017-2019
+* v 0.2.1
 */
 import rope.core.*;
 import rope.vector.*;
@@ -56,12 +55,12 @@ public void init_rope() {
   println("Romanesco Processing Environment - 2015-2019");
 }
 */
-String rope_framework_version = "1.2.7.63";
+String rope_framework_version = "1.3.3.73";
 public void rope_version() {
 	r = new Rope();
-	println("Romanesco Processing Environment - 2015-2019");
+	println("Romanesco Processing Environment - 2015-2020");
 	println("Processing: 3.5.3.269");
-	println("Rope library: " +r.version());
+	println("Rope library: " +r.VERSION);
   println("Rope framework: " + rope_framework_version);
 }
 

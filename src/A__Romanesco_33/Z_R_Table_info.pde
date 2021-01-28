@@ -1,9 +1,10 @@
 /**
-TABLE METHOD 
-v 0.0.3.1
-for Table with the first COLLUMN is used for name and the next 6 for the value.
-The method is used with the Class Info
-
+* TABLE METHOD
+* v 0.0.4
+* 2016-2020
+* for Table with the first COLLUMN is used for name and the next 6 for the value.
+*The method is used with the Class Info
+*
 */
 // table method for row sort
 void buildTable(Table table, TableRow [] tableRow, String [] col_name, String [] row_name) {
@@ -697,20 +698,21 @@ class Info_int extends Info_method {
     super(name) ;
   }
 
-  Info_int(String name, int... var) {
-    super(name) ;
-    if(var.length > 7 ) {
+  Info_int(String name, int... arg) {
+    super(name);
+    int len = arg.length;
+    if(len > 7 ) {
       num_value = 7 ; 
     } else {
-      num_value = var.length ;
+      num_value = len;
     }
-    if(var.length > 0) this.a = var[0] ;
-    if(var.length > 1) this.b = var[1] ;
-    if(var.length > 2) this.c = var[2] ;
-    if(var.length > 3) this.d = var[3] ;
-    if(var.length > 4) this.e = var[4] ;
-    if(var.length > 5) this.f = var[5] ;
-    if(var.length > 6) this.g = var[6] ;
+    if(len > 0) this.a = arg[0] ;
+    if(len > 1) this.b = arg[1] ;
+    if(len > 2) this.c = arg[2] ;
+    if(len > 3) this.d = arg[3] ;
+    if(len > 4) this.e = arg[4] ;
+    if(len > 5) this.f = arg[5] ;
+    if(len > 6) this.g = arg[6] ;
   }
 
 
@@ -805,20 +807,21 @@ class Info_String extends Info_method {
     super(name) ;
   }
 
-  Info_String(String name, String... var) {
-    super(name) ;
-    if(var.length > 7 ) {
+  Info_String(String name, String... arg) {
+    super(name);
+    int len = arg.length;
+    if(len > 7 ) {
       num_value = 7 ; 
     } else {
-      num_value = var.length ;
+      num_value = len;
     }
-    if(var.length > 0) this.a = var[0] ;
-    if(var.length > 1) this.b = var[1] ;
-    if(var.length > 2) this.c = var[2] ;
-    if(var.length > 3) this.d = var[3] ;
-    if(var.length > 4) this.e = var[4] ;
-    if(var.length > 5) this.f = var[5] ;
-    if(var.length > 6) this.g = var[6] ;
+    if(len > 0) this.a = arg[0] ;
+    if(len > 1) this.b = arg[1] ;
+    if(len > 2) this.c = arg[2] ;
+    if(len > 3) this.d = arg[3] ;
+    if(len > 4) this.e = arg[4] ;
+    if(len > 5) this.f = arg[5] ;
+    if(len > 6) this.g = arg[6] ;
   }
 
 
@@ -914,20 +917,21 @@ class Info_float extends Info_method {
     super(name) ;
   }
 
-  Info_float(String name, float... var) {
-    super(name) ;
-    if(var.length > 7 ) {
+  Info_float(String name, float... arg) {
+    super(name);
+    int len = arg.length;
+    if(len > 7 ) {
       num_value = 7 ; 
     } else {
-      num_value = var.length ;
+      num_value = len;
     }
-    if(var.length > 0) this.a = var[0] ;
-    if(var.length > 1) this.b = var[1] ;
-    if(var.length > 2) this.c = var[2] ;
-    if(var.length > 3) this.d = var[3] ;
-    if(var.length > 4) this.e = var[4] ;
-    if(var.length > 5) this.f = var[5] ;
-    if(var.length > 6) this.g = var[6] ;
+    if(len > 0) this.a = arg[0] ;
+    if(len > 1) this.b = arg[1] ;
+    if(len > 2) this.c = arg[2] ;
+    if(len > 3) this.d = arg[3] ;
+    if(len > 4) this.e = arg[4] ;
+    if(len > 5) this.f = arg[5] ;
+    if(len > 6) this.g = arg[6] ;
   }
 
   // get
@@ -1023,20 +1027,21 @@ class Info_vec extends Info_method {
   }
 
   // vec value
-  Info_vec(String name, vec... var) {
-    super(name) ;
-    if(var.length > 7 ) {
+  Info_vec(String name, vec... arg) {
+    super(name);
+    int len = arg.length;
+    if(len > 7 ) {
       num_value = 7 ; 
     } else {
-      num_value = var.length ;
+      num_value = len;
     }
-    if(var.length > 0) this.a = var[0] ;
-    if(var.length > 1) this.b = var[1] ;
-    if(var.length > 2) this.c = var[2] ;
-    if(var.length > 3) this.d = var[3] ;
-    if(var.length > 4) this.e = var[4] ;
-    if(var.length > 5) this.f = var[5] ;
-    if(var.length > 6) this.g = var[6] ;
+    if(len > 0) this.a = arg[0] ;
+    if(len > 1) this.b = arg[1] ;
+    if(len > 2) this.c = arg[2] ;
+    if(len > 3) this.d = arg[3] ;
+    if(len > 4) this.e = arg[4] ;
+    if(len > 5) this.f = arg[5] ;
+    if(len > 6) this.g = arg[6] ;
   }
 
 
@@ -1139,20 +1144,21 @@ class Info_Object extends Info_method {
 
 
   // Object value
-  Info_Object(String name, Object... var) {
-    super(name) ;
-    if(var.length > 7 ) {
+  Info_Object(String name, Object... arg) {
+    super(name);
+    int len = arg.length;
+    if(len > 7 ) {
       num_value = 7 ; 
     } else {
-      num_value = var.length ;
+      num_value = len;
     }
-    if(var.length > 0) this.a = var[0] ;
-    if(var.length > 1) this.b = var[1] ;
-    if(var.length > 2) this.c = var[2] ;
-    if(var.length > 3) this.d = var[3] ;
-    if(var.length > 4) this.e = var[4] ;
-    if(var.length > 5) this.f = var[5] ;
-    if(var.length > 6) this.g = var[6] ;
+    if(len > 0) this.a = arg[0];
+    if(len > 1) this.b = arg[1];
+    if(len > 2) this.c = arg[2];
+    if(len > 3) this.d = arg[3];
+    if(len > 4) this.e = arg[4];
+    if(len > 5) this.f = arg[5];
+    if(len > 6) this.g = arg[6];
   }
 
 
