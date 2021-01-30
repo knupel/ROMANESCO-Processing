@@ -1,7 +1,7 @@
 /**
 * SLIDER
-* v 1.8.2
-* 2013-2019
+* v 1.8.3
+* 2013-2021
 */
 boolean molette_already_selected ;
 public class Slider extends Crope {
@@ -44,6 +44,11 @@ public class Slider extends Crope {
 
 	// SET
 	public Slider set_value(float... pos_norm) {
+		set_value_calc(pos_norm);
+		return this;
+	}
+
+	protected void set_value_calc(float... pos_norm) {
 		Arrays.sort(pos_norm);
 		init_molette(pos_norm.length);
 
@@ -65,7 +70,6 @@ public class Slider extends Crope {
 			}
 			molette[i].set(pos_norm[i]);
 		}
-		return this;
 	}
 
 	public Slider set_molette_num(int num) {
@@ -431,7 +435,6 @@ public class Slider extends Crope {
 			} else {
 				fill(color_label_out);
 			}
-			//println(this.name,pos,pos_label);
 			text(this.name,add(pos,pos_label));
 		}  
 	}
@@ -495,7 +498,7 @@ public class Slider extends Crope {
 	}
 
 
-	private void init_molette(int len) {
+	protected void init_molette(int len) {
 		if(molette == null || len != molette.length) {
 			molette_builder(len);
 		}
@@ -846,9 +849,10 @@ public class Slider extends Crope {
 
 
 /**
-SLOTCH > notch's slider
-v 0.3.0
-2018-2021
+* SLOTCH 
+* notch's slider is slotch isn't it !
+* v 0.3.1
+* 2018-2021
 */
 public class Slotch extends Slider {
 	protected float [] notches_pos ;
@@ -864,11 +868,6 @@ public class Slotch extends Slider {
 		set_notch(2);
 	}
 
-	// 	public Slotch(vec2 pos, vec2 size, int num) {
-	// 	super("Slotch",pos, size);
-	// 	set_notch(num);
-	// }
-
 	public Slotch(vec2 pos, vec2 size, int num) {
 		super("Slotch",pos, size);
 		set_notch(num);
@@ -878,26 +877,6 @@ public class Slotch extends Slider {
 		super(type,pos, size);
 		set_notch(num);
 	}
-
-	/*
-		public Slider() {
-		super("Slider");
-		this.pos(vec2(-1));
-		this.size(vec2(-1));
-	}
-	
-	public Slider(vec2 pos, vec2 size) {
-		super("Slider");
-		this.pos(pos);
-		this.size(size);
-	}
-
-	public Slider(String type, vec2 pos, vec2 size) {
-		super(type);
-		this.pos(pos);
-		this.size(size);
-	}
-	*/
 
 	// SET
 	public Slotch set_notch(int num) {
@@ -915,6 +894,12 @@ public class Slotch extends Slider {
 
 	public Slotch set_aspect_notch(int c) {
 		this.colour_notch = c ;
+		return this;
+	}
+
+	public Slotch set_value(int pos_molette) {
+		float pos_norm = (float)(pos_molette +1) / this.notches_num;
+		set_value_calc(pos_norm);
 		return this;
 	}
 
