@@ -1,9 +1,9 @@
 /**
 ROPE - Romanesco processing environment – 
-* Copyleft (c) 2014-2017 
+* Copyleft (c) 2014-2021
 * Stan le Punk > http://stanlepunk.xyz/
-Rope Motion  2015 – 2018
-v 1.3.0
+* Rope Motion  2015-2021
+* v 1.4.0
 Rope – Romanesco Processing Environment – 
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
@@ -13,54 +13,75 @@ Rope – Romanesco Processing Environment –
 
 
 /**
-Method motion
-v 0.2.0
+* Method motion
+* v 0.2.0
 */
-vec2 follow(vec2 target, float speed) {
-  vec3 f = follow(target.x,target.y,0,speed);
-  return vec2(f.x,f.y);
+/**
+* follow
+* v 0.2.0
+*/
+
+vec2 follow(vec2 target, float speed, vec3 buf) {
+  vec3 f = follow(target.x(), target.y(), 0, speed, speed, speed, buf);
+  return vec2(f.x(),f.y());
+}
+
+vec2 follow(vec2 target, vec2 speed, vec3 buf) {
+  vec3 f = follow(target.x(), target.y(), 0, speed.x(), speed.y(), 0, buf);
+  return vec2(f.x(),f.y());
+}
+
+vec2 follow(float tx, float ty, float speed, vec3 buf) {
+  vec3 f = follow(tx, ty ,0 ,speed, speed, speed, buf);
+  return vec2(f.x(), f.y());
+}
+
+vec3 follow(vec3 target, float speed, vec3 buf) {
+  return follow(target.x(), target.y(), target.z(), speed, speed, speed, buf);
+}
+
+vec3 follow(vec3 target, vec3 speed, vec3 buf) {
+  return follow(target.x(), target.y(), target.z(), speed.x(), speed.y(), speed.z(), buf);
 }
 
 
-
-vec3 follow(vec3 target, float speed) {
-  return follow(target.x,target.y,target.z,speed);
-}
-
-vec2 follow(float tx, float ty, float speed) {
-  vec3 f = follow(tx,ty,0,speed);
-  return vec2(f.x,f.y);
+vec3 follow(float tx, float ty, float tz, float speed, vec3 buf) {
+  return follow(tx, ty, tz, speed, speed, speed, buf);
 }
 
 /**
 * master method
-*Compute position vector Traveller, give the target pos and the speed to go.
+* Compute position vector Traveller, give the target pos and the speed to go.
 */
-vec3 dest_3D_follow_rope;
-vec3 follow(float tx, float ty, float tz, float speed) {
-  if(speed <= 0 || speed > 1) {
-    printErrTempo(120,"vec3 follow(): float speed parameter must be a normal value between 0 and 1\n instead value 1 is attribute to speed");
-    speed = 1.;
+float check_speed_follow(float speed) {
+  if(speed < 0 || speed > 1) {
+    printErrTempo(120,"vec3 follow(): speed parameter must be a normal value between [0.0, 1.0]\n instead value 1 is attribute to speed");
+    speed = 1.0;
   }
-  if(dest_3D_follow_rope == null) dest_3D_follow_rope = vec3();
-  // calcul X pos
-  float dx = tx - dest_3D_follow_rope.x;
-  if(abs(dx) != 0) {
-    dest_3D_follow_rope.x += dx * speed;
-  }
-  // calcul Y pos
-  float dy = ty - dest_3D_follow_rope.y;
-  if(abs(dy) != 0) {
-    dest_3D_follow_rope.y += dy * speed;
-  }
-  // calcul Z pos
-  float dz = tz - dest_3D_follow_rope.z;
-  if(abs(dz) != 0) {
-    dest_3D_follow_rope.z += dz * speed;
-  }
-  return dest_3D_follow_rope;
+  return speed;
 }
 
+vec3 follow(float tx, float ty, float tz, float sx, float sy, float sz, vec3 buf) {
+  sx = check_speed_follow(sx);
+  sy = check_speed_follow(sy);
+  sz = check_speed_follow(sz);
+  // calcul X pos
+  float dx = tx - buf.x();
+  if(abs(dx) != 0) {
+    buf.add_x(dx * sx);
+  }
+  // calcul Y pos
+  float dy = ty - buf.y();
+  if(abs(dy) != 0) {
+    buf.add_y(dy * sy);
+  }
+  // calcul Z pos
+  float dz = tz - buf.z();
+  if(abs(dz) != 0) {
+    buf.add_z(dz * sy);
+  }
+  return buf;
+}
 
 
 
