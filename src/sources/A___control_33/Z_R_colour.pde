@@ -1,6 +1,6 @@
 /**
 * Rope COLOUR
-*v 0.11.4
+*v 0.11.5
 * Copyleft (c) 2016-2021
 * Stan le Punk > http://stanlepunk.xyz/
 * @author @stanlepunk
@@ -690,7 +690,7 @@ float gradient_value(float origin, float destination, float threshold) {
 
 /**
 * plot
-* v 0.1.1
+* v 0.1.3
 * set pixel color with alpha and PGraphics management 
 */
 boolean use_plot_x2_is = false;
@@ -720,8 +720,8 @@ void plot(int x, int y, int colour, float alpha, PGraphics pg) {
 		} 
 		pg.pixels[index] = col;
 		if(use_plot_x2_is) {
-			Integer [] arr = new Integer[calc_plot_neighbourhood(x, y, pg.width, pg.height).size()];
-			arr = calc_plot_neighbourhood(x, y, pg.width, pg.height).toArray(arr);
+			Integer [] arr = new Integer[calc_plot_neighbourhood(index, x, y, pg.width, pg.height).size()];
+			arr = calc_plot_neighbourhood(index, x, y, pg.width, pg.height).toArray(arr);
 			for(int which_one : arr) {
 				pg.pixels[which_one] = col;
 			}
@@ -732,39 +732,26 @@ void plot(int x, int y, int colour, float alpha, PGraphics pg) {
 int index_pixel_array(int x, int y, int w) {
 	return (x + y * w);
 }
-ArrayList<Integer> calc_plot_neighbourhood(int x, int y, int w, int h) {
+ArrayList<Integer> calc_plot_neighbourhood(int index_base, int x, int y, int w, int h) {
 	ArrayList<Integer> arr = new ArrayList<Integer>();
 	int index, tx, ty = 0;
-	int len = x * w;
 
 	if(x < w -1) {
-		tx = x+1;
-		ty = y;
-		index = index_pixel_array(tx, ty, w);
+		index = index_base + 1;
 		arr.add(index);
 	}
-
 	if(x > 0) {
-		tx = x-1;
-		ty = y;
-		index = index_pixel_array(tx, ty, w);
+		index = index_base - 1;
 		arr.add(index);
 	}
-
 	if(y < h -1) {
-		tx = x;
-		ty = y+1;
-		index = index_pixel_array(tx, ty, w);
+		index = index_base + w;
 		arr.add(index);
 	}
-
 	if(y > 0) {
-		tx = x;
-		ty = y-1;
-		index = index_pixel_array(tx, ty, w);
+		index = index_base - w;
 		arr.add(index);
 	}
-
 	return arr;
 }
 

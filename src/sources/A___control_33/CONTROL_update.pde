@@ -1,7 +1,7 @@
 /**
 * Keyboard and Shortcut
 * 2015-2019
-* v 1.2.0
+* v 1.3.0
 */
 /**
 MENU BAR
@@ -19,7 +19,7 @@ void what_happen_in_menu(String what, ActionEvent ae) {
 	// media
 	if(what.equals("media")) {
 		select_input("media");
-		input_is("media",true);
+		input_use("media",true);
 	}
 
 	if(what.equals("import folder")) {

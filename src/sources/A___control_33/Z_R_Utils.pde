@@ -1,6 +1,6 @@
 /**
 * Rope UTILS 
-* v 1.63.2
+* v 1.64.0
 * Copyleft (c) 2014-2021
 * Rope – Romanesco Processing Environment – 
 * @author @stanlepunk
@@ -408,12 +408,23 @@ class Constant_list {
 String warning_input_file_folder_message = "Window was closed or the user hit cancel.";
 String warning_input_file_not_accepted = "This file don't match with any extension accepted:";
 
+
+
+
+
+
+
+
+
+
+
+
 String [] input_type = {  "default",
 													"image","media","movie","shape","sound","text",
 													"load",
 													"preference","setting"
 												};
-R_Input [] input_rope;
+
 
 
 // filter
@@ -470,14 +481,368 @@ void print_extension_filter(String type) {
 
 /*
 * INPUT PART
-* v 0.3.0
-* 2017-2019
+* v 0.4.0
+* 2017-2021
 */
+R_Input rope_input;
+
+void select_input() {
+	select_input("default");
+}
+
+void select_input(String type) {
+	if(rope_input == null) {
+		rope_input = new R_Input();
+	}
+	rope_input.select_input(type);
+}
+
+R_Data_Input get_input(String type) {
+	if(rope_input == null)
+		rope_input = new R_Input();
+	return rope_input.get_input(type);
+}
+
+R_Data_Input [] get_inputs() {
+	if(rope_input == null)
+		rope_input = new R_Input();
+	return rope_input.get_inputs();
+}
+
+R_Data_Input get_input(int target) {
+	if(rope_input == null)
+		rope_input = new R_Input();
+	return rope_input.get_input(target);
+}
+
+boolean input_use_is() {
+	return input_use_is("default");
+}
+
+boolean input_use_is(String type) {
+	if(rope_input == null)
+		rope_input = new R_Input();
+	return rope_input.input_use_is(type);
+}
+
+void input_use(boolean is) {
+	input_use("default" ,is);
+}
+
+void input_use(String type, boolean is) {
+	if(rope_input == null)
+		rope_input = new R_Input();
+	rope_input.input_use(type, is);
+}
+
+String input_path() {
+	return input_path("default");
+}
+
+String input_path(String type) {
+	if(rope_input == null)
+		rope_input = new R_Input();
+	return rope_input.input_path(type);
+}
+
+void reset_input() {
+	reset_input("default");
+}
+
+void reset_input(String type) {
+	if(rope_input == null)
+		rope_input = new R_Input();
+	rope_input.reset_input(type);
+}
+
+File input_file() {
+	return input_file("default");
+}
+
+File input_file(String type) {
+	if(rope_input == null)
+		rope_input = new R_Input();
+	return rope_input.input_file(type);
+}
+
+void set_filter_input(String type, String... extension) {
+	if(rope_input == null)
+		rope_input = new R_Input();
+	rope_input.set_filter_input(type, extension);
+}
+
+
+
+
+
 
 /**
 * class Input
 */
 class R_Input {
+	private R_Data_Input [] input_rope;
+
+	public R_Input() {}
+	
+
+	private void init_input_group() {
+		if(input_rope == null) {
+			input_rope = new R_Data_Input[input_type.length];
+			for(int i = 0 ; i < input_rope.length ; i++) {
+				input_rope[i] = new R_Data_Input();
+				set_input(input_rope[i],input_type[i]);
+			}
+		}
+	}
+
+	private void set_input(R_Data_Input input, String type) { 
+		input.set_type(type);
+		input.set_prompt("select "+type);
+		if(type.equals("default")) input.set_filter(ext_default);
+		else if(type.equals("image")) input.set_filter(ext_image);
+		else if(type.equals("load")) input.set_filter(ext_load);
+		else if(type.equals("media")) input.set_filter(ext_media);
+		else if(type.equals("movie")) input.set_filter(ext_movie);
+		else if(type.equals("preference")) input.set_filter(ext_preference);
+		else if(type.equals("setting")) input.set_filter(ext_setting);
+		else if(type.equals("shape")) input.set_filter(ext_shape);
+		else if(type.equals("sound")) input.set_filter(ext_sound);
+		else if(type.equals("text")) input.set_filter(ext_text);
+	}
+
+
+	public void set_filter_input(String type, String... ext) {
+		init_input_group();
+		if(type.equals("default")) {
+			ext_default = ext;
+		} else if(type.equals("image")) {
+			ext_image = ext;
+		} else if(type.equals("load")) {
+			ext_load = ext;
+		} else if(type.equals("media")) {
+			ext_media = ext;
+		} else if(type.equals("movie")) {
+			ext_movie = ext;
+		} else if(type.equals("preference")) {
+			ext_preference = ext;
+		} else if(type.equals("setting")) {
+			ext_setting = ext;
+		} else if(type.equals("shape")) {
+			ext_shape = ext;
+		} else if(type.equals("sound")) {
+			ext_sound = ext;
+		} else if(type.equals("text")) {
+			ext_text = ext;
+		} else if(type.equals("default")) {
+			ext_default = ext;
+		}
+		set_input(get_input(type),type);
+	}
+
+	// get input
+	String [] get_input_type() {
+		return input_type;
+	}
+
+	public R_Data_Input get_input(String type) {
+		R_Data_Input input = null;
+		if(input_rope != null && input_rope.length > 0) {
+			for(int i = 0 ; i < input_rope.length ; i++) {
+				if(input_rope[i].get_type().equals(type)) {
+					input = input_rope[i];
+					break;
+				}
+			}
+		}
+		return input;
+	}
+
+	public R_Data_Input [] get_inputs() {
+		return input_rope;
+	}
+
+	public R_Data_Input get_input(int target) {
+		if(input_rope != null && target < input_rope.length && target >= 0) {
+			return input_rope[target];
+		} else {
+			return null;
+		}
+	}
+
+	public void select_input(String type) {
+		init_input_group();
+		String context = get_renderer();
+		boolean apply_filter_is = true;
+		if(context.equals(P3D) || context.equals(P2D) || context.equals(FX2D)) {
+			apply_filter_is = false;
+			println("WARNING: method select_input() cannot apply filter extension",type," in this renderer context", context,"\ninstead classic method selectInput() is used");
+		}
+
+		if(!apply_filter_is) {
+			type = "default";
+			for(int i = 0 ; i < input_rope.length ; i++) {
+				if (type.toLowerCase().equals(input_rope[i].get_type())) {  
+					selectInput(input_rope[i].get_prompt(),"select_single_file");
+					break;
+				}
+			}
+		} else if(apply_filter_is) {
+			int check_for_existing_method = 0 ;
+			for(int i = 0 ; i < input_rope.length ; i++) {
+				check_for_existing_method++;
+				if(type.toLowerCase().equals(input_rope[i].get_type())){  
+					select_single_file_filtering(input_rope[i]);
+					break;
+				}
+			}
+
+			if(check_for_existing_method == input_rope.length) {
+				printErr("void select_input(String type) don't find callback method who's match with type: "+type);
+				printErr("type available:");
+				printArray(input_type);
+			}
+		}
+	}
+
+	private void select_single_file(File selection) {
+		if (selection == null) {
+			println("Window was closed or the user hit cancel.");
+		} else {
+			String default_input = "default";
+			for(int i = 0 ; i < input_rope.length ; i++) {
+				if (default_input.toLowerCase().equals(input_rope[i].get_type())) { 
+					// println("method select_single_file_filtering() input default",selection.getAbsolutePath());
+					input_rope[i].set_file(selection);
+					if(input_rope[i].get_file() != null) {
+						println("method select_single_file(",input_rope[i].get_type(),"):",input_rope[i].get_file().getPath());
+					}
+					break;
+				}
+			}  
+		}
+	}
+
+	private int max_filter_input;
+	private String [] temp_filter_list;
+	private void select_single_file_filtering(R_Data_Input input) {
+		Frame frame = null;
+		FileDialog dialog = new FileDialog(frame, input.get_prompt(), FileDialog.LOAD);
+		if(input.get_filter() != null && input.get_filter().length > 0) {
+			temp_filter_list = input.get_filter();
+			dialog.setFilenameFilter(new FilenameFilter() {
+				@Override
+				public boolean accept(File dir, String name) {
+					name = name.toLowerCase();
+					for (int i = 0; i < temp_filter_list.length ; i++) {
+						if (name.endsWith(temp_filter_list[i]))  {
+							return true;
+						}
+					}
+					return false;
+				}}
+			);
+		}  
+		dialog.setVisible(true);
+		String directory = dialog.getDirectory();
+		String filename = dialog.getFile();
+
+		if (filename != null) {
+			input.set_file(new File(directory, filename));
+		}
+		if(input.get_file() != null) {
+			println("method select_single_file_filtering(",input.get_type(),"):",input.get_file().getPath());
+		}
+	}
+
+	// boolean accept_input(String path, String [] ext) {
+	// 	boolean accepted = false;
+	// 	for (int i = ext.length; i-- != 0;) {
+	// 		if (path.endsWith(ext[i]))  {
+	// 			accepted = true;
+	// 			break;
+	// 		}
+	// 	}
+	// 	return accepted;
+	// }
+
+	public void reset_input(String type) {
+		init_input_group();
+		for (int i = input_type.length; i-- != 0;) {
+			if(input_type[i].equals(type)) {
+				input_rope[i].set_is(false);
+				break;
+			}
+		}
+	}
+
+	public boolean input_use_is(String type) {
+		boolean result = false;
+		for (int i = input_type.length; i-- != 0;) {
+			println(input_type[i],type);
+			if(input_type[i].equals(type)) {
+				if(input_rope != null && input_rope[i] != null) {
+					result = input_rope[i].get_is();
+					break;
+				}
+			}
+		}
+		return result;
+	}
+
+	public void input_use(String type, boolean is) {
+		for (int i = input_type.length; i-- != 0;) {
+			if(input_type[i].equals(type)) {
+				input_rope[i].set_is(is);
+				break;
+			}
+		}
+	}
+
+	public String input_path(String type) {
+		String path = null;
+		for (int i = input_type.length; i-- != 0;) {
+			if(input_type[i].equals(type)) {
+				if(input_rope != null) {
+					path = input_rope[i].get_path();
+					break;
+				}
+			}
+		}
+		return path;
+	}
+
+	public File input_file(String type) {
+		File file = null;
+		for (int i = input_type.length; i-- != 0;) {
+			if(input_type[i].equals(type)) {
+				file = input_rope[i].get_file();
+				break;
+			}
+		}
+		return file;
+	}
+
+	private void set_input(String type, File file) {
+		for(int i = 0 ; i < input_rope.length ; i++) {
+			if(type.equals(input_rope[i].get_type())) {
+				input_rope[i].set_file(file);
+				input_rope[i].set_path(file.getAbsolutePath());
+				input_rope[i].set_is(true);
+			}
+		}
+	}
+}
+
+
+
+
+
+
+
+/**
+* R_Data_Input
+*/
+class R_Data_Input {
 	File file = null;
 	String type = null;
 	String callback = null;
@@ -485,7 +850,7 @@ class R_Input {
 	String prompt = null;
 	String [] filter = null;
 	boolean is;
-	R_Input() { }
+	R_Data_Input() { }
 	
 	// set
 	void set_file(File file) {
@@ -554,312 +919,8 @@ class R_Input {
 
 
 
-/**
-* method input
-*/
-// set input
-void init_input_group() {
-	if(input_rope == null) {
-		input_rope = new R_Input[input_type.length];
-		for(int i = 0 ; i < input_rope.length ; i++) {
-			input_rope[i] = new R_Input();
-			set_input(input_rope[i],input_type[i]);
-		}
-	}
-}
-
-void set_input(R_Input input, String type) { 
-	input.set_type(type);
-	input.set_prompt("select "+type);
-	if(type.equals("default")) input.set_filter(ext_default);
-	else if(type.equals("image")) input.set_filter(ext_image);
-	else if(type.equals("load")) input.set_filter(ext_load);
-	else if(type.equals("media")) input.set_filter(ext_media);
-	else if(type.equals("movie")) input.set_filter(ext_movie);
-	else if(type.equals("preference")) input.set_filter(ext_preference);
-	else if(type.equals("setting")) input.set_filter(ext_setting);
-	else if(type.equals("shape")) input.set_filter(ext_shape);
-	else if(type.equals("sound")) input.set_filter(ext_sound);
-	else if(type.equals("text")) input.set_filter(ext_text);
-}
 
 
-void set_filter_input(String type, String... ext) {
-	init_input_group();
-	if(type.equals("default")) {
-		ext_default = ext;
-	} else if(type.equals("image")) {
-		ext_image = ext;
-	} else if(type.equals("load")) {
-		ext_load = ext;
-	} else if(type.equals("media")) {
-		ext_media = ext;
-	} else if(type.equals("movie")) {
-		ext_movie = ext;
-	} else if(type.equals("preference")) {
-		ext_preference = ext;
-	} else if(type.equals("setting")) {
-		ext_setting = ext;
-	} else if(type.equals("shape")) {
-		ext_shape = ext;
-	} else if(type.equals("sound")) {
-		ext_sound = ext;
-	} else if(type.equals("text")) {
-		ext_text = ext;
-	} else if(type.equals("default")) {
-		ext_default = ext;
-	}
-	set_input(get_input(type),type);
-}
-
-
-
-
-
-
-
-
-
-
-// get input
-String [] get_input_type() {
-	return input_type;
-}
-
-R_Input get_input(String type) {
-	R_Input input = null;
-	if(input_rope != null && input_rope.length > 0) {
-		for(int i = 0 ; i < input_rope.length ; i++) {
-			if(input_rope[i].get_type().equals(type)) {
-				input = input_rope[i];
-				break;
-			}
-		}
-	}
-	return input;
-}
-
-R_Input [] get_inputs() {
-	return input_rope;
-}
-
-R_Input get_input(int target) {
-	if(input_rope != null && target < input_rope.length && target >= 0) {
-		return input_rope[target];
-	} else {
-		return null;
-	}
-}
-
-
-
-void select_input() {
-	select_input("default");
-}
-
-void select_input(String type) {
-	init_input_group();
-	String context = get_renderer();
-	boolean apply_filter_is = true;
-	if(context.equals(P3D) || context.equals(P2D) || context.equals(FX2D)) {
-		apply_filter_is = false;
-		println("WARNING: method select_input() cannot apply filter extension",type," in this renderer context", context,"\ninstead classic method selectInput() is used");
-	}
-
-
-	// selectInput(input.get_prompt(),"select_single_file");
-	if(!apply_filter_is) {
-		type = "default";
-		for(int i = 0 ; i < input_rope.length ; i++) {
-			if (type.toLowerCase().equals(input_rope[i].get_type())) {  
-				selectInput(input_rope[i].get_prompt(),"select_single_file");
-				break;
-			}
-		}
-	} else if(apply_filter_is) {
-		int check_for_existing_method = 0 ;
-		for(int i = 0 ; i < input_rope.length ; i++) {
-			check_for_existing_method++;
-			if(type.toLowerCase().equals(input_rope[i].get_type())){  
-				select_single_file_filtering(input_rope[i]);
-				break;
-			}
-		}
-
-		if(check_for_existing_method == input_rope.length) {
-			printErr("void select_input(String type) don't find callback method who's match with type: "+type);
-			printErr("type available:");
-			printArray(input_type);
-		}
-	}
-}
-
-
-void select_single_file(File selection) {
-	if (selection == null) {
-		println("Window was closed or the user hit cancel.");
-	} else {
-		String default_input = "default";
-		for(int i = 0 ; i < input_rope.length ; i++) {
-			if (default_input.toLowerCase().equals(input_rope[i].get_type())) { 
-				// println("method select_single_file_filtering() input default",selection.getAbsolutePath());
-				input_rope[i].set_file(selection);
-				if(input_rope[i].get_file() != null) {
-					println("method select_single_file(",input_rope[i].get_type(),"):",input_rope[i].get_file().getPath());
-				}
-				break;
-			}
-		}  
-	}
-	
-}
-
-
-
-int max_filter_input;
-String [] temp_filter_list;
-void select_single_file_filtering(R_Input input) {
-	Frame frame = null;
-	FileDialog dialog = new FileDialog(frame, input.get_prompt(), FileDialog.LOAD);
-	if(input.get_filter() != null && input.get_filter().length > 0) {
-		temp_filter_list = input.get_filter();
-		dialog.setFilenameFilter(new FilenameFilter() {
-			@Override
-			public boolean accept(File dir, String name) {
-				name = name.toLowerCase();
-				for (int i = 0; i < temp_filter_list.length ; i++) {
-					if (name.endsWith(temp_filter_list[i]))  {
-						return true;
-					}
-				}
-				return false;
-			}}
-		);
-	}  
-	dialog.setVisible(true);
-	String directory = dialog.getDirectory();
-	String filename = dialog.getFile();
-
-	if (filename != null) {
-		input.set_file(new File(directory, filename));
-	}
-	if(input.get_file() != null) {
-		println("method select_single_file_filtering(",input.get_type(),"):",input.get_file().getPath());
-	}
-}
-
-
-
-
-
-boolean accept_input(String path, String [] ext) {
-	boolean accepted = false;
-	for (int i = ext.length; i-- != 0;) {
-		if (path.endsWith(ext[i]))  {
-			accepted = true;
-			break;
-		}
-	}
-	return accepted;
-}
-
-
-
-
-boolean input_is() {
-	return input_is("default");
-}
-
-boolean input_is(String type) {
-	boolean result = false;
-	for (int i = input_type.length; i-- != 0;) {
-		if(input_type[i].equals(type)) {
-			if(input_rope != null && input_rope[i] != null) {
-				result = input_rope[i].get_is();
-				break;
-			}
-		}
-	}
-	return result;
-}
-
-
-
-void reset_input() {
-	reset_input("default");;
-}
-
-void reset_input(String type) {
-	init_input_group();
-	for (int i = input_type.length; i-- != 0;) {
-		if(input_type[i].equals(type)) {
-			input_rope[i].set_is(false);
-			break;
-		}
-	}
-}
-
-
-void input_is(boolean is) {
-	input_is("default",is);;
-}
-
-void input_is(String type, boolean is) {
-	for (int i = input_type.length; i-- != 0;) {
-		if(input_type[i].equals(type)) {
-			input_rope[i].set_is(is);
-			break;
-		}
-	}
-}
-
-
-String input() {
-	return input("default");
-}
-
-
-String input(String type) {
-	String path = null;
-	for (int i = input_type.length; i-- != 0;) {
-		if(input_type[i].equals(type)) {
-			if(input_rope != null) {
-				path = input_rope[i].get_path();
-				break;
-			}
-		}
-	}
-	return path;
-}
-
-File input_file() {
-	return input_file("default");
-
-}
-
-File input_file(String type) {
-	File file = null;
-	for (int i = input_type.length; i-- != 0;) {
-		if(input_type[i].equals(type)) {
-			file = input_rope[i].get_file();
-			break;
-		}
-	}
-	return file;
-}
-
-
-
-
-void set_input(String type, File file) {
-	for(int i = 0 ; i < input_rope.length ; i++) {
-		if(type.equals(input_rope[i].get_type())) {
-			input_rope[i].set_file(file);
-			input_rope[i].set_path(file.getAbsolutePath());
-			input_rope[i].set_is(true);
-		}
-	}
-}
 
 
 
@@ -871,175 +932,214 @@ void set_input(String type, File file) {
 
 /*
 * FOLDER PART
-* v 0.1.3
-* 2017-2019
+* v 0.2.1
+* 2017-2021
 */
-String selected_path_folder = null;
-boolean folder_selected_is;
-boolean explore_subfolder_is = false;
+R_Folder rope_folder;
+void explore_folder(String path, String... extension) {
+	explore_folder(path, false, extension);
+}
+
+void explore_folder(String path, boolean check_sub_folder, String... extension) {
+	// printArray(extension);
+	if(rope_folder == null)
+		rope_folder = new R_Folder();
+	rope_folder.explore_folder(path, check_sub_folder, extension);
+}
+
+String folder() {
+	if(rope_folder == null)
+		rope_folder = new R_Folder();
+	return rope_folder.folder();
+}
+
+ArrayList<File> get_files() {
+	return rope_folder.get_files();
+}
 
 void select_folder() {
 	select_folder("");
 }
 
 void select_folder(String message) {
-	selectFolder(message, "folder_selected");
+	if(rope_folder == null)
+		rope_folder = new R_Folder();
+	rope_folder.select_folder(message);
 }
 
-
-
 /**
-* this method is called by method select_folder(), and the method name must be the same as named
+* this method is called by method select_folder() in class R_Folder
+* and the method name must be the same as named
 */
-void folder_selected(File selection) {
+void rope_select_folder(File selection) {
 	if (selection == null) {
 		println(warning_input_file_folder_message);
 	} else {
 		println("Folder path is:" +selection.getAbsolutePath());
-		selected_path_folder = selection.getAbsolutePath();
-		folder_selected_is = true;
-	}
-}
-
-
-void explore_subfolder_is(boolean is) {
-	explore_subfolder_is = is;
-}
-
-boolean explore_subfolder_is() {
-	return explore_subfolder_is;
-}
-
-boolean folder_is() {
-	return folder_selected_is;
-}
-
-void reset_folder() {
-	folder_selected_is = false;
-}
-
-void folder_is(boolean is) {
-	folder_selected_is = is;
-}
-
-String folder() {
-	return selected_path_folder;
-}
-
-
-// check what's happen in the selected folder
-ArrayList <File> files;
-int count_selection;
-
-void set_media_list() {
-	if(files == null) {
-		files = new ArrayList<File>(); 
-	} else {
-		files.clear();
-	}
-}
-
-
-
-ArrayList<File> get_files() {
-	return files ;
-}
-
-
-String [] get_files_sort() {
-	if(files != null) {
-		String [] list = new String [files.size()];
-		for(int i = 0 ; i < get_files().size() ; i++) {
-			File f = get_files().get(i);
-			list[i] = f.getAbsolutePath();
-		}
-		Arrays.sort(list);
-		return list;
-
-	} else return null ;
-
-}
-
-void explore_folder(String path_folder, String... extension) {
-	explore_folder(path_folder, false, extension);
-}
-
-void explore_folder(String path, boolean check_sub_folder, String... extension) {
-	if((folder_input_default_is() || input_is()) && path != ("")) {
-		count_selection++ ;
-		set_media_list();
- 
-		ArrayList allFiles = list_files(path, check_sub_folder);
-	
-		String file_name = "";
-		int count_pertinent_file = 0 ;
-	
-		for (int i = 0; i < allFiles.size(); i++) {
-			File f = (File) allFiles.get(i);   
-			file_name = f.getName(); 
-			// Add it to the list if it's not a directory
-			if (f.isDirectory() == false) {
-				for(int k = 0 ; k < extension.length ; k++) {
-					String ext = extension[k].toLowerCase();
-					if(extension(file_name) != null && extension(file_name).equals(ext)) {
-						count_pertinent_file += 1 ;
-						println(count_pertinent_file, "/", i, f.getName());
-						files.add(f);
-					}
-				}
-			}
-		}
-		// to don't loop with this void
-		reset_folder_input_default();
-		reset_input();
+		rope_folder.selected_path_folder = selection.getAbsolutePath();
+		rope_folder.folder_selected_is = true;
 	}
 }
 
 boolean folder_input_default_is() {
-	return folder_selected_is;
+	if(rope_folder == null)
+		rope_folder = new R_Folder();
+	return rope_folder.folder_input_default_is();
+}
+
+boolean folder_is() {
+	if(rope_folder == null)
+		rope_folder = new R_Folder();
+	return rope_folder.folder_is();
+}
+
+void folder_is(boolean is) {
+	if(rope_folder == null)
+		rope_folder = new R_Folder();
+	rope_folder.folder_is(is);
 }
 
 
-void reset_folder_input_default() {
-	folder_selected_is = false ;
-}
+public class R_Folder {
+	private String selected_path_folder = null;
+	private boolean folder_selected_is;
+	private boolean explore_subfolder_is = false;
+	private ArrayList <File> files;
+	private int count_selection;
 
+	public R_Folder() {
+		selected_path_folder = null;
+		folder_selected_is = false;
+		explore_subfolder_is = false;
+	}
 
+	public void select_folder(String message) {
+		selectFolder(message, "rope_select_folder");
+	}
 
+	private void explore_subfolder_is(boolean is) {
+		explore_subfolder_is = is;
+	}
 
-// Method to get a list of all files in a directory and all subdirectories
-ArrayList list_files(String dir, boolean check_sub_folder) {
-	ArrayList fileList = new ArrayList(); 
-	if(check_sub_folder) { 
-		explore_directory(fileList, dir);
-	} else {
-		if(folder_selected_is) {
-			File file = new File(dir);
-			File[] subfiles = file.listFiles();
-			for(int i = 0 ; i < subfiles.length ; i++) {
-				fileList.add(subfiles[i]);
-			}
-		} else if(input_is()) {
-			File file = new File(dir);
-			fileList.add(file);
+	private boolean explore_subfolder_is() {
+		return explore_subfolder_is;
+	}
+
+	public boolean folder_is() {
+		return folder_selected_is;
+	}
+
+	private void reset_folder() {
+		folder_selected_is = false;
+	}
+
+	public void folder_is(boolean is) {
+		folder_selected_is = is;
+	}
+
+	public String folder() {
+		return selected_path_folder;
+	}
+
+	private void set_media_list() {
+		if(files == null) {
+			files = new ArrayList<File>(); 
+		} else {
+			files.clear();
 		}
 	}
-	return fileList;
-}
 
-// Recursive function to traverse subdirectories
-void explore_directory(ArrayList list_file, String dir) {
-	File file = new File(dir);
-	if (file.isDirectory()) {
-		list_file.add(file);  // include directories in the list
+	public ArrayList<File> get_files() {
+		return files ;
+	}
 
-		File[] subfiles = file.listFiles();
-		for (int i = 0; i < subfiles.length; i++) {
-			// Call this function on all files in this directory
-			explore_directory(list_file, subfiles[i].getAbsolutePath());
+	private String [] get_files_sort() {
+		if(files != null) {
+			String [] list = new String [files.size()];
+			for(int i = 0 ; i < get_files().size() ; i++) {
+				File f = get_files().get(i);
+				list[i] = f.getAbsolutePath();
+			}
+			Arrays.sort(list);
+			return list;
+
+		} else return null ;
+
+	}
+
+	public void explore_folder(String path, boolean check_sub_folder, String... extension) {
+		if((folder_input_default_is() || input_use_is()) && path != ("")) {
+			count_selection++ ;
+			set_media_list();
+	
+			ArrayList allFiles = list_files(path, check_sub_folder);
+		
+			String file_name = "";
+			int count_pertinent_file = 0 ;
+		
+			for (int i = 0; i < allFiles.size(); i++) {
+				File f = (File) allFiles.get(i);   
+				file_name = f.getName(); 
+				// Add it to the list if it's not a directory
+				if (f.isDirectory() == false) {
+					for(int k = 0 ; k < extension.length ; k++) {
+						String ext = extension[k].toLowerCase();
+						if(extension(file_name) != null && extension(file_name).equals(ext)) {
+							count_pertinent_file += 1 ;
+							println(count_pertinent_file, "/", i, f.getName());
+							files.add(f);
+						}
+					}
+				}
+			}
+			// to don't loop with this void
+			reset_folder_input_default();
+			reset_input();
 		}
-	} else {
-		list_file.add(file);
+	}
+
+	public boolean folder_input_default_is() {
+		return folder_selected_is;
+	}
+
+	private void reset_folder_input_default() {
+		folder_selected_is = false ;
+	}
+
+	// Method to get a list of all files in a directory and all subdirectories
+	private ArrayList list_files(String dir, boolean check_sub_folder) {
+		ArrayList fileList = new ArrayList(); 
+		if(check_sub_folder) { 
+			explore_directory(fileList, dir);
+		} else {
+			if(folder_selected_is) {
+				File file = new File(dir);
+				File[] subfiles = file.listFiles();
+				for(int i = 0 ; i < subfiles.length ; i++) {
+					fileList.add(subfiles[i]);
+				}
+			} else if(input_use_is()) {
+				File file = new File(dir);
+				fileList.add(file);
+			}
+		}
+		return fileList;
+	}
+
+	// Recursive function to traverse subdirectories
+	private void explore_directory(ArrayList list_file, String dir) {
+		File file = new File(dir);
+		if (file.isDirectory()) {
+			list_file.add(file);  // include directories in the list
+
+			File[] subfiles = file.listFiles();
+			for (int i = 0; i < subfiles.length; i++) {
+				// Call this function on all files in this directory
+				explore_directory(list_file, subfiles[i].getAbsolutePath());
+			}
+		} else {
+			list_file.add(file);
+		}
 	}
 }
 
