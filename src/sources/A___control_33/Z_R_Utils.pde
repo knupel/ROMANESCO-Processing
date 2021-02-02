@@ -1,6 +1,6 @@
 /**
 * Rope UTILS 
-* v 1.64.0
+* v 1.64.4
 * Copyleft (c) 2014-2021
 * Rope – Romanesco Processing Environment – 
 * @author @stanlepunk
@@ -403,20 +403,10 @@ class Constant_list {
 
 /**
 * FOLDER & FILE MANAGER
-* v 0.8.0
+* v 0.8.1
 */
 String warning_input_file_folder_message = "Window was closed or the user hit cancel.";
-String warning_input_file_not_accepted = "This file don't match with any extension accepted:";
-
-
-
-
-
-
-
-
-
-
+String warning_input_file_not_accepted = ANSI_RED+"This file don't match with any extension accepted:"+ANSI_WHITE;
 
 
 String [] input_type = {  "default",
@@ -467,7 +457,7 @@ void print_extension_filter(String type) {
 					break;
 				}
 				if(count == input_type.length) {
-					printErr("method print_extension_filter(): no input available for this type:",type);
+					printErr(ANSI_RED+"method print_extension_filter(): no input available for this type:"+ANSI_WHITE,type);
 				}
 			}
 		}
@@ -481,7 +471,7 @@ void print_extension_filter(String type) {
 
 /*
 * INPUT PART
-* v 0.4.0
+* v 1.0.1
 * 2017-2021
 */
 R_Input rope_input;
@@ -572,17 +562,43 @@ void set_filter_input(String type, String... extension) {
 }
 
 
+/**
+* this method is called by method selectInput() in class R_Input
+* and the method name must be the same as named
+*/
+void select_single_file(File selection) {
+	if (selection == null) {
+		println("Window was closed or the user hit cancel.");
+	} else {
+		String default_input = "default";
+		for(int i = 0 ; i < get_inputs().length ; i++) {
+			if (default_input.toLowerCase().equals(get_input(i).get_type())) { 
+				get_input(i).set_file(selection);
+				if(get_input(i).get_file() != null) {
+					println("method select_single_file(",get_input(i).get_type(),"):",get_input(i).get_file().getPath());
+				}
+				break;
+			}
+		}  
+	}
+}
+
+
 
 
 
 
 /**
 * class Input
+* 2021-2021
+* v 0.0.3
 */
 class R_Input {
 	private R_Data_Input [] input_rope;
 
-	public R_Input() {}
+	public R_Input() {
+		init_input_group();
+	}
 	
 
 	private void init_input_group() {
@@ -612,7 +628,6 @@ class R_Input {
 
 
 	public void set_filter_input(String type, String... ext) {
-		init_input_group();
 		if(type.equals("default")) {
 			ext_default = ext;
 		} else if(type.equals("image")) {
@@ -640,7 +655,7 @@ class R_Input {
 	}
 
 	// get input
-	String [] get_input_type() {
+	private String [] get_input_type() {
 		return input_type;
 	}
 
@@ -670,12 +685,11 @@ class R_Input {
 	}
 
 	public void select_input(String type) {
-		init_input_group();
 		String context = get_renderer();
 		boolean apply_filter_is = true;
 		if(context.equals(P3D) || context.equals(P2D) || context.equals(FX2D)) {
 			apply_filter_is = false;
-			println("WARNING: method select_input() cannot apply filter extension",type," in this renderer context", context,"\ninstead classic method selectInput() is used");
+			println(ANSI_RED+"WARNING:"+ANSI_WHITE+" method select_input(String type) cannot apply filter extension"+ANSI_RED,type,ANSI_WHITE+"\nin this renderer context"+ANSI_RED, context,ANSI_WHITE+"instead classic method selectInput() is used");
 		}
 
 		if(!apply_filter_is) {
@@ -701,24 +715,6 @@ class R_Input {
 				printErr("type available:");
 				printArray(input_type);
 			}
-		}
-	}
-
-	private void select_single_file(File selection) {
-		if (selection == null) {
-			println("Window was closed or the user hit cancel.");
-		} else {
-			String default_input = "default";
-			for(int i = 0 ; i < input_rope.length ; i++) {
-				if (default_input.toLowerCase().equals(input_rope[i].get_type())) { 
-					// println("method select_single_file_filtering() input default",selection.getAbsolutePath());
-					input_rope[i].set_file(selection);
-					if(input_rope[i].get_file() != null) {
-						println("method select_single_file(",input_rope[i].get_type(),"):",input_rope[i].get_file().getPath());
-					}
-					break;
-				}
-			}  
 		}
 	}
 
@@ -766,7 +762,6 @@ class R_Input {
 	// }
 
 	public void reset_input(String type) {
-		init_input_group();
 		for (int i = input_type.length; i-- != 0;) {
 			if(input_type[i].equals(type)) {
 				input_rope[i].set_is(false);
@@ -778,7 +773,6 @@ class R_Input {
 	public boolean input_use_is(String type) {
 		boolean result = false;
 		for (int i = input_type.length; i-- != 0;) {
-			println(input_type[i],type);
 			if(input_type[i].equals(type)) {
 				if(input_rope != null && input_rope[i] != null) {
 					result = input_rope[i].get_is();
@@ -835,12 +829,10 @@ class R_Input {
 
 
 
-
-
-
-
 /**
 * R_Data_Input
+* 2017-2021
+* v 0.2.0
 */
 class R_Data_Input {
 	File file = null;
@@ -932,7 +924,7 @@ class R_Data_Input {
 
 /*
 * FOLDER PART
-* v 0.2.1
+* v 1.0.1
 * 2017-2021
 */
 R_Folder rope_folder;
@@ -967,6 +959,12 @@ void select_folder(String message) {
 	rope_folder.select_folder(message);
 }
 
+boolean folder_input_default_is() {
+	if(rope_folder == null)
+		rope_folder = new R_Folder();
+	return rope_folder.folder_input_default_is();
+}
+
 /**
 * this method is called by method select_folder() in class R_Folder
 * and the method name must be the same as named
@@ -981,25 +979,15 @@ void rope_select_folder(File selection) {
 	}
 }
 
-boolean folder_input_default_is() {
-	if(rope_folder == null)
-		rope_folder = new R_Folder();
-	return rope_folder.folder_input_default_is();
-}
-
-boolean folder_is() {
-	if(rope_folder == null)
-		rope_folder = new R_Folder();
-	return rope_folder.folder_is();
-}
-
-void folder_is(boolean is) {
-	if(rope_folder == null)
-		rope_folder = new R_Folder();
-	rope_folder.folder_is(is);
-}
 
 
+
+
+/**
+* Class R_Folder
+* 2021-2021
+* v 0.0.2
+*/
 public class R_Folder {
 	private String selected_path_folder = null;
 	private boolean folder_selected_is;
@@ -1025,16 +1013,8 @@ public class R_Folder {
 		return explore_subfolder_is;
 	}
 
-	public boolean folder_is() {
-		return folder_selected_is;
-	}
-
 	private void reset_folder() {
 		folder_selected_is = false;
-	}
-
-	public void folder_is(boolean is) {
-		folder_selected_is = is;
 	}
 
 	public String folder() {

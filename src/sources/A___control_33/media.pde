@@ -75,7 +75,6 @@ void add_media() {
         println(f.getAbsolutePath());
         add_media(f.getAbsolutePath());
       }
-      folder_is(false);
       get_files().clear();
     }
     autosave();  

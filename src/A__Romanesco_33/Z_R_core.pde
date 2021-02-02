@@ -49,13 +49,8 @@ to use the interface Rope_constants...
 that's cool but that's very weird !!!!!
 */
 Rope r;
-/*
-public void init_rope() {
-  r = new Rope();
-  println("Romanesco Processing Environment - 2015-2019");
-}
-*/
-String rope_framework_version = "1.3.3.73";
+
+String rope_framework_version = "1.3.4.75";
 public void rope_version() {
 	r = new Rope();
 	println("Romanesco Processing Environment - 2015-2021");
