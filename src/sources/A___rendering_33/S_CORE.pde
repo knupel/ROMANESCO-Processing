@@ -1,7 +1,7 @@
 /**
 * CORE RENDERING
-* 2015-2019
-* v 1.12.1
+* 2015-2021
+* v 1.12.2
 */
 import java.net.*;
 import java.io.*;
@@ -18,6 +18,9 @@ import processing.net.*;
 import processing.pdf.*;
 
 import codeanticode.syphon.*;
+
+import rope.mesh.R_Node;
+import rope.mesh.R_Face;
 
 
 /**

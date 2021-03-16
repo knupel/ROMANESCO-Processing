@@ -1,8 +1,12 @@
 /**
 * R_Bloc method
-* v 0.1.0
-* 2019-2019
+* v 0.1.1
+* 2019-2021
 */
+import rope.mesh.R_Bloc;
+import rope.mesh.R_Megabloc;
+import rope.mesh.R_Plane;
+
 R_Bloc create_bloc(vec2 [] points) {
 	R_Bloc bloc = new R_Bloc(this,width,height);
 	for(vec2 v : points) {
@@ -359,11 +363,11 @@ R_Megabloc read_megabloc(String [] file_type_blc, boolean original_canvas_is, bo
 		String bloc_info [] = file_type_blc[i].split(",");
 		if(bloc_info[0].contains("bloc") && bloc_info[2].contains("complexity")
 				&& bloc_info[3].contains("fill") && bloc_info[4].contains("stroke") && bloc_info[5].contains("thickness")) {
-			R_Bloc b = new R_Bloc(this,mb.width,mb.height);;
+			R_Bloc b = new R_Bloc(this,mb.get_width(),mb.get_height());;
 			b.set_magnetism(mag);
-			b.set_fill(atoi(bloc_info[3].split(":")[1]));
-			b.set_stroke(atoi(bloc_info[4].split(":")[1]));
-			b.set_thickness(atof(bloc_info[5].split(":")[1]));
+			b.fill(atoi(bloc_info[3].split(":")[1]));
+			b.stroke(atoi(bloc_info[4].split(":")[1]));
+			b.thickness(atof(bloc_info[5].split(":")[1]));
 			int start = 5;
 			for(int n = start ; n < bloc_info.length ; n++) {
 				if(bloc_info[n].contains("type")) {

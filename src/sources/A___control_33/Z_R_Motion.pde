@@ -18,7 +18,10 @@ Rope – Romanesco Processing Environment –
 */
 /**
 * follow
-* v 0.3.0
+* v 0.3.1
+* WARNING
+* the argument buf is use to buffering ans store the position in most of case this value is set at like vec2() or vec3()
+* but you can use to reset the starting position.
 */
 
 vec2 follow(vec2 target, float speed, vec2 buf) {

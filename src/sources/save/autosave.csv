@@ -123,9 +123,9 @@ Slider item d,60,0.0,1.0,1,0.0,,,,,,-2,,,,,
 Slider item d,61,0.0,1.0,1,0.0,,,,,,-2,,,,,
 Slider item d,62,0.0,1.0,1,0.0,,,,,,-2,,,,,
 Slider item d,63,0.0,1.0,1,0.0,,,,,,-2,,,,,
-Item,,,,,,,,,,,,1,1,Arbre,ArbreRomanesco,
+Item,,,,,,,,,,,,1,0,Arbre,ArbreRomanesco,
 Item,,,,,,,,,,,,2,0,Atome,Atome,
-Item,,,,,,,,,,,,3,1,Balise,BaliseRomanesco,
+Item,,,,,,,,,,,,3,0,Balise,BaliseRomanesco,
 Item,,,,,,,,,,,,4,0,Boids,Boids,
 Item,,,,,,,,,,,,5,0,BoumBoum,BoumBoum,
 Item,,,,,,,,,,,,6,0,Boxolyzer,Boxolyzer,
@@ -138,119 +138,25 @@ Item,,,,,,,,,,,,12,0,FF Flux,Flux,
 Item,,,,,,,,,,,,13,0,Grillo,Grillo,
 Item,,,,,,,,,,,,14,0,Nid d'abeille,Honeycomb,
 Item,,,,,,,,,,,,15,0,Horloge,Horloge,
-Item,,,,,,,,,,,,16,1,Kino,Kino,
+Item,,,,,,,,,,,,16,0,Kino,Kino,
 Item,,,,,,,,,,,,17,0,Kofosphere,Kofosphere,
 Item,,,,,,,,,,,,18,0,Lignes,Lignes,
 Item,,,,,,,,,,,,19,0,Lorenz attractor,Lorenz,
 Item,,,,,,,,,,,,20,0,Lyric,Lyric,
-Item,,,,,,,,,,,,21,1,Mer,Mer,
+Item,,,,,,,,,,,,21,0,Mer,Mer,
 Item,,,,,,,,,,,,22,0,Orbital,Orbital,
-Item,,,,,,,,,,,,23,1,Photomontage,Photomontage,
+Item,,,,,,,,,,,,23,0,Photomontage,Photomontage,
 Item,,,,,,,,,,,,24,0,Pulsar,Pulsar,
 Item,,,,,,,,,,,,25,0,FF Puppet Master,Puppet_master,
-Item,,,,,,,,,,,,26,0,Rosace,Rosace,
+Item,,,,,,,,,,,,26,1,Rosace,Rosace,
 Item,,,,,,,,,,,,27,0,Rubis,Rubis,
-Item,,,,,,,,,,,,28,1,Simple,Simple,
+Item,,,,,,,,,,,,28,0,Simple,Simple,
 Item,,,,,,,,,,,,29,0,Soleil,Soleil,
-Item,,,,,,,,,,,,30,1,Spirale,Spirale_romanesco,
+Item,,,,,,,,,,,,30,0,Spirale,Spirale_romanesco,
 Item,,,,,,,,,,,,31,0,Surface,Surface,
 Item,,,,,,,,,,,,32,0,The Abbyss,The_Abbyss,
 Item,,,,,,,,,,,,33,0,Vectorial,Vectorial,
 Item,,,,,,,,,,,,34,0,Webcam,Webcam,
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/MEDIA/MEDIA ROMANESCO/FILM/extrait_film/aliens_ripley_exosquelette.mov
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/MEDIA/MEDIA ROMANESCO/FILM/extrait_film/Snatch_fight.mov
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/MEDIA/MEDIA ROMANESCO/FILM/extrait_film/blade_runner_intro.mp4
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/MEDIA/MEDIA ROMANESCO/FILM/extrait_film/Mad_Max_Fury.mov
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/MEDIA/MEDIA ROMANESCO/FILM/extrait_film/Temps_moderne_chaplin.mov
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/MEDIA/MEDIA ROMANESCO/FILM/extrait_film/alien_1_9e_pasager_ripley_extrait.mov
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/MEDIA/MEDIA ROMANESCO/FILM/extrait_film/français/Singe_en_hiver_bistro_0.mov
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/MEDIA/MEDIA ROMANESCO/FILM/extrait_film/français/Singe_en_hiver_bistro_1.mov
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/MEDIA/MEDIA ROMANESCO/FILM/extrait_film/français/Les_galettes_de_Pont_aven.mov
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/MEDIA/MEDIA ROMANESCO/FILM/extrait_film/français/Zazie_tour_eiffel.mov
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/MEDIA/MEDIA ROMANESCO/FILM/extrait_film/français/La_haine_la_merguez.mov
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/MEDIA/MEDIA ROMANESCO/FILM/extrait_film/français/Traversée_de_paris_bistro.mov
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/MEDIA/MEDIA ROMANESCO/FILM/extrait_film/français/Bernie_oiseau.mov
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/MEDIA/MEDIA ROMANESCO/FILM/extrait_film/français/Calmos_intro.mov
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/veg_12.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/veg_6.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/veg_13.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/veg_11.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/veg_5.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/veg_4.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/veg_10.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/veg_1.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/veg_3.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/veg_2.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_11.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_5.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/bete_3.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_17.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_16.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/bete_2.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_4.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_10.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_12.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_6.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_14.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_15.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/bete_1.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_7.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_13.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_3.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_17.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/bete_5.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_11.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_10.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/bete_4.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_16.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_2.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_8.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_14.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/bete_6.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_12.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_13.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/bete_7.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_15.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_1.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_9.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_4.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_19.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_5.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_7.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_6.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_2.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/ferme.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_18.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_19.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_3.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/aff_1.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_9.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/humain_8.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/veg_9.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/PROJET/Ferme_du_buisson/import/veg_8.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/MEDIA/MEDIA ROMANESCO/mire_grille_etc/damier_boule_medium.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/GRAPHISME/366/source/Chocolats Dolfin/1 - Dolfin noir amandes grillées.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/GRAPHISME/366/source/Chocolats Dolfin/Dolfin_70g_Nougat_miel.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/GRAPHISME/366/source/Chocolats Dolfin/Tohi_Noisettes_café.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/GRAPHISME/366/source/Chocolats Dolfin/4 - Dolfin noir gingembre frais.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/GRAPHISME/366/source/Chocolats Dolfin/Dolfin_70g_70Feve_cacao.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/GRAPHISME/366/source/Chocolats Dolfin/2 - tablette-de-chocolat-au-lait-nougat-et-miel-dolfin.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/GRAPHISME/366/source/Chocolats Dolfin/Tohi_Abricots_amandes.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/GRAPHISME/366/source/Chocolats Dolfin/3 - dolfin-tablette-de-chocolat-noir-70-feves-de-cacao-70-g-600603-fr.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/GRAPHISME/366/source/Chocolats Dolfin/9 - dolfin-tablette-de-chocolat-noir-aux-ecorces-dorange-70-g-600633-fr.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/GRAPHISME/366/source/Chocolats Dolfin/7 - Dolfin noir biscuit sablé et fleur de sel.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/GRAPHISME/366/source/Chocolats Dolfin/8 - Dolfin-Macadamia-600x600.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/GRAPHISME/366/source/Chocolats Dolfin/10 - dolfin-tablette-de-chocolat-noir-au-poivre-rose-70-g-600693-fr.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/GRAPHISME/366/source/Chocolats Dolfin/Dolfin_70g_biscuit_sable.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/GRAPHISME/366/source/Chocolats Dolfin/Dolfin_70g_amandesgrillees_lait.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/GRAPHISME/366/source/Chocolats Dolfin/Dolfin_70g_70cacao_fleurdesel.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/GRAPHISME/366/source/Chocolats Dolfin/Dolfin_70g_Poire.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/GRAPHISME/366/source/Chocolats Dolfin/6 - Dolfin noir poires et amandes grillées.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/GRAPHISME/366/source/Chocolats Dolfin/dolfin.png
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/GRAPHISME/366/source/Chocolats Dolfin/5 -Dolfin noir fruits rouges et graines de lin.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/GRAPHISME/366/source/FAP/FAP_LABEL_RS_1200x1200px_labellise_NB.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/GRAPHISME/366/source/FAP/label-fp-logo-800px.jpg
-Media,,,,,,,,,,,,,,,,/Users/stan/En_cours/BOULOT/GRAPHISME/366/source/FAP/fabrique_a_paris.jpeg
 Button item,,,,,,,,,0,0,0,,,,,
 Button item,,,,,,,,,1,0,0,,,,,
 Button item,,,,,,,,,2,0,0,,,,,
@@ -279,7 +185,7 @@ Button transient,,,,,,,,,20,0,0,,,,,
 Button item,,,,,,,,,4,0,-2,,,,,
 Button item,,,,,,,,,5,0,-2,,,,,
 Button item,,,,,,,,,6,0,-2,,,,,
-Button item,,,,,,,,,7,1,-2,,,,,
+Button item,,,,,,,,,7,0,-2,,,,,
 Button item,,,,,,,,,8,0,-2,,,,,
 Button item,,,,,,,,,9,0,-2,,,,,
 Button item,,,,,,,,,10,0,-2,,,,,
@@ -336,10 +242,10 @@ Button item,,,,,,,,,60,0,-2,,,,,
 Button item,,,,,,,,,61,0,-2,,,,,
 Button item,,,,,,,,,62,0,-2,,,,,
 Button item,,,,,,,,,63,0,-2,,,,,
-Button item,,,,,,,,,64,1,-2,,,,,
-Button item,,,,,,,,,65,1,-2,,,,,
+Button item,,,,,,,,,64,0,-2,,,,,
+Button item,,,,,,,,,65,0,-2,,,,,
 Button item,,,,,,,,,66,0,-2,,,,,
-Button item,,,,,,,,,67,1,-2,,,,,
+Button item,,,,,,,,,67,0,-2,,,,,
 Button item,,,,,,,,,68,0,-2,,,,,
 Button item,,,,,,,,,69,0,-2,,,,,
 Button item,,,,,,,,,70,0,-2,,,,,
@@ -376,10 +282,10 @@ Button item,,,,,,,,,100,0,-2,,,,,
 Button item,,,,,,,,,101,0,-2,,,,,
 Button item,,,,,,,,,102,0,-2,,,,,
 Button item,,,,,,,,,103,0,-2,,,,,
-Button item,,,,,,,,,104,0,-2,,,,,
-Button item,,,,,,,,,105,0,-2,,,,,
+Button item,,,,,,,,,104,1,-2,,,,,
+Button item,,,,,,,,,105,1,-2,,,,,
 Button item,,,,,,,,,106,0,-2,,,,,
-Button item,,,,,,,,,107,0,-2,,,,,
+Button item,,,,,,,,,107,1,-2,,,,,
 Button item,,,,,,,,,108,0,-2,,,,,
 Button item,,,,,,,,,109,0,-2,,,,,
 Button item,,,,,,,,,110,0,-2,,,,,
@@ -392,10 +298,10 @@ Button item,,,,,,,,,116,0,-2,,,,,
 Button item,,,,,,,,,117,0,-2,,,,,
 Button item,,,,,,,,,118,0,-2,,,,,
 Button item,,,,,,,,,119,0,-2,,,,,
-Button item,,,,,,,,,120,1,-2,,,,,
-Button item,,,,,,,,,121,1,-2,,,,,
+Button item,,,,,,,,,120,0,-2,,,,,
+Button item,,,,,,,,,121,0,-2,,,,,
 Button item,,,,,,,,,122,0,-2,,,,,
-Button item,,,,,,,,,123,1,-2,,,,,
+Button item,,,,,,,,,123,0,-2,,,,,
 Button item,,,,,,,,,124,0,-2,,,,,
 Button item,,,,,,,,,125,0,-2,,,,,
 Button item,,,,,,,,,126,0,-2,,,,,

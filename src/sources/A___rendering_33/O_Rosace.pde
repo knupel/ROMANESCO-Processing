@@ -1,7 +1,7 @@
 /**
 * Rosace
-* 2019-2019
-* V 0.1.3
+* 2019-2021
+* V 0.1.4
 */
 
 class Rosace extends Romanesco {
@@ -11,7 +11,7 @@ class Rosace extends Romanesco {
     //from the index_objects.csv
     item_name = "Rosace" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 0.1.3";
+    item_version = "Version 0.1.4";
     item_pack = "Base 2019-2019";
     item_mode ="rosace/rose/crown/pillar";
     item_costume = "surface/line/face/point";
@@ -809,11 +809,12 @@ class Rosace extends Romanesco {
         vec3 c = vec3(p[2].pointer());
         vec3 barycenter = barycenter(a,b,c);
         if(dist_to_barycenter_faces(barycenter,dist,a,b,c)) {
-          R_Face f = new R_Face(list.get(target.x()).pointer(),
+          R_Face f = new R_Face(p5,
+                                list.get(target.x()).pointer(),
                                 list.get(target.y()).pointer(),
                                 list.get(target.z()).pointer());
-          f.set_fill(colour);
-          f.set_stroke(colour);
+          f.fill(colour);
+          f.stroke(colour);
           face_list.add(f);
           match_is = true;
           p[0].set_branch(p[0].get_branch()-1);

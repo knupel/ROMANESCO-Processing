@@ -1,6 +1,6 @@
 /**
 * Rope UTILS 
-* v 1.64.4
+* v 1.64.5
 * Copyleft (c) 2014-2021
 * Rope – Romanesco Processing Environment – 
 * @author @stanlepunk
@@ -18,6 +18,15 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 // EXPORT PDF
 import processing.pdf.*;
+
+
+
+/**
+* pixel larray
+*/
+int index_pixel_array(int x, int y, int w) {
+	return (x + y * w);
+}
 
 
 /**

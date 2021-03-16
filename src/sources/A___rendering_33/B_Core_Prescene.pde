@@ -120,11 +120,12 @@ void update_tablet() {
   }
 }
 
+vec3 mouse_follow_buf = new vec3();
 void update_mouse() {
   if(mouse[0] == null) {
-    mouse[0] = follow(mouseX,mouseY,0,mouse_reactivity);
+    mouse[0] = follow(mouseX,mouseY,0,mouse_reactivity,mouse_follow_buf);
   } else {
-    mouse[0].set(follow(mouseX,mouseY,0,mouse_reactivity));
+    mouse[0].set(follow(mouseX,mouseY,0,mouse_reactivity,mouse_follow_buf));
   }
 
   if(mouse_ref == null) {

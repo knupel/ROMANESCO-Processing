@@ -9,6 +9,10 @@
 * Pack of method to use colour, palette and method conversion
 *
 */
+/**
+* util colour
+*/
+
 
 
 
@@ -745,9 +749,6 @@ void plot(int x, int y, int colour, float alpha, PGraphics pg) {
 	}
 }
 
-int index_pixel_array(int x, int y, int w) {
-	return (x + y * w);
-}
 ArrayList<Integer> calc_plot_neighbourhood(int index_base, int x, int y, int w, int h) {
 	ArrayList<Integer> arr = new ArrayList<Integer>();
 	int index, tx, ty = 0;

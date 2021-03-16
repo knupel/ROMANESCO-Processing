@@ -1,7 +1,7 @@
 /**
 * ROMANESCO MASKING
-* v 2.0.0
-* 2018-2019
+* v 2.0.1
+* 2018-2021
 */
 
 // IN PROGRESS
@@ -96,13 +96,13 @@ void mask_manage(R_Megabloc mb, PGraphics other) {
 
 void mask_set_color(R_Megabloc mb) {
 	if(mask_move_point_is || mask_move_bloc_is || mask_build_is) {
-		mb.set_fill(r.ROUGE);
-		mb.set_stroke(r.ROUGE);
-		mb.set_thickness(0);
+		mb.fill(r.ROUGE);
+		mb.stroke(r.ROUGE);
+		mb.thickness(0);
 	} else {
-		mb.set_fill(r.NOIR);
-		mb.set_stroke(r.NOIR);
-		mb.set_thickness(0);
+		mb.fill(r.NOIR);
+		mb.stroke(r.NOIR);
+		mb.thickness(0);
 	}
 }
 
