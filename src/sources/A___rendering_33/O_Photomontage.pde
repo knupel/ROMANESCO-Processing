@@ -1,7 +1,7 @@
 /**
 * Photomontage
-* v 0.1.0
-* 2019-2019
+* v 0.1.1
+* 2019-2021
 */
 class Photomontage extends Romanesco {
 	public Photomontage() {
@@ -331,8 +331,8 @@ class Photomontage extends Romanesco {
 	private void mask_cloud_mask_chose(int target, PGraphics pg_buffer) {
 		beginShape(pg_buffer);
 		cloud_mask_chose[target].calc();
-		for(int k = 0 ; k < cloud_mask_chose[target].get_final_points().length ; k++) {
-			vec2 temp_pos = vec2(cloud_mask_chose[target].get_final_points()[k]).add(cloud_mask_coord[target].xy());
+		for(int k = 0 ; k < cloud_mask_chose[target].get_points().length ; k++) {
+			vec2 temp_pos = vec2(cloud_mask_chose[target].get_points()[k]).add(cloud_mask_coord[target].xy());
 			vertex(temp_pos,pg_buffer);
 		} 
 		endShape(CLOSE,pg_buffer);

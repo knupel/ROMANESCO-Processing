@@ -1312,10 +1312,10 @@ class Rose {
     chose.angle_x(angle);
     chose.radius(mutation(speed_mutation,min_mutation,max_mutation,relief));
     chose.calc();
-    chose.get_final_points();
+    chose.get_points();
     vec3 offset = offset();
     if(!offset.equals(vec3(0))) {
-      vec3 [] temp = chose.get_final_points();
+      vec3 [] temp = chose.get_points();
       vec3 of = offset();
       for(int i = 0 ; i < temp.length ; i++) {
         temp[i].add(of);
@@ -1324,7 +1324,7 @@ class Rose {
   }
 
   vec3 [] get_final_points() {
-    return chose.get_final_points();
+    return chose.get_points();
   }
 
   void show() {
@@ -1334,9 +1334,9 @@ class Rose {
     vec3 offset = offset();
     beginShape();
     for(int i = 0 ; i < chose.get_summits() ; i++) {
-      vertex(chose.get_final_point(i).add(offset));
+      vertex(chose.get_point(i).add(offset));
     }
-    vertex(chose.get_final_point(0)); // close
+    vertex(chose.get_point(0)); // close
     endShape();
   }
 
