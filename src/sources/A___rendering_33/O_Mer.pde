@@ -1,7 +1,7 @@
 /**
 * Wave
-* 2019-2019
-* v 0.1.2
+* 2019-2021
+* v 0.1.3
 */
 class Mer extends Romanesco {
 	public Mer() {
@@ -9,8 +9,8 @@ class Mer extends Romanesco {
 		item_name = "Mer" ;
 		item_author  = "Stan le Punk";
 		item_references = "";
-		item_version = "Version 0.1.2";
-		item_pack = "Base 2019-2019";
+		item_version = "Version 0.1.3";
+		item_pack = "Base 2019-2021";
 		item_costume = "ellipse/triangle/rect/"; // costume available from get_costume();
 		// item_costume = "ellipse/triangle/rect/pentagon/flower/Star 5/Star 7/Super Star 8/Super Star 12/point"; // costume available from get_costume();
 		item_mode = "";
@@ -212,7 +212,7 @@ class Mer extends Romanesco {
 			}
 		}
 
-		void render_shape(int x, int y, float max_size, Costume costume, PGraphics other) {
+		void render_shape(int x, int y, float max_size, R_Costume costume, PGraphics other) {
 			vec2 pos = to_cartesian_2D(dir);
 			pos.mult(rx,ry);
 			float size = abs(sin(frameCount *speed) *max_size);

@@ -1,7 +1,7 @@
 /**
 * BALISE
-* 2011-2019
-* v 1.4.3
+* 2011-2021
+* v 1.4.4
 */
 Balise balise ;
 //object three
@@ -10,8 +10,8 @@ class BaliseRomanesco extends Romanesco {
     //from the index_objects.csv
     item_name = "Balise" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.4.3";
-    item_pack = "Base 2011-2019" ; 
+    item_version = "Version 1.4.4";
+    item_pack = "Base 2011-2021" ; 
     item_costume = "ellipse/triangle/rect/cross/pentagon/flower/Star 5/Star 7/Super Star 8/Super Star 12/point";
     // item_mode = "Disc/Rectangle/Box/Box Snake" ;
     item_mode = "" ;
@@ -203,7 +203,7 @@ class Balise {
 
 
   
-  void display(float amp, vec2 sound_input, vec3 size, float factor, int max, boolean authorization, Costume costume, boolean snake_mode, float ratio_size) {
+  void display(float amp, vec2 sound_input, vec3 size, float factor, int max, boolean authorization, R_Costume costume, boolean snake_mode, float ratio_size) {
 
     push() ;
     rectMode(CENTER) ;

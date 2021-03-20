@@ -1,14 +1,14 @@
 /**
 KOFOSPHERE 
-2013-2019
-v 1.4.2
+2013-2021
+v 1.4.3
 */
 class Kofosphere extends Romanesco {
   public Kofosphere() {
     item_name = "Kofosphere" ;
     item_author  = "Kof";
-    item_version = "Version 1.4.2";
-    item_pack = "Base 2013-2019" ;
+    item_version = "Version 1.4.3";
+    item_pack = "Base 2013-2021" ;
     item_costume = "ellipse/triangle/rect/cross/pentagon/flower/Star 5/Star 7/Super Star 8/Super Star 12/point";
     item_mode = "monochrome/polychrome" ;
     /*
@@ -136,7 +136,7 @@ class Kofosphere extends Romanesco {
 
     
     float newRadius ;
-    void drawSpheres(vec3 size, vec2 speed, float radiusFactor, float quantity, Costume costume, int ID) {
+    void drawSpheres(vec3 size, vec2 speed, float radiusFactor, float quantity, R_Costume costume, int ID) {
       boolean kofosphereInColor ;
       //color mode
       if(get_mode_id()==0) {

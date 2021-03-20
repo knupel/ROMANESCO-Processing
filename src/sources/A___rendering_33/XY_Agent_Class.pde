@@ -1,7 +1,7 @@
 /**
 * CLASS AGENT 
-* v 1.2.4
-* 2016-2019
+* v 1.2.5
+* 2016-2021
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Life
 */
@@ -51,11 +51,11 @@ interface Agent {
 
   void costume();
   void set_costume(int which);
-  void set_costume(Costume costume);
+  void set_costume(R_Costume costume);
   
   void aspect(vec4 f, vec4 s, float t) ;
 
-  Costume get_costume();
+  R_Costume get_costume();
   vec4 get_fill_style();
   vec4 get_stroke_style();
   float get_thickness();
@@ -196,7 +196,7 @@ abstract class Agent_model implements Agent {
   vec4 stroke_style = vec4(0,0,0,g.colorModeA) ;
   float thickness = 1 ;
 
-  Costume costume; // costume 0 is point in Z_costume_rope library
+  R_Costume costume; // costume 0 is point in Z_costume_rope library
 
   int alpha_cursor = 0 ;
   float alpha_back = 1. ;
@@ -323,7 +323,7 @@ abstract class Agent_model implements Agent {
   /**
   get style
   */
-  Costume get_costume() { 
+  R_Costume get_costume() { 
     return costume; 
   }
   vec4 get_fill_style() { 
@@ -589,7 +589,7 @@ abstract class Agent_model implements Agent {
     this.costume.show(pos,size,vec3());
   }
 
-  void set_costume(Costume costume) {
+  void set_costume(R_Costume costume) {
     this.costume = costume;
   }
 

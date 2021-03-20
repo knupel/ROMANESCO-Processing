@@ -1,7 +1,7 @@
 /**
 Abstract CLASS ROMANESCO
-v 1.7.2
-2013-2019
+v 1.7.3
+2013-2021
 */
 public abstract class Romanesco implements rope.core.R_Constants {
   protected String item_name;
@@ -53,7 +53,7 @@ public abstract class Romanesco implements rope.core.R_Constants {
 
 
   Mode mode;
-  Costume costume;
+  R_Costume costume;
   int costume_id;
   
   // event controller
@@ -239,7 +239,7 @@ public abstract class Romanesco implements rope.core.R_Constants {
 
 
   protected void init() {
-    costume = new Costume(p5,ELLIPSE);
+    costume = new R_Costume(p5,ELLIPSE);
     mode = new Mode();
     fill_is(true);
     stroke_is(true);
@@ -278,7 +278,7 @@ public abstract class Romanesco implements rope.core.R_Constants {
   }
 
 
-  protected void set_costume(Costume costume, int id) {
+  protected void set_costume(R_Costume costume, int id) {
     this.costume = costume;
     this.costume_id = costume_id;
   }
@@ -1753,7 +1753,7 @@ vec3 get_item_dir() {
     return mode.get_name(mode.get_id());
   }
 
-  protected Costume get_costume() {
+  protected R_Costume get_costume() {
     return get_costume_private();
   }
 
@@ -2263,7 +2263,7 @@ vec3 get_item_dir() {
     } else return null; 
   }
 
-  protected ROPE_svg get_svg() {
+  protected R_SVG get_svg() {
     if(svg_import[ID_item] != null) {
       return svg_import[ID_item];
     } else return null;
@@ -2307,9 +2307,9 @@ vec3 get_item_dir() {
   * deep method
   * v 0.2.0
   */
-  private Costume get_costume_private() {
+  private R_Costume get_costume_private() {
     if(costume == null) {
-      costume = new Costume(p5);
+      costume = new R_Costume(p5);
     }
     String [] costume_split = new String[1];
     costume_split = split(item_costume,"/");

@@ -1,7 +1,7 @@
 /**
 Lorenz attractor
-2016-2019
-v 0.2.1
+2016-2021
+v 0.2.2
 Inspirated by Nature of Code of Daniel Shiffman
 */
 /*
@@ -12,8 +12,8 @@ class Lorenz extends Romanesco {
 	public Lorenz() {
 		item_name = "Lorenz attractor";
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.2.1";
-		item_pack = "Nature of Code 2016-2019";
+		item_version = "Version 0.2.2";
+		item_pack = "Nature of Code 2016-2021";
     item_costume = "ellipse/triangle/rect/cross/pentagon/flower/Star 5/point";
     item_mode = "Costume/Surface";
 
@@ -131,7 +131,7 @@ class Lorenz extends Romanesco {
   }
 
 
-  private void show_lorenz_attractor(vec3 size, vec3 dir, float canvas, vec3 jitter, ArrayList<vec3> list, int mode, Costume costume) {
+  private void show_lorenz_attractor(vec3 size, vec3 dir, float canvas, vec3 jitter, ArrayList<vec3> list, int mode, R_Costume costume) {
 
     if(mode == 1 ) beginShape() ;
     for(vec3 p : list) {

@@ -1,7 +1,7 @@
 /**
 * ARBRE 
-* 2012-2019
-* v 1.6.2
+* 2012-2021
+* v 1.6.3
 */
 class ArbreRomanesco extends Romanesco {
   Arbre arbre ;
@@ -10,8 +10,8 @@ class ArbreRomanesco extends Romanesco {
     item_name = "Arbre" ;
     item_author  = "Stan le Punk";
     item_references = "";
-    item_version = "Version 1.6.2";
-    item_pack = "Base 2012-2019" ;
+    item_version = "Version 1.6.3";
+    item_pack = "Base 2012-2021" ;
     item_costume = "ellipse/triangle/rect/cross/pentagon/flower/Star 5/Star 7/Super Star 8/Super Star 12";
     item_mode = "";
     // define slider
@@ -169,7 +169,7 @@ class ArbreRomanesco extends Romanesco {
       this.deep = deep ;
     }
   //::::::::::::::::::::::::::::  
-    void update(float e, vec3 size, vec2 div, ivec2 fork, vec2 amplitude, int n, Costume costume, boolean bool_line, float angle, float speed, int ID) {
+    void update(float e, vec3 size, vec2 div, ivec2 fork, vec2 amplitude, int n, R_Costume costume, boolean bool_line, float angle, float speed, int ID) {
       rotation += speed ;
       if (rotation > angle +90) speed*=-1 ; else if ( rotation < angle ) speed*=-1 ; 
       angle = rotation ; // de 0 à 180
@@ -187,7 +187,7 @@ class ArbreRomanesco extends Romanesco {
     
     
     //float fourche = 10.0 ; 
-    void branch(float thickness, vec3 size, vec2 div, ivec2 fork, vec2 amplitude, int n, Costume costume, boolean bool_line,int ID) {
+    void branch(float thickness, vec3 size, vec2 div, ivec2 fork, vec2 amplitude, int n, R_Costume costume, boolean bool_line,int ID) {
       vec3 newSize = size.copy();
       newSize.x = size.x *div.x;
       newSize.y = size.y *div.y;
@@ -209,7 +209,7 @@ class ArbreRomanesco extends Romanesco {
     }
     
     //annexe branch
-    void displayBranch(float thickness, vec3 size, vec2 div, ivec2 fork, vec2 amplitude, int n, float t, Costume costume, boolean bool_line, int ID, int branch_ID) {
+    void displayBranch(float thickness, vec3 size, vec2 div, ivec2 fork, vec2 amplitude, int n, float t, R_Costume costume, boolean bool_line, int ID, int branch_ID) {
       float factor = 0.0 ;
       if(camera_item_is() && pen[0].z != 0) {
         factor = deep * map(pen[0].z,0.01,1, 1.2,-1.2); 

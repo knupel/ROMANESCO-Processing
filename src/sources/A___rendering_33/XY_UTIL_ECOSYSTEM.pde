@@ -963,7 +963,7 @@ void update_aspect(Info_Object style, ArrayList list) {
   boolean fill_is = true ;
   boolean stroke_is = true ;
 
-  if(style.catch_obj(0) != null) costume_ID = ((Costume)style.catch_obj(0)).get_type();
+  if(style.catch_obj(0) != null) costume_ID = ((R_Costume)style.catch_obj(0)).get_type();
   if(style.catch_obj(1) != null) fill_vec = (vec4)style.catch_obj(1);
   if(style.catch_obj(2) != null) stroke_vec = (vec4)style.catch_obj(2); 
   if(style.catch_obj(3) != null) thickness = (float)style.catch_obj(3);

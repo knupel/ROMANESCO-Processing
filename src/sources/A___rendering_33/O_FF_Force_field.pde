@@ -1,14 +1,14 @@
 /**
 * Force Field
-* 2018-2019
-* v 0.1.2
+* 2018-2021
+* v 0.1.3
 */
 class FF extends Romanesco {
 	public FF() {
 		item_name = "FF Force Field";
 		item_author  = "Stan le Punk";
-		item_version = "Version 0.1.2";
-		item_pack = "Force 2018-2019";
+		item_version = "Version 0.1.3";
+		item_pack = "Force 2018-2021";
     item_costume = "line/triangle/rect/cross/pentagon/flower/Star 5/Star 7/Super Star 8/Super Star 12/none";
     item_mode = "fluid/magnetic/gravity/perlin/equation/chaos/image";
 
@@ -284,7 +284,7 @@ class FF extends Romanesco {
   /**
   SHOW FIELD
   */
-  private void show_field(Force_field ff, float scale, float range_colour, ivec2 aspect, float thickness, float ratio, Costume costume) {
+  private void show_field(Force_field ff, float scale, float range_colour, ivec2 aspect, float thickness, float ratio, R_Costume costume) {
     if(ff != null) {
       vec2 offset = vec2(ff.get_resolution());
       offset.sub(ff.get_resolution()/2);
@@ -307,7 +307,7 @@ class FF extends Romanesco {
   }
 
   // Renders a vector object 'v' as an arrow and a position 'x,y'
-  private void pattern_field(vec2 dir, float mag, vec2 pos, float scale, float range_colour, ivec2 aspect,float thickness, float ratio, Costume costume) {
+  private void pattern_field(vec2 dir, float mag, vec2 pos, float scale, float range_colour, ivec2 aspect,float thickness, float ratio, R_Costume costume) {
     int color_mode_ref = (int)getColorMode()[0];
     vec4 color_arg_ref = vec4(getColorMode()[1],getColorMode()[2],getColorMode()[3],getColorMode()[4]);
     colorMode(HSB,1);

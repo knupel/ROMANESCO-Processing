@@ -1,15 +1,15 @@
 /**
 * Cellular Automata
-* 2018-2019
-* v 0.2.0
+* 2018-2021
+* v 0.2.1
 */
 class Cellular_automata extends Romanesco {
 	public Cellular_automata() {
 		item_name = "Automata";
 		item_author  = "Stan le Punk";
     item_references = "Item based on Daniel Shiffman code\nand behavior from Stephen Wolfram\nhttps://natureofcode.com/";
-		item_version = "Version 0.2.0";
-		item_pack = "Nature of Code 2018-2019";
+		item_version = "Version 0.2.1";
+		item_pack = "Nature of Code 2018-2021";
     item_costume = "point/ellipse/triangle/rect/cross/pentagon/flower/Star 5/Star 7/Super Star 8/Super Star 12";
     item_mode = "rules 30/rules 110/rules 190/rules 222";
 
@@ -185,7 +185,7 @@ class Cellular_automata extends Romanesco {
       generation++;
     }
 
-    void show(Costume costume, vec3 size, float area) {
+    void show(R_Costume costume, vec3 size, float area) {
       int offset = generation%rows;
       int displacement_x = (canvas.x-width)/2;
       int displacement_y = (canvas.y-height)/2;;

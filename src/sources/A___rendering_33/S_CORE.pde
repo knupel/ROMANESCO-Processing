@@ -21,6 +21,7 @@ import codeanticode.syphon.*;
 
 import rope.mesh.R_Node;
 import rope.mesh.R_Face;
+import rope.svg.R_SVG;
 
 
 /**

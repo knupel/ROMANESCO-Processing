@@ -1,7 +1,7 @@
 /**
 SPIRALE
-2011-2019
-v 1.4.3
+2011-2021
+v 1.4.4
 */
 
 Spirale spirale ; 
@@ -11,8 +11,8 @@ class Spirale_romanesco extends Romanesco {
     //from the index_objects.csv
     item_name = "Spirale" ;
     item_author  = "Stan le Punk";
-    item_version = "Version 1.4.3";
-    item_pack = "Base 2011-2019" ;
+    item_version = "Version 1.4.4";
+    item_pack = "Base 2011-2021" ;
     item_costume = "ellipse/triangle/rect/cross/pentagon/flower/Star 5/Star 7/Super Star 8/Super Star 12/point" ;
     item_mode = "" ;
 
@@ -214,7 +214,7 @@ class Spirale {
   float translate = 1. ;
   float ratioSize = 1. ;
 
-  void show (int n, int nMax, vec3 size, float z, vec3 canvas, Costume costume, boolean horizon, float alignment, float ratio_size) {
+  void show (int n, int nMax, vec3 size, float z, vec3 canvas, R_Costume costume, boolean horizon, float alignment, float ratio_size) {
     n = n-1 ;
     
     translate += z ;

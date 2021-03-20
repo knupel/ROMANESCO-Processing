@@ -1,7 +1,7 @@
 /**
 * VARIABLE
-* 2015-2019
-* v 1.13.0
+* 2015-2021
+* v 1.13.1
 */
 boolean scene, prescene;
 boolean miroir_on_off = false;
@@ -449,7 +449,7 @@ float [] tempo_rom, tempo_rom_beat, tempo_rom_kick, tempo_rom_snare, tempo_rom_h
 
 /**
 CREATE VAR 
-v 1.2.0
+v 1.2.1
 */
 void create_variable() {
   NUM_ITEM = rom_manager.size();
@@ -479,7 +479,7 @@ void create_var_misc() {
   which_bitmap = new int[NUM_ITEM_PLUS_MASTER];
   bitmap_path_ref = new String[NUM_ITEM_PLUS_MASTER];
   // SVG
-  svg_import = new ROPE_svg[NUM_ITEM_PLUS_MASTER];
+  svg_import = new R_SVG[NUM_ITEM_PLUS_MASTER];
   which_shape = new int[NUM_ITEM_PLUS_MASTER];
   svg_path_ref = new String[NUM_ITEM_PLUS_MASTER];
 

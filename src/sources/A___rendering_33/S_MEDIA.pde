@@ -1,7 +1,7 @@
 /*
 * MANAGE MEDIA
-* v 1.2.1
-* 2016-2019
+* v 1.2.2
+* 2016-2021
 */
 void media_init_collection() {
 	update_movie_collection();
@@ -41,7 +41,7 @@ void change_media(int which [], int id, String [] path){
 /**
 svg
 */
-ROPE_svg[] svg_import;
+R_SVG[] svg_import;
 String svg_current_path;
 String [] svg_path;
 boolean load_svg_id(int id) {
@@ -54,7 +54,7 @@ boolean load_svg_id(int id) {
 	if(svg_path != null && svg_path.length > 0 && which_shape[id] < svg_path.length && svg_path[which_shape[id]] != null) {
 		svg_current_path = svg_path[which_shape[id]];
 		if(!svg_current_path.equals(svg_path_ref[id])) {
-			svg_import[id] = new ROPE_svg(this, svg_current_path, "bricks");
+			svg_import[id] = new R_SVG(this, svg_current_path, "bricks");
 		}
 		svg_path_ref[id] = svg_current_path;
 		return true;

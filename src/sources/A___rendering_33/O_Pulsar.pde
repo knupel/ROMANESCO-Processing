@@ -1,7 +1,7 @@
 /**
 * Pulsar
-* 2018-2019
-* v 0.1.1
+* 2018-2021
+* v 0.1.2
 */
 
 //object one
@@ -11,8 +11,8 @@ class Pulsar extends Romanesco {
   public Pulsar() {
     item_name = "Pulsar" ;
     item_author  = "Stan le Punk";
-    item_version = "version 0.1.1";
-    item_pack = "Base 2018-2019";
+    item_version = "version 0.1.2";
+    item_pack = "Base 2018-2021";
     item_costume = "ellipse/triangle/rect/cross/pentagon/flower/star/point";
     item_mode = "nothing/cyclus/heart/ring cyclus/ring heart/helmet cyclus/helmet heart" ;
   
