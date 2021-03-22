@@ -181,6 +181,7 @@ void update_slider_value(Romanesco item) {
   if (diffusion_raw != diffusion_ref || !init) item.set_diffusion_raw(diffusion_raw,0,0);
   if (power_raw != power_ref || !init) item.set_power_raw(power_raw,0,0);
   if (mass_raw != mass_ref || !init) item.set_mass_raw(mass_raw,0,0);
+  if (amplitude_raw != amplitude_ref || !init) item.set_amplitude_raw(amplitude_raw,0,0);
   if (coord_x_raw != coord_x_ref || !init) item.set_coord_x_raw(coord_x_raw,0,0); 
   if (coord_y_raw != coord_y_ref || !init) item.set_coord_y_raw(coord_y_raw,0,0); 
   if (coord_z_raw != coord_z_ref || !init) item.set_coord_z_raw(coord_z_raw,0,0);

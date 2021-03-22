@@ -43,6 +43,8 @@
 >change: remove key space to reset item, now it's only backspace and delete when parameter or move option is on.
 >add: button to reset the window location from the launcher.
 >change the shortcut to stop motion, before it's key 'm' now it's key space.
+>fix: slider amplitude now work... the information from controller it was not pass to the renderer amplitude variable. Now it's fix.
+>add: Item class to test object, and remove template because this file is not used.
 
 *SHADER
 
