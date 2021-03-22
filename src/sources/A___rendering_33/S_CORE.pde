@@ -171,7 +171,7 @@ screenshot
 */
 void screenshot() {
   if(FULL_RENDERING) {
-    String path = sketchPath(1)+"/shot_"+year()+"_"+month()+"_"+day();
+    String path = sketchPath(1)+"/screenshot/shot_"+year()+"_"+month()+"_"+day();
     String name_file =  "rom_"+year()+"_"+month()+"_"+day()+"_"+hour()+"_"+minute()+"_"+second();
     save_PNG(path,name_file);
   }

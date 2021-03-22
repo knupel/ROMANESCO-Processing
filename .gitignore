@@ -4,6 +4,7 @@ design/
 # vscode
 out
 
+screenshot/
 
 # build stuff in case there is
 src/A__Romanesco_33/build-tmp

@@ -37,11 +37,7 @@ class Test extends Romanesco {
 		// float thickness = map(sin(frameCount * 0.003),-1,1,0.1,10);
 		float size = get_diameter().value();
 		// float size = map(sin(frameCount * 0.005),-1,1,radius -10,radius +10);
-		float dist = map(get_amplitude().value(),0,1, 0.1f,1.15f);
-		println("get_mass()", get_mass().value());
-		println("get_amplitude()", get_amplitude().value());
-		println("dist", dist);
-		println("size", size);
+		float dist = map(get_amplitude().value(),0,1, -0.3f,1.15f);
 		icosahedron.size(size);
 		icosahedron.update();
 		R_Face [] faces = icosahedron.get_faces().toArray(new R_Face[0]);
