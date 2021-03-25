@@ -12,7 +12,6 @@
 */
 import java.util.Arrays;
 import rope.vector.*;
-import rope.core.R_Image;
 
 /**
 Crope Manager

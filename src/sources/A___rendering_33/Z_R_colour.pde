@@ -613,6 +613,7 @@ v 0.0.2
 * @param boolean print_info_is retrun a print about the color environment
 */
 float [] getColorMode(boolean print_info_is) {
+	// see rope.R_Graphic.getColorMode(boolean print_info_is);
 	float colorMode = g.colorMode ;
 	float x = g.colorModeX;
 	float y = g.colorModeY;
@@ -628,6 +629,7 @@ float [] getColorMode(boolean print_info_is) {
 }
 
 float [] getColorMode() {
+	// see rope.R_Graphic.getColorMode(boolean print_info_is);
 	return getColorMode(false);
 }
 

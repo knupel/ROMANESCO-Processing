@@ -1,13 +1,14 @@
 /**
 * ROPE FRAMEWORK - Romanesco processing environment – 
-* Copyleft (c) 2014-2020
+* Copyleft (c) 2014-2021
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 * ROPE core
-* v 0.2.1.1
+* v 0.2.1.2
 */
 import rope.core.*;
 import rope.vector.*;
+import rope.image.R_Pattern;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -50,7 +51,7 @@ that's cool but that's very weird !!!!!
 */
 Rope r;
 
-String rope_framework_version = "1.3.4.75";
+String rope_framework_version = "1.4.0.78";
 public void rope_version() {
 	r = new Rope();
 	println("Romanesco Processing Environment - 2015-2021");
