@@ -90,7 +90,7 @@ vec3 follow(float tx, float ty, float tz, float sx, float sy, float sz, vec3 buf
 
 float check_speed_follow(float speed) {
   if(speed < 0 || speed > 1) {
-    printErrTempo(120,"vec3 follow(): speed parameter must be a normal value between [0.0, 1.0]\n instead value 1 is attribute to speed");
+    print_err_tempo(120,"vec3 follow(): speed parameter must be a normal value between [0.0, 1.0]\n instead value 1 is attribute to speed");
     speed = 1.0;
   }
   return speed;

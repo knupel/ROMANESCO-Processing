@@ -2,7 +2,7 @@
 * POST FX shader collection
 *
 * 2019-2019
-* v 0.2.13
+* v 0.2.14
 * all filter bellow has been tested.
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Shader
@@ -1949,8 +1949,8 @@ PGraphics fx_reaction_diffusion(PImage source, boolean on_g, vec2 conc_uv, vec2 
 
 		// eternal param
 		if(conc_uv != null) {
-			fx_reac_diff.set("ru",conc_uv.u);
-			fx_reac_diff.set("rv",conc_uv.v);
+			fx_reac_diff.set("ru",conc_uv.u());
+			fx_reac_diff.set("rv",conc_uv.v());
 		} else {
 			fx_reac_diff.set("ru",.25f);
 			fx_reac_diff.set("rv",.04f);
@@ -1958,8 +1958,8 @@ PGraphics fx_reaction_diffusion(PImage source, boolean on_g, vec2 conc_uv, vec2 
 
 		// eternal param
 		if(kf != null) {
-			fx_reac_diff.set("k",kf.x);
-			fx_reac_diff.set("f",kf.y);
+			fx_reac_diff.set("k",kf.x());
+			fx_reac_diff.set("f",kf.y());
 		} else {
 			fx_reac_diff.set("k",0.1f);
 			fx_reac_diff.set("f",0.047f);
@@ -1980,7 +1980,7 @@ PGraphics fx_reaction_diffusion(PImage source, boolean on_g, vec2 conc_uv, vec2 
 		*/
 
 
-		fx_reac_diff.set("scale",scale.x,scale.y);
+		fx_reac_diff.set("scale",scale.x(),scale.y());
 
     // rendering
 		if(pg_reac_diff != null && !on_g) {

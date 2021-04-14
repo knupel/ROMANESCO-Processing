@@ -1,7 +1,7 @@
 /**
 * TABLE METHOD
-* v 0.0.4
-* 2016-2020
+* v 0.0.5
+* 2016-2021
 * for Table with the first COLLUMN is used for name and the next 6 for the value.
 *The method is used with the Class Info
 *
@@ -1184,7 +1184,7 @@ class Info_Object extends Info_method {
     } else if(which == 6) {
       return g ;
     } else {
-      printErr(error_target) ;
+      print_err(error_target) ;
       return null ;
     }
   }
@@ -1210,7 +1210,7 @@ class Info_Object extends Info_method {
     } else if(which == 6) {
       return g ;
     } else {
-      printErr(error_target) ;
+      print_err(error_target) ;
       return null ;
     }
   }
@@ -1235,8 +1235,8 @@ class Info_Object extends Info_method {
     } else if(num_value == 7) {
       return "[ " + name + ": " + a + ", " + b + ", " + c + ", " + d + ", " + e + ", " + f + ", " + g + " ]";
     } else {
-      printErr(num_value) ;
-      printErr(error_value_message) ;
+      print_err(num_value) ;
+      print_err(error_value_message) ;
       return "hmmm hmmm there is problem with your stuff mate";
     }
   }

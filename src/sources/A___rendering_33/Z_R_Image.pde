@@ -37,7 +37,8 @@ int entry(PGraphics pg, vec2 pos, boolean constrain_is) {
 
 int entry(PGraphics pg, float x, float y, boolean constrain_is) {
   //int max = pg.pixels.length;
-  int rank = (int)y * pg.width + (int)x;
+  // int rank = (int)y * pg.width + (int)x;
+  int rank = index_pixel_array((int)x, (int)y, pg.width);
   return entry(pg, rank, constrain_is);
 }
 
@@ -276,7 +277,7 @@ PGraphics pattern_noise(int w, int h, float... inc) {
     pg.endDraw();
     return pg;
   } else {
-    printErr("method pattern_noise(): may be problem with size:",w,h,"\nor with component color num >>>",inc.length,"<<< must be between 1 and 4");
+    print_err("method pattern_noise(): may be problem with size:",w,h,"\nor with component color num >>>",inc.length,"<<< must be between 1 and 4");
     return null;
   }
 }
@@ -327,7 +328,7 @@ void init_layer(int x, int y, String type, int num) {
     warning_rope_layer = true;
   }
   String warning = ("WARNING LAYER METHOD\nAll classical method used on the main rendering,\nwill return the PGraphics selected PGraphics layer :\nimage(), set(), get(), fill(), stroke(), rect(), ellipse(), pushMatrix(), popMatrix(), box()...\nto use those methods on the main PGraphics write g.image() for example");
-  printErr(warning);
+  print_err(warning);
 }
 
 // begin and end draw
@@ -364,7 +365,7 @@ void clear_layer() {
     }
   } else {
     String warning = ("void clear_layer(): there is no layer can be clear maybe you forget to create one :)");
-    printErr(warning);
+    print_err(warning);
   }
   
 }
@@ -377,7 +378,7 @@ void clear_layer(int target) {
     rope_layer[target] = createGraphics(w,h,type);
   } else {
     String warning = ("void clear_layer(): target "+target+" is out the range of the layers available,\n no layer can be clear");
-    printErr(warning);
+    print_err(warning);
   }
 }
 
@@ -401,7 +402,7 @@ PGraphics get_layer(int target) {
     return rope_layer[target];
   } else {
     String warning = ("PGraphics get_layer(int target): target "+target+" is out the range of the layers available,\n instead target 0 is used");
-    printErr(warning);
+    print_err(warning);
     return rope_layer[0];
   }
 }
@@ -414,10 +415,10 @@ void select_layer(int target) {
     } else {
       which_rope_layer = 0;
       String warning = ("void select_layer(int target): target "+target+" is out the range of the layers available,\n instead target 0 is used");
-      printErr(warning);
+      print_err(warning);
     }
   } else {
-    printErrTempo(180,"void select_layer(): Your layer system has not been init use method init_layer() in first",frameCount);
+    print_err_tempo(180,"void select_layer(): Your layer system has not been init use method init_layer() in first",frameCount);
   } 
 }
 
@@ -522,7 +523,7 @@ v 0.2.2
 */
 void image(PImage img) {
   if(img != null) image(img, 0, 0);
-  else printErr("Object PImage pass to method image() is null");
+  else print_err("Object PImage pass to method image() is null");
 }
 
 void image(PImage img, int what) {
@@ -588,13 +589,13 @@ void image(PImage img, int what) {
     }
     image(img,x,y,w,h);
   } else {
-    printErrTempo(60,"image(); no PImage has pass to the method, img is null");
+    print_err_tempo(60,"image(); no PImage has pass to the method, img is null");
   } 
 }
 
 void image(PImage img, float coor) {
   if(img != null) image(img, coor, coor);
-  else printErr("Object PImage pass to method image() is null");
+  else print_err("Object PImage pass to method image() is null");
 }
 
 void image(PImage img, ivec pos) {
@@ -813,7 +814,7 @@ void clean_canvas(int which_canvas, int c) {
     }
   } else {
     String message = ("The target: " + which_canvas + " don't match with an existing canvas");
-    printErr(message);
+    print_err(message);
   }
 }
 
@@ -830,7 +831,7 @@ void select_canvas(int which_one) {
     current_canvas_rope = which_one;
   } else {
     String message = ("void select_canvas(): Your selection " + which_one + " is not available, canvas '0' be use");
-    printErr(message);
+    print_err(message);
     current_canvas_rope = 0;
   }
 }
@@ -859,7 +860,7 @@ void update_canvas(PImage img, int which_one) {
   if(which_one < rope_canvas.length && which_one >= 0) {
     rope_canvas[which_one] = img;
   } else {
-    printErr("void update_canvas() : Your selection" ,which_one, "is not available, canvas '0' be use");
+    print_err("void update_canvas() : Your selection" ,which_one, "is not available, canvas '0' be use");
     rope_canvas[0] = img;
   }  
 }
@@ -1035,7 +1036,7 @@ void background_calc(PImage src, vec2 pos, vec2 scale, vec3 colour_background, v
   if(get_renderer().equals(P2D) || get_renderer().equals(P3D)) {
     context_ok = true;
   } else {
-    printErrTempo(180,"method background(PImage img) need context in P3D or P2D to work");
+    print_err_tempo(180,"method background(PImage img) need context in P3D or P2D to work");
   }
   if(context_ok && src != null && src.width > 0 && src.height > 0) {
     if(img_shader_calc_rope == null) {

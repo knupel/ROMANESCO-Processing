@@ -172,7 +172,7 @@ void costume_management(vec pos, vec size, vec rotation, int which_costume, Stri
 			costume_impl(pos_final,size_final,rotation,sentence,pg);
 		}		
 	} else {
-		printErrTempo(180,"vec pos or vec size if not an instanceof vec2 or vec3, it's not possible to process costume_rope()");
+		print_err_tempo(180,"vec pos or vec size if not an instanceof vec2 or vec3, it's not possible to process costume_rope()");
 	}
 }
 

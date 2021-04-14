@@ -2,8 +2,8 @@
 * SHADER FX
 * @see @stanlepunk
 * @see https://github.com/StanLepunK/Shader
-* v 0.9.3
-* 2019-2019
+* v 0.9.4
+* 2019-2021
 */
 int NO_FX = -1;
 // CONSTANT FX POST
@@ -197,10 +197,10 @@ void select_fx_post(PImage main, PImage layer_a, PImage layer_b, FX... fx) {
 			} else if(fx[i].get_type() == FX_WARP_TEX_B) {
 				fx_warp_tex_b(main,layer_a,fx[i]); 
 			} else {
-				printErrTempo(60,"method select_fx_post(): fx",fx[i].get_name(),fx[i].get_type(),"don't match with any fx available");
+				print_err_tempo(60,"method select_fx_post(): fx",fx[i].get_name(),fx[i].get_type(),"don't match with any fx available");
 			}
 		} else {
-			printErrTempo(60,"method select_fx_post(): fx",i,"is",fx[i],"maybe fx need to be init or instantiate");
+			print_err_tempo(60,"method select_fx_post(): fx",i,"is",fx[i],"maybe fx need to be init or instantiate");
 		}
 		   
 	}
@@ -230,7 +230,7 @@ void select_fx_background(FX fx) {
 			fx_bg_template(fx);
 		}
 	} else {
-		printErrTempo(60,"method select_fx_background(): fx is",fx,"maybe fx need to be init or instantiate");
+		print_err_tempo(60,"method select_fx_background(): fx is",fx,"maybe fx need to be init or instantiate");
 	}
 	    
 }
@@ -508,7 +508,7 @@ String get_fx_post_path() {
 		File f = new File(sketchPath()+"/"+fx_post_rope_path);
 		if(!f.isDirectory()) {
 			fx_post_rope_path_exists = false;
-			printErrTempo(60,"method get_fx_post_path()",fx_post_rope_path,"no folder found");
+			print_err_tempo(60,"method get_fx_post_path()",fx_post_rope_path,"no folder found");
 		} else {
 			fx_post_rope_path_exists = true;
 		}
@@ -539,7 +539,7 @@ String get_fx_bg_path() {
 	} else {
 		File f = new File(fx_bg_rope_path);
 		if(!f.exists()) {
-			printErrTempo(60,"get_fx_bg_path()",fx_bg_rope_path,"no folder found");
+			print_err_tempo(60,"get_fx_bg_path()",fx_bg_rope_path,"no folder found");
 		} else {
 			fx_bg_rope_path_exists = true;
 		}

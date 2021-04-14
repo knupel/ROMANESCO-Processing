@@ -1,6 +1,6 @@
 /**
 * Rope UTILS 
-* v 1.65.0
+* v 1.66.0
 * Copyleft (c) 2014-2021
 * Rope – Romanesco Processing Environment – 
 * @author @stanlepunk
@@ -22,7 +22,7 @@ import processing.pdf.*;
 
 
 /**
-* pixel larray
+* pixel array
 */
 int index_pixel_array(int x, int y, int w) {
 	return (x + y * w);
@@ -466,12 +466,12 @@ void print_extension_filter(String type) {
 					break;
 				}
 				if(count == input_type.length) {
-					printErr(r.ANSI_RED+"method print_extension_filter(): no input available for this type:"+r.ANSI_WHITE,type);
+					print_err(r.ANSI_RED+"method print_extension_filter(): no input available for this type:"+r.ANSI_WHITE,type);
 				}
 			}
 		}
 	} else {
-		printErr("method print_extension_filter(): no input available");
+		print_err("method print_extension_filter(): no input available");
 	}
 }
 
@@ -720,8 +720,8 @@ class R_Input {
 			}
 
 			if(check_for_existing_method == input_rope.length) {
-				printErr("void select_input(String type) don't find callback method who's match with type: "+type);
-				printErr("type available:");
+				print_err("void select_input(String type) don't find callback method who's match with type: "+type);
+				print_err("type available:");
 				printArray(input_type);
 			}
 		}
@@ -1211,7 +1211,7 @@ void save_frame(String where, String filename, float compression, PImage img) {
 		loadPixels(); 
 		BufferedImage buff_img;
 		if(img == null) {
-			printErr("method save_frame(): the PImage is null, no save can be done");
+			print_err("method save_frame(): the PImage is null, no save can be done");
 		} else {
 			buff_img = new BufferedImage(img.width, img.height, BufferedImage.TYPE_INT_RGB);
 			buff_img.setRGB(0, 0, img.width, img.height, img.pixels, 0, img.width);
@@ -1225,7 +1225,7 @@ void save_frame(String where, String filename, float compression, PImage img) {
 			//   filename = filename.substring(0,filename.length()-4);
 			//   save_PNG(path,filename);
 			} else {
-				printErr("method save_frame(): no save match with this path "+path);
+				print_err("method save_frame(): no save match with this path "+path);
 			}
 		} 
 	} catch (FileNotFoundException e) {
@@ -1690,7 +1690,7 @@ PVector to_PVector(Object obj) {
 			return new PVector(iv.x,iv.y,iv.z);
 		}
 	} else {
-		printErr("method to_Pvectro(): wait for Object of type vec or ivec");
+		print_err("method to_Pvectro(): wait for Object of type vec or ivec");
 		return null;
 	}
 }
@@ -1919,7 +1919,7 @@ vec4 array_to_vec4_rgba(float... f) {
 
 /**
 print
-v 0.3.0
+v 0.4.0
 */
 
 /**
@@ -1927,12 +1927,61 @@ v 0.3.0
 * System.out.println(r.ANSI_RED + "This text has red text but a default background!" + r.ANSI_RESET);
 * System.out.println(r.ANSI_GREEN_BACKGROUND + r.ANSI_RED + "This text has a green background and red text!" + r.ANSI_RESET);
 */
-// print Err
+void print_err(Object... obj) {
+	System.err.println(write_message(obj));
+	System.err.flush();
+}
+
+// print tempo
+void print_err_tempo(int tempo, Object... obj) {
+	if(System.currentTimeMillis()%tempo == 0) {
+		String message = write_message(obj);
+		System.err.println(message);
+		System.err.flush();
+	}
+}
+
+void print_tempo(int tempo, Object... obj) {
+	if(System.currentTimeMillis()%tempo == 0) {
+		String message = write_message(obj);
+		println(message);
+	}
+}
+
+
+void print_array_tempo(int tempo, Object[] obj) {
+	if(System.currentTimeMillis()%tempo == 0) {
+		printArray(obj);
+	}
+}
+
+void print_array_tempo(int tempo, float[] arg) {
+	if(System.currentTimeMillis()%tempo == 0) {
+		printArray(arg);
+	}
+}
+
+void print_array_tempo(int tempo, int[] arg) {
+	if(System.currentTimeMillis()%tempo == 0) {
+		printArray(arg);
+	}
+}
+
+void print_array_tempo(int tempo, String[] arg) {
+	if(System.currentTimeMillis()%tempo == 0) {
+		printArray(arg);
+	}
+}
+
+
+
+@Deprecated
 void printErr(Object... obj) {
 	System.err.println(write_message(obj));
 }
 
 // print tempo
+@Deprecated
 void printErrTempo(int tempo, Object... obj) {
 	if(frameCount%tempo == 0 || frameCount <= 1) {
 		String message = write_message(obj);
@@ -1940,6 +1989,7 @@ void printErrTempo(int tempo, Object... obj) {
 	}
 }
 
+@Deprecated
 void printTempo(int tempo, Object... obj) {
 	if(frameCount%tempo == 0 || frameCount <= 1) {
 		String message = write_message(obj);
@@ -1947,27 +1997,28 @@ void printTempo(int tempo, Object... obj) {
 	}
 }
 
-
-
-
+@Deprecated
 void printArrayTempo(int tempo, Object[] obj) {
 	if(frameCount%tempo == 0 || frameCount <= 1) {
 		printArray(obj);
 	}
 }
 
+@Deprecated
 void printArrayTempo(int tempo, float[] arg) {
 	if(frameCount%tempo == 0 || frameCount <= 10) {
 		printArray(arg);
 	}
 }
 
+@Deprecated
 void printArrayTempo(int tempo, int[] arg) {
 	if(frameCount%tempo == 0 || frameCount <= 10) {
 		printArray(arg);
 	}
 }
 
+@Deprecated
 void printArrayTempo(int tempo, String[] arg) {
 	if(frameCount%tempo == 0 || frameCount <= 10) {
 		printArray(arg);
@@ -2540,7 +2591,7 @@ String sketchPath(int minus) {
 		}
 		return new_path; 
 	} else {
-		printErr("The number of path elements is lower that elements must be remove, instead a data folder is used");
+		print_err("The number of path elements is lower that elements must be remove, instead a data folder is used");
 		return sketchPath()+"/data";
 	}  
 }
@@ -2585,10 +2636,10 @@ boolean extension_is(String path, String... data) {
 				}
 			}
 		} else {
-			printErr("method extension_is(): [",path.toLowerCase(),"] this path don't have any extension");
+			print_err("method extension_is(): [",path.toLowerCase(),"] this path don't have any extension");
 		}
 	} else {
-		printErr("method extension_is() need almost two components, the first is the path and the next is extension");
+		print_err("method extension_is() need almost two components, the first is the path and the next is extension");
 	}
 	return is;
 }

@@ -1,10 +1,10 @@
 /**
 * ROPE SCIENCE
-* v 0.7.10
+* v 0.7.11
 * Copyleft (c) 2014-2021
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
-* Processing 4.0.a2
+* Processing 4.0.a3
 */
 
 
@@ -45,7 +45,7 @@ float random_gaussian(float value, float range) {
   /*
   * It's cannot possible to indicate a value result here, this part need from the coder ?
   */
-  printErrTempo(240,"float random_gaussian(); method must be improved or totaly deprecated");
+  print_err_tempo(240,"float random_gaussian(); method must be improved or totaly deprecated");
   range = abs(range) ;
   float distrib = random(-1, 1) ;
   float result = 0 ;
@@ -315,12 +315,10 @@ vec3 to_polar(vec3 cart) {
   float phi = acos(cart.x / sqrt(cart.x * cart.x + cart.y * cart.y)) * (cart.y < 0 ? -1 : 1);
   float theta = acos(cart.z / radius) * (cart.z < 0 ? -1 : 1);
   // check NaN result
-  if (Float.isNaN(phi)) phi = 0 ;
-  if (Float.isNaN(theta)) theta = 0 ;
-  if (Float.isNaN(radius)) radius = 0 ;
-  // result
-  //return new vec3(radius, longitude, latitude) ;
-  return new vec3(phi, theta, radius) ;
+  if (Float.isNaN(phi)) phi = 0;
+  if (Float.isNaN(theta)) theta = 0;
+  if (Float.isNaN(radius)) radius = 0;
+  return new vec3(phi, theta, radius);
 }
 
 
@@ -335,41 +333,37 @@ vec3 to_polar(vec3 cart) {
 // return the position of point on Sphere, with longitude and latitude
 */
 //If you want just the final pos
-vec3 to_cartesian_3D(vec2 pos, vec2 range, float sizeField)  {
+vec3 to_cartesian_3D(vec2 pos, vec2 range, float size_field)  {
   // vertical plan position
-  float verticalY = to_cartesian_2D(pos.y, vec2(0,range.y), vec2(0,TAU), sizeField).x ;
-  float verticalZ = to_cartesian_2D(pos.y, vec2(0,range.y), vec2(0,TAU), sizeField).y ; 
-  vec3 posVertical = new vec3(0, verticalY, verticalZ) ;
+  float vertical_y = to_cartesian_2D(pos.y(), vec2(0,range.y()), vec2(0,TAU), size_field).x();
+  float vertical_z = to_cartesian_2D(pos.y(), vec2(0,range.y()), vec2(0,TAU), size_field).y(); 
+  vec3 pos_vertical = new vec3(0, vertical_y, vertical_z) ;
   // horizontal plan position
-  float horizontalX = to_cartesian_2D(pos.x, vec2(0,range.x), vec2(0,TAU), sizeField).x ; 
-  float horizontalZ = to_cartesian_2D(pos.x, vec2(0,range.x), vec2(0,TAU), sizeField).y  ;
-  vec3 posHorizontal = new vec3(horizontalX, 0, horizontalZ) ;
+  float horizontal_x = to_cartesian_2D(pos.x(), vec2(0,range.x()), vec2(0,TAU), size_field).x(); 
+  float horizontal_z = to_cartesian_2D(pos.x(), vec2(0,range.x()), vec2(0,TAU), size_field).y();
+  vec3 pos_horizontal = new vec3(horizontal_x, 0, horizontal_z) ;
   
-  return projection(middle(posVertical, posHorizontal), sizeField) ;
+  return projection(middle(pos_vertical, pos_horizontal), size_field) ;
 }
 
+
+/**
+* @see https://en.wikipedia.org/wiki/List_of_common_coordinate_transformations
+* @see https://en.wikipedia.org/wiki/Spherical_coordinate_system
+* @see https://fr.wikipedia.org/wiki/Coordonn%C3%A9es_sph%C3%A9riques
+*/
 vec3 to_cartesian_3D(float latitude, float longitude) {
-  float radius_normal = 1 ;
-  return to_cartesian_3D(latitude, longitude, radius_normal);
-}
-
-// main method
-vec3 to_cartesian_3D(float latitude, float longitude,  float radius) {
-  // https://en.wikipedia.org/wiki/List_of_common_coordinate_transformations
-  // https://en.wikipedia.org/wiki/Spherical_coordinate_system
-  // https://fr.wikipedia.org/wiki/Coordonn%C3%A9es_sph%C3%A9riques
-  
-
-  /*
-  //  Must be improve is not really good in the border versus direct polar rotation with the matrix
-  */ 
   float theta = longitude%TAU ;
   float phi = latitude%PI ;
-
-  float x = radius *sin(theta) *cos(phi);
-  float y = radius *sin(theta) *sin(phi);
-  float z = radius *cos(theta);
+  //  Must be improve is not really good in the border versus direct polar rotation with the matrix
+  float x = sin(theta) *cos(phi);
+  float y = sin(theta) *sin(phi);
+  float z = cos(theta);
   return new vec3(x, y, z);
+}
+
+vec3 to_cartesian_3D(float latitude, float longitude,  float radius) {
+  return to_cartesian_3D(latitude, longitude).mult(radius);
 }
 /*
 vec3 to_cartesian_3D(float longitude, float latitude, float radius) {
@@ -460,13 +454,13 @@ v 0.0.2
 // Target direction return the normal direction of the target from the origin
 @Deprecated
 vec2 target_direction(vec2 target, vec2 my_position) {
-  printErrTempo(240, "vec2 target_direction() deprecated instead use look_at(vec target, vec origin) method, becareful the result is mult by -1");
+  print_err_tempo(240, "vec2 target_direction() deprecated instead use look_at(vec target, vec origin) method, becareful the result is mult by -1");
   return projection(target, my_position, 1).sub(my_position);
 }
 
 @Deprecated
 vec3 target_direction(vec3 target, vec3 my_position) {
-   printErrTempo(240, "vec2 target_direction() deprecated instead use look_at(vec target, vec origin) method, becareful the result is mult by -1");
+   print_err_tempo(240, "vec2 target_direction() deprecated instead use look_at(vec target, vec origin) method, becareful the result is mult by -1");
   return projection(target, my_position, 1).sub(my_position) ;
 }
 

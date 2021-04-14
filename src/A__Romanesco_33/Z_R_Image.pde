@@ -37,7 +37,8 @@ int entry(PGraphics pg, vec2 pos, boolean constrain_is) {
 
 int entry(PGraphics pg, float x, float y, boolean constrain_is) {
   //int max = pg.pixels.length;
-  int rank = (int)y * pg.width + (int)x;
+  // int rank = (int)y * pg.width + (int)x;
+  int rank = index_pixel_array((int)x, (int)y, pg.width);
   return entry(pg, rank, constrain_is);
 }
 
@@ -65,440 +66,14 @@ int entry(PGraphics pg, int rank, boolean constrain_is) {
 
 
 
-/**
-* PATTERN GENERATOR
-* v 0.2.1
-* 2018-2021
-*/
-/**
-* from Lode Vandevenne algorithm
-* https://lodev.org/cgtutor/randomnoise.html
-*/
 
-/**
-*
-* patern marbble main method
-*
-*
-* x_period and yPeriod together define the angle of the lines
-* x_period and yPeriod both 0 ==> it becomes a normal clouds or turbulence pattern
-* vec2 period.x() = 5.0; //defines repetition of marble lines in x direction
-* vec2 period.y() = 10.0; //defines repetition of marble lines in y direction
-*
-* turbulence = 0 ==> it becomes a normal sine pattern
-* float turbulence = 5.0; //makes twists
-* float smooth = 32.0; //initial size of the turbulence
-*/
-
-/**
-* R_Pattern
-* v 0.1.1
-* 2021-2021
-*/
-public class R_Pattern {
-  private ivec2 matrix_size;
-  private vec2 matrix_range;
-  private vec3 matrix_inc;
-  private float [] mat_angle;
-  private float [][] matrix;
-  private vec3 [][] matrix_3;
-  private vec2 period;
-  private float turbulence;
-  private float smooth;
-
-  public R_Pattern() {
-    init();
-  }
-  // set
-  public void init() {
-    this.matrix_size = new ivec2(32, 32);
-    this.matrix_range = new vec2(0,1);
-    this.matrix_inc = new vec3(0);
-    this.period = new vec2(5.0);
-    this.mat_angle = null;
-    this.turbulence = 5.0;
-    this.smooth = 1.0;
-  }
-
-  public void set_size(int w, int h) {
-    this.matrix_size.set(w,h);
-  }
-
-  public void set_range(float min, float max) {
-    this.matrix_range.set(min,max);
-  }
-
-  public void set_increment(float inc) {
-    this.matrix_inc.set(inc);
-  }
-
-  public void set_increment(float x, float y, float z) {
-    this.matrix_inc.set(x,y,z);
-  }
-
-  public void set_no_increment() {
-    this.matrix_inc.set(0);
-  }
-
-  public void set_period(float x, float y) {
-    period.set(x,y);
-  }
-
-  public void set_turbulence(float turbulence) {
-    this.turbulence = turbulence;
-  }
-
-  public void set_smooth(float smooth) {
-    this.smooth = smooth;
-  }
-
-  public void set_no_smooth() {
-    this.smooth = 1.0;
-  }
-
-  public void set_angle(float a_x, float a_y, float a_z) {
-    mat_angle = new float[3];
-    mat_angle[0] = a_x;
-    mat_angle[1] = a_y;
-    mat_angle[2] = a_z;
-  }
-
-  public void set_no_angle() {
-    mat_angle = null;
-  }
-
-
-
-
-
-  public void build_matrix_rand_mono() {
-    matrix = new float[matrix_size.x()][matrix_size.y()];
-    for (int x = 0; x < matrix_size.x() ; x++) {
-      for (int y = 0; y < matrix_size.y() ; y++) {
-        matrix[x][y] = random(matrix_range.min(), matrix_range.max());
-      }
-    }
-  }
-
-  public void build_matrix_rand_xyz() {
-    matrix_3 = new vec3[matrix_size.x()][matrix_size.y()];
-    for (int x = 0; x < matrix_size.x() ; x++) {
-      for (int y = 0; y < matrix_size.y() ; y++) {
-        matrix_3[x][y] = new vec3().rand(matrix_range.min(), matrix_range.max());
-      }
-    }
-  }
-
-  public void build_matrix_noise_mono() {
-    matrix = new float[matrix_size.x()][matrix_size.y()];
-    float offset_x = 0;
-    float offset_y = 0;
-    noiseSeed((int)random(MAX_INT));
-    for(int x = 0 ; x < matrix_size.x() ; x++) {
-      offset_y = 0;
-      for(int y = 0 ; y < matrix_size.y() ; y++) {
-        float component = noise(offset_x,offset_y);
-        matrix[x][y] = component;
-        offset_y += matrix_inc.x();
-      }
-      offset_x += matrix_inc.x();
-    }
-  }
-
-  
-  private float change_angle_component(float value, float angle) {
-    float buf = value * TAU + angle;
-    float temp = buf%TAU;
-    if(temp < 0)
-      temp = TAU - temp;
-    return(map(temp, 0, TAU, 0, 1));
-  }
-
-  public void build_matrix_noise_xyz() {
-    matrix_3 = new vec3[matrix_size.x()][matrix_size.y()];
-    vec3 offset_x = vec3();
-    vec3 offset_y = vec3();
-    noiseSeed((int)random(MAX_INT));
-
-    float angle_x = 0;
-    float angle_y = 0;
-    float angle_z = 0;
-    if(mat_angle != null) {
-      angle_x = mat_angle[0];
-      angle_y = mat_angle[1];
-      angle_z = mat_angle[2];
-    }
-    for(int x = 0 ; x < matrix_size.x() ; x++) {
-      offset_y.set(0);
-      for(int y = 0 ; y < matrix_size.y() ; y++) {
-        float cx, cy, cz = 0;
-        if(mat_angle != null) {
-          float ref = noise(offset_x.x(),offset_y.x());
-          cx = change_angle_component(ref, angle_x);
-          cy = change_angle_component(ref, angle_y);
-          cz = change_angle_component(ref, angle_z);
-        } else {
-          cx = noise(offset_x.x(),offset_y.x());
-          cy = noise(offset_x.y(),offset_y.y());
-          cz = noise(offset_x.z(),offset_y.z());
-        }
-        matrix_3[x][y] = new vec3(cx,cy,cz);
-        offset_y.add(matrix_inc);
-      }
-      offset_x.add(matrix_inc);
-    }
-  }
-
-  public void build_matrix(PImage src, int type) {
-    if(type == HSB || type == RGB) {
-      build_matrix_xyz(src, type);
-    } else {
-      build_matrix_mono(src, type);
-    }
-  }
-
-  private void build_matrix_mono(PImage src, int type) {
-    matrix = new float[src.width][src.height];
-    for (int x = 0 ; x < src.width ; x++) {
-      for (int y = 0 ; y < src.height ; y++) {
-        if(type == r.RED) 
-          matrix[x][y] = red(src.get(x,y)) / g.colorModeX;
-        else if(type == r.GREEN) 
-          matrix[x][y] = green(src.get(x,y)) / g.colorModeY;
-        else if(type == r.BLUE)
-          matrix[x][y] = blue(src.get(x,y)) / g.colorModeZ;
-        else if(type == r.HUE)
-          matrix[x][y] = hue(src.get(x,y)) / g.colorModeX;
-        else if(type == r.SATURATION)
-          matrix[x][y] = saturation(src.get(x,y)) / g.colorModeY;
-        else if(type == r.BRIGHTNESS)
-          matrix[x][y] = brightness(src.get(x,y)) / g.colorModeZ;
-        else
-          matrix[x][y] = brightness(src.get(x,y)) / g.colorModeZ;
-      }
-    }
-  }
-
-  private void build_matrix_xyz(PImage src, int type) {
-    matrix_3 = new vec3[src.width][src.height];
-    for (int x = 0 ; x < src.width ; x++) {
-      for (int y = 0 ; y < src.height ; y++) {
-        matrix_3[x][y] = new vec3();
-        if(type == RGB) {
-          matrix_3[x][y].x(red(src.get(x,y)) / g.colorModeX);
-          matrix_3[x][y].y(green(src.get(x,y)) / g.colorModeY);
-          matrix_3[x][y].z(blue(src.get(x,y)) / g.colorModeZ);
-        } else if(type == HSB) {
-          matrix_3[x][y].x(hue(src.get(x,y)) / g.colorModeX);
-          matrix_3[x][y].y(saturation(src.get(x,y)) / g.colorModeY);
-          matrix_3[x][y].z(brightness(src.get(x,y)) / g.colorModeZ);
-        }
-      }
-    }
-  }
-  
-  private float smooth_mono(float x, float y) {
-    //get fractional part of x and y
-    int w = this.matrix.length;
-    int h = this.matrix[0].length;
-    float fract_x = fract(x);
-    float fract_y = fract(y);
-    //wrap around
-    int x1 = ((int)x + w) % w;
-    int y1 = ((int)y + h) % h;
-    //neighbor values
-    int x2 = (x1 + w - 1) % w;
-    int y2 = (y1 + h - 1) % h;
-    //smooth the noise with bilinear interpolation
-    float value = 0.0;
-    value += fract_x * fract_y * this.matrix[x1][y1];
-    value += (1 - fract_x) * fract_y * this.matrix[x2][y1];
-    value += fract_x * (1 - fract_y) * this.matrix[x1][y2];
-    value += (1 - fract_x) * (1 - fract_y) * this.matrix[x2][y2];
-    return value;
-  }
-  
-  private vec3 smooth_xyz(float x, float y) {
-    //get fractional part of x and y
-    int w = matrix_3.length;
-    int h = matrix_3[0].length;
-    float fract_x = fract(x);
-    float fract_y = fract(y);
-    //wrap around
-    int x1 = ((int)x + w) % w;
-    int y1 = ((int)y + h) % h;
-    //neighbor values
-    int x2 = (x1 + w - 1) % w;
-    int y2 = (y1 + h - 1) % h;
-    //smooth the noise with bilinear interpolation
-    float vx = 0.0;
-    float vy = 0.0;
-    float vz = 0.0;
-    vx += fract_x * fract_y * matrix_3[x1][y1].x();
-    vx += (1 - fract_x) * fract_y * matrix_3[x2][y1].x();
-    vx += fract_x * (1 - fract_y) * matrix_3[x1][y2].x();
-    vx += (1 - fract_x) * (1 - fract_y) * matrix_3[x2][y2].x();
-
-    vy += fract_x * fract_y * matrix_3[x1][y1].y();
-    vy += (1 - fract_x) * fract_y * matrix_3[x2][y1].y();
-    vy += fract_x * (1 - fract_y) * matrix_3[x1][y2].y();
-    vy += (1 - fract_x) * (1 - fract_y) * matrix_3[x2][y2].y();
-
-    vz += fract_x * fract_y * matrix_3[x1][y1].z();
-    vz += (1 - fract_x) * fract_y * matrix_3[x2][y1].z();
-    vz += fract_x * (1 - fract_y) * matrix_3[x1][y2].z();
-    vz += (1 - fract_x) * (1 - fract_y) * matrix_3[x2][y2].z();
-    return vec3(vx,vy,vz);
-  }
-
-  private float turbulence(float x, float y) {
-    float value = 0.0;
-    float buf_smooth = this.smooth;
-    while(this.smooth >= 1) {
-      value += this.smooth_mono(x / this.smooth, y / this.smooth) * this.smooth;
-      this.smooth /= 2.0;
-    }
-    this.smooth = buf_smooth;
-    return(128.0 * value / buf_smooth);
-  }
-
-  private vec3 turbulence_xyz(float x, float y) {
-    vec3 value = vec3();
-    float buf_smooth = this.smooth;
-    while(this.smooth >= 1) {
-      value.add(smooth_xyz(x / this.smooth, y / this.smooth).mult(this.smooth));
-      this.smooth /= 2.0;
-    }
-    this.smooth = buf_smooth;
-    return value.mult(128.0).div(buf_smooth);
-  }
-
-
-  // RENDERING
-  public PGraphics map_mono(int w, int h) {
-    if(w <= 0 || h <= 0)
-      return null;
-    PGraphics dst;
-    float [] cm = getColorMode(false);
-    colorMode(RGB,255,255,255,255);
-    float range_colour = g.colorModeX;
-    int w_mat = matrix.length;
-    int h_mat = matrix[0].length;
-    dst = createGraphics(w,h);
-    dst.beginDraw();
-    dst.loadPixels();
-    for (int x = 0; x < w; x++) {
-      for (int y = 0; y < h; y++) {
-        float buf_col = this.smooth_mono(x / this.smooth ,y / this.smooth);
-        int c = color(buf_col * range_colour);
-        int index = index_pixel_array(x, y, w);
-        dst.pixels[index] = c;
-      }
-    }
-    dst.updatePixels();
-    dst.endDraw();
-    return dst;
-  }
-
-  public PGraphics map_xyz(int w, int h) {
-    if(w <= 0 || h <= 0)
-      return null;
-    PGraphics dst;
-    float [] cm = getColorMode(false);
-    colorMode(RGB,255,255,255,255);
-    float range_colour = g.colorModeX;
-    int w_mat = matrix_3.length;
-    int h_mat = matrix_3[0].length;
-    dst = createGraphics(w,h);
-    dst.beginDraw();
-    dst.loadPixels();
-    for (int x = 0; x < w; x++) {
-      for (int y = 0; y < h; y++) {
-        float [] buf_col = this.smooth_xyz(x / this.smooth ,y / this.smooth).array();
-        float [] rgb = new float[3];
-        for(int i = 0 ; i < 3 ; i++) {
-          rgb[i] = buf_col[i] *range_colour;
-        }
-        int index = index_pixel_array(x, y, w);
-        int c = color(rgb[0],rgb[1],rgb[2]);
-        dst.pixels[index] = c;
-      }
-    }
-    dst.updatePixels();
-    dst.endDraw();
-    return dst;
-  }
-
-  public PGraphics marble_mono(int w, int h) {
-    if(w <= 0 || h <= 0)
-      return null;
-    PGraphics dst;
-    float [] cm = getColorMode(false);
-    colorMode(RGB,255,255,255,255);
-    float range_colour = g.colorModeX;
-    int w_mat = matrix.length;
-    int h_mat = matrix[0].length;
-    dst = createGraphics(w,h);
-    dst.beginDraw();
-    dst.loadPixels();
-    int count = 0;
-    for (int x = 0; x < w; x++) {
-      for (int y = 0; y < h; y++) {
-        float buf_turb = this.turbulence(x, y);
-        float buf_xy = x * this.period.x() / w_mat + y * this.period.y() / h_mat + this.turbulence * buf_turb / range_colour;
-        float sin_buf = range_colour * abs(sin(buf_xy));
-        int colour = (int)sin_buf;
-        int index = index_pixel_array(x, y, w);
-        int c = color(colour);
-        dst.pixels[index] = c;
-      }
-    }
-    dst.updatePixels();
-    dst.endDraw();
-    colorMode((int)cm[0],cm[1],cm[2],cm[3],cm[4]);
-    return dst;
-  }
-
-  public PGraphics marble_xyz(int w, int h) {
-    if(w <= 0 || h<= 0)
-      return null;
-    PGraphics dst;
-    float [] cm = getColorMode(false);
-    colorMode(RGB,255,255,255,255);
-    float range_colour = g.colorModeX;
-    int w_mat = matrix.length;
-    int h_mat = matrix[0].length;
-    dst = createGraphics(w,h);
-    dst.beginDraw();
-    dst.loadPixels();
-    int count = 0;
-    for (int x = 0; x < w; x++) {
-      for (int y = 0; y < h; y++) {
-        float [] buf_turb = this.turbulence_xyz(x, y).array();
-        int [] rgb = new int[3];
-        for(int i = 0 ; i < 3 ; i++) {
-          float buf_xy = x * this.period.x() / w_mat + y * this.period.y() / h_mat + this.turbulence * buf_turb[i] / range_colour;
-          float sin_buf = range_colour * abs(sin(buf_xy));
-          rgb[i] = (int)sin_buf;
-        }
-        int index = index_pixel_array(x, y, w);
-        int c = color(rgb[0],rgb[1],rgb[2]);
-        dst.pixels[index] = c;
-      }
-    }
-    dst.updatePixels();
-    dst.endDraw();
-    colorMode((int)cm[0],cm[1],cm[2],cm[3],cm[4]);
-    return dst;
-  }
-}
 
 
 
 
 /**
 * method PATTERN
-* v 0.0.1
+* v 0.0.2
 * 2021-2021
 */
 R_Pattern rope_pattern;
@@ -506,7 +81,7 @@ R_Pattern rope_pattern;
 
 void init_pattern() {
   if(rope_pattern == null) {
-    rope_pattern = new R_Pattern(); 
+    rope_pattern = new R_Pattern(this); 
   }
 }
 
@@ -702,7 +277,7 @@ PGraphics pattern_noise(int w, int h, float... inc) {
     pg.endDraw();
     return pg;
   } else {
-    printErr("method pattern_noise(): may be problem with size:",w,h,"\nor with component color num >>>",inc.length,"<<< must be between 1 and 4");
+    print_err("method pattern_noise(): may be problem with size:",w,h,"\nor with component color num >>>",inc.length,"<<< must be between 1 and 4");
     return null;
   }
 }
@@ -753,7 +328,7 @@ void init_layer(int x, int y, String type, int num) {
     warning_rope_layer = true;
   }
   String warning = ("WARNING LAYER METHOD\nAll classical method used on the main rendering,\nwill return the PGraphics selected PGraphics layer :\nimage(), set(), get(), fill(), stroke(), rect(), ellipse(), pushMatrix(), popMatrix(), box()...\nto use those methods on the main PGraphics write g.image() for example");
-  printErr(warning);
+  print_err(warning);
 }
 
 // begin and end draw
@@ -790,7 +365,7 @@ void clear_layer() {
     }
   } else {
     String warning = ("void clear_layer(): there is no layer can be clear maybe you forget to create one :)");
-    printErr(warning);
+    print_err(warning);
   }
   
 }
@@ -803,7 +378,7 @@ void clear_layer(int target) {
     rope_layer[target] = createGraphics(w,h,type);
   } else {
     String warning = ("void clear_layer(): target "+target+" is out the range of the layers available,\n no layer can be clear");
-    printErr(warning);
+    print_err(warning);
   }
 }
 
@@ -827,7 +402,7 @@ PGraphics get_layer(int target) {
     return rope_layer[target];
   } else {
     String warning = ("PGraphics get_layer(int target): target "+target+" is out the range of the layers available,\n instead target 0 is used");
-    printErr(warning);
+    print_err(warning);
     return rope_layer[0];
   }
 }
@@ -840,10 +415,10 @@ void select_layer(int target) {
     } else {
       which_rope_layer = 0;
       String warning = ("void select_layer(int target): target "+target+" is out the range of the layers available,\n instead target 0 is used");
-      printErr(warning);
+      print_err(warning);
     }
   } else {
-    printErrTempo(180,"void select_layer(): Your layer system has not been init use method init_layer() in first",frameCount);
+    print_err_tempo(180,"void select_layer(): Your layer system has not been init use method init_layer() in first",frameCount);
   } 
 }
 
@@ -855,241 +430,6 @@ void select_layer(int target) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-/**
-PImage manager library
-v 0.7.3
-*/
-public class R_Image_Manager {
-  ArrayList<R_Image> library ;
-  int which_img;
-
-  public R_Image_Manager() {}
-
-  private void build() {
-    if(library == null) {
-      library = new ArrayList<R_Image>();
-    }
-  }
-
-  public void load(String... path_img) {
-    build();
-    for(int i = 0 ; i <path_img.length ; i++) {
-      String [] temp = path_img[i].split("/");
-      PImage img = loadImage(path_img[i]);
-      R_Image rop_img = new R_Image(img,temp[temp.length-1],i);
-      library.add(rop_img);
-    }  
-  }
-
-  public void add(PImage img_src) {
-    build();
-    R_Image rop_img = new R_Image(img_src, "unknow" ,library.size());
-    library.add(rop_img);
-  }
-
-  public void add(PImage img_src, String name) {
-    build();
-    R_Image rop_img = new R_Image(img_src, name, library.size());
-    library.add(rop_img);
-  }
-
-  public void clear() {
-    if(library != null) {
-      library.clear();
-    }
-  }
-
-
-
-  public void select(int which_one) {
-    which_img = which_one ;
-  }
-
-  public void select(String target_name) {
-    if(library.size() > 0) {
-      for(int i = 0 ; i < library.size() ; i++) {
-        if(target_name.equals(library.get(i).name)) {
-          which_img = i ;
-          break ;
-        }
-      }
-    } else {
-      printErr("the String target name don't match with any name of image library") ;
-    }
-  }
-
-
-  public int size() {
-    if(library != null) {
-      return library.size() ;
-    } else return -1 ;  
-  }
-
-  public void set(PImage src_img, int target) {
-    build();
-    if(target < library.size()) {
-      if(src_img.width == get(target).width && src_img.height == get(target).height){
-        get(target).pixels = src_img.pixels ;
-        get(target).updatePixels();
-      } else {
-        get(target).resize(src_img.width, src_img.height);
-        get(target).pixels = src_img.pixels ;
-        get(target).updatePixels();
-      }
-    } else {
-      printErr("Neither target image match with your request");
-    }
-  }
-
-  public void set(PImage src_img, String target_name) {
-    build();
-    if(library.size() > 0) {
-      if(src_img.width == get(target_name).width && src_img.height == get(target_name).height){
-        get(target_name).pixels = src_img.pixels ;
-        get(target_name).updatePixels();
-      } else {
-        get(target_name).resize(src_img.width, src_img.height);
-        get(target_name).pixels = src_img.pixels ;
-        get(target_name).updatePixels();
-      }
-    } else {
-      printErr("Neither target image match with your request");
-    }
-  }
-
-  public String get_current_name() {
-    return get_name(which_img);
-  }
-
-  public String get_name(int target) {
-    if(library != null && library.size() > 0) {
-      if(target < library.size()) {
-        return library.get(target).get_name() ;
-      } else return null ;
-    } else return null ;
-  }
-
-
-
-  public int get_rank(String target_name) {
-    if(library != null && library.size() > 0) {
-      int rank = 0 ;
-      for(int i = 0 ; i < library.size() ; i++) {
-        String final_name = target_name.split("/")[target_name.split("/").length -1].split("\\.")[0] ;
-        if(final_name.equals(library.get(i).name) ) {
-          rank = i ;
-          break;
-        } 
-      }
-      return rank;
-    } else return -1;
-  }
-  
-
-  public ArrayList<R_Image> list() {
-    return library;
-  }
-
-  R_Image [] get() {
-    if(library != null && library.size() > 0) {
-      return library.toArray(new R_Image[library.size()]);
-    } else return null;
-  }
-
- 
-  public PImage get_current() {
-    if(library != null && library.size() > 0 ) {
-      if(which_img < library.size()) return library.get(which_img).img; 
-      else return library.get(0).get_image(); 
-    } else return null ;
-  }
-  
-
-  public PImage get(int target){
-    if(library != null && target >= 0 && target < library.size()) {
-      return library.get(target).get_image();
-    } else return null;
-  }
-
-  public PImage get(String target_name){
-    if(library.size() > 0) {
-      int target = 0 ;
-      for(int i = 0 ; i < library.size() ; i++) {
-        String final_name = target_name.split("/")[target_name.split("/").length -1].split("\\.")[0] ;
-        if(final_name.equals(library.get(i).name) ) {
-          target = i ;
-          break;
-        } 
-      }
-      return get(target);
-    } else return null;
-  }
-
-
-  public R_Image rand() {
-    if(library != null && library.size() > 0) {
-      int target = floor(random(library.size()));
-      return library.get(target);
-    } else return null;
-  }
-}
-
-
-
-/**
-* R_Image
-* 2019-2019
-* v 0.0.2
-*/
-public class R_Image {
-  private PImage img ;
-  private String name = "no name" ;
-  private int id = -1;
-
-  public R_Image(String path) {
-    this.name = path.split("/")[path.split("/").length -1].split("\\.")[0];
-    this.img = loadImage(path);
-  }
-
-  public R_Image(PImage img) {
-    this.img = img;
-  }
-
-  public R_Image(PImage img, String name, int id) {
-    this.img = img;
-    this.name = name;
-    this.id = id;
-  }
-  
-
-  public R_Image get() {
-    return this;
-  }
-
-  public int get_id() {
-    return id;
-  }
-
-  public String get_name() {
-    return name ;
-  }
-
-  public PImage get_image() {
-    return img ;
-  }
-}
 
 /**
 resize image
@@ -1183,7 +523,7 @@ v 0.2.2
 */
 void image(PImage img) {
   if(img != null) image(img, 0, 0);
-  else printErr("Object PImage pass to method image() is null");
+  else print_err("Object PImage pass to method image() is null");
 }
 
 void image(PImage img, int what) {
@@ -1249,13 +589,13 @@ void image(PImage img, int what) {
     }
     image(img,x,y,w,h);
   } else {
-    printErrTempo(60,"image(); no PImage has pass to the method, img is null");
+    print_err_tempo(60,"image(); no PImage has pass to the method, img is null");
   } 
 }
 
 void image(PImage img, float coor) {
   if(img != null) image(img, coor, coor);
-  else printErr("Object PImage pass to method image() is null");
+  else print_err("Object PImage pass to method image() is null");
 }
 
 void image(PImage img, ivec pos) {
@@ -1474,7 +814,7 @@ void clean_canvas(int which_canvas, int c) {
     }
   } else {
     String message = ("The target: " + which_canvas + " don't match with an existing canvas");
-    printErr(message);
+    print_err(message);
   }
 }
 
@@ -1491,7 +831,7 @@ void select_canvas(int which_one) {
     current_canvas_rope = which_one;
   } else {
     String message = ("void select_canvas(): Your selection " + which_one + " is not available, canvas '0' be use");
-    printErr(message);
+    print_err(message);
     current_canvas_rope = 0;
   }
 }
@@ -1520,7 +860,7 @@ void update_canvas(PImage img, int which_one) {
   if(which_one < rope_canvas.length && which_one >= 0) {
     rope_canvas[which_one] = img;
   } else {
-    printErr("void update_canvas() : Your selection" ,which_one, "is not available, canvas '0' be use");
+    print_err("void update_canvas() : Your selection" ,which_one, "is not available, canvas '0' be use");
     rope_canvas[0] = img;
   }  
 }
@@ -1696,7 +1036,7 @@ void background_calc(PImage src, vec2 pos, vec2 scale, vec3 colour_background, v
   if(get_renderer().equals(P2D) || get_renderer().equals(P3D)) {
     context_ok = true;
   } else {
-    printErrTempo(180,"method background(PImage img) need context in P3D or P2D to work");
+    print_err_tempo(180,"method background(PImage img) need context in P3D or P2D to work");
   }
   if(context_ok && src != null && src.width > 0 && src.height > 0) {
     if(img_shader_calc_rope == null) {

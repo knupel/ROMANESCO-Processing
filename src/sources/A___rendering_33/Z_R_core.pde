@@ -4,7 +4,7 @@
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 * ROPE core
-* v 0.2.1.2
+* v 0.2.1.4
 */
 import rope.core.*;
 import rope.vector.*;
@@ -51,11 +51,11 @@ that's cool but that's very weird !!!!!
 */
 Rope r;
 
-String rope_framework_version = "1.4.0.78";
+String rope_framework_version = "1.4.3.81";
 public void rope_version() {
 	r = new Rope();
 	println("Romanesco Processing Environment - 2015-2021");
-	println("Processing: 3.5.3.269");
+	println("Processing: 3.5.4.270");
 	println("Rope library: " +r.VERSION);
   println("Rope framework: " + rope_framework_version);
 }
@@ -90,14 +90,16 @@ public vec2 get_scroll() {
 	}
 }
 
-/**
-add for the future
-import java.awt.event.MouseWheelEvent;
-void mouseWheelMoved(MouseWheelEvent e) {
-  println(e.getWheelRotation());
-  println(e.getScrollType());
-  println(MouseWheelEvent.WHEEL_UNIT_SCROLL);
-  println(e.getScrollAmount());
-  println(e.getUnitsToScroll());
-}
-*/
+
+// add for the future
+// https://www.javaexamples.org/java/java.awt.event/mousewheelmoved-in-mousewheellistener.html
+// import java.awt.event.MouseWheelEvent;
+// import java.awt.event.MouseWheelListener;
+// void mouseWheelMoved(MouseWheelEvent e) {
+//   println(e.getWheelRotation());
+//   println(e.getScrollType());
+//   println(MouseWheelEvent.WHEEL_UNIT_SCROLL);
+//   println(e.getScrollAmount());
+//   println(e.getUnitsToScroll());
+// }
+

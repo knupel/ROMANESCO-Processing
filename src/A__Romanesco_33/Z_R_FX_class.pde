@@ -1,11 +1,11 @@
 /**
  * CLASS FX 
- * v 0.4.4
+
  * @author @stanlepunk
  * @see https://github.com/StanLepunK/Shader
- * 2019-2019
- * Processing 3.5.3
- * Rope library 0.7.1
+ * 2019-2021
+  * v 0.4.5
+ * Processing 3.5.4
  * class used to create easy setting for shader fx
 */
 public class FX {
@@ -204,7 +204,7 @@ public class FX {
   		if(arg[i] instanceof Float) {
   			f[i] = (float)arg[i];
   		} else {
-  			printErr("class FX method to_float_array(): arg",arg,"cannot be cast to float");
+  			print_err("class FX method to_float_array(): arg",arg,"cannot be cast to float");
   			f[i] = 0;
   		}
   	}
@@ -218,7 +218,7 @@ public class FX {
   		if(arg[i] instanceof Boolean) {
   			b[i] = (boolean)arg[i];
   		} else {
-  			printErr("class FX method to_boolean_array(): arg",arg,"cannot be cast to boolean");
+  			print_err("class FX method to_boolean_array(): arg",arg,"cannot be cast to boolean");
   			b[i] = false;
   		}
   	}
@@ -478,7 +478,7 @@ public class FX {
 	public vec2 get_scale() {
 		if(scale == null) {
 			scale = vec2(1);
-			printErr("class FX method get_scale(): arg",null,"instead set arg and return",scale);
+			print_err("class FX method get_scale(): arg",null,"instead set arg and return",scale);
 		} 
 		return scale;	
 	}
@@ -486,7 +486,7 @@ public class FX {
 	public vec2 get_resolution() {
 		if(resolution == null) {
 			resolution = vec2(width,height);
-			printErr("class FX method get_resolution(): arg",null,"instead set arg and return",resolution);
+			print_err("class FX method get_resolution(): arg",null,"instead set arg and return",resolution);
 		} 
 		return resolution;
 	}
@@ -494,7 +494,7 @@ public class FX {
 	public vec3 get_strength() {
 		if(strength == null) {
 			strength = vec3(0);
-			printErr("class FX method get_strength(): arg",null,"instead set arg and return",strength);
+			print_err("class FX method get_strength(): arg",null,"instead set arg and return",strength);
 		}
 		return strength;
 	}
@@ -502,7 +502,7 @@ public class FX {
 	public vec3 get_angle() {
 		if(angle == null) {
 			angle = vec3(0);
-			printErr("class FX method get_angle(): arg",null,"instead set arg and return",angle);
+			print_err("class FX method get_angle(): arg",null,"instead set arg and return",angle);
 		}
 		return angle;
 	}
@@ -510,7 +510,7 @@ public class FX {
 	public vec3 get_threshold() {
 		if(threshold == null) {
 			threshold = vec3(0);
-			printErr("class FX method get_threshold(): arg",null,"instead set arg and return",threshold);
+			print_err("class FX method get_threshold(): arg",null,"instead set arg and return",threshold);
 		}
 		return threshold;
 	}
@@ -518,7 +518,7 @@ public class FX {
 	public vec3 get_pos() {
 		if(pos == null) {
 			pos = vec3(width/2,height/2,0);
-			printErr("class FX method get_pos(): arg",null,"instead set arg and return",pos);
+			print_err("class FX method get_pos(): arg",null,"instead set arg and return",pos);
 		}
 		return pos;
 	}
@@ -526,7 +526,7 @@ public class FX {
 	public vec3 get_size() {
 		if(size == null) {
 			size = vec3(5);
-			printErr("class FX method get_size(): arg",null,"instead set arg and return",size);
+			print_err("class FX method get_size(): arg",null,"instead set arg and return",size);
 		}
 		return size;
 	}
@@ -534,7 +534,7 @@ public class FX {
 	public vec3 get_offset() {
 		if(offset == null) {
 			offset = vec3(0);
-			printErr("class FX method get_offset(): arg",null,"instead set arg and return",offset);
+			print_err("class FX method get_offset(): arg",null,"instead set arg and return",offset);
 		}
 		return offset;
 	}
@@ -542,7 +542,7 @@ public class FX {
 	public vec3 get_speed() {
 		if(speed == null) {
 			speed = vec3(0);
-			printErr("class FX method get_offset(): arg",null,"instead set arg and return",speed);
+			print_err("class FX method get_offset(): arg",null,"instead set arg and return",speed);
 		}
 		return speed;
 	}
@@ -550,7 +550,7 @@ public class FX {
 	public vec4 get_level_source() {
 		if(level_source == null) {
 			level_source = vec4(1);
-			printErr("class FX method get_level_source(): arg",null,"instead set arg and return",level_source);
+			print_err("class FX method get_level_source(): arg",null,"instead set arg and return",level_source);
 		}
 		return level_source;
 	}
@@ -558,7 +558,7 @@ public class FX {
 	public vec4 get_level_layer() {
 		if(level_layer == null) {
 			level_layer = vec4(1);
-			printErr("class FX method get_level_layer(): arg",null,"instead set arg and return",level_layer);
+			print_err("class FX method get_level_layer(): arg",null,"instead set arg and return",level_layer);
 		}
 		return level_layer;
 	}
@@ -566,7 +566,7 @@ public class FX {
 	public vec4 get_colour() {
 		if(colour == null) {
 			colour = vec4(1);
-			printErr("class FX method get_colour(): arg",null,"instead set arg and return",colour);
+			print_err("class FX method get_colour(): arg",null,"instead set arg and return",colour);
 		}
 		return colour;
 	}
@@ -574,7 +574,7 @@ public class FX {
 	public vec4 get_cardinal() {
 		if(cardinal == null) {
 			cardinal = vec4(1);
-			printErr("class FX method get_cardinal(): arg",null,"instead set arg and return",cardinal);
+			print_err("class FX method get_cardinal(): arg",null,"instead set arg and return",cardinal);
 		}
 		return cardinal;
 	}
@@ -612,19 +612,19 @@ public class FX {
 		if(matrix != null  && which < matrix.length && which >= 0) {
 			if(matrix[which] == null) {
 				matrix[which] = vec3(0);
-				printErr("class FX method get_matrix(): arg",null,"instead set arg and return",matrix[which]);
+				print_err("class FX method get_matrix(): arg",null,"instead set arg and return",matrix[which]);
 			}
 			return matrix[which];
 		} else if(matrix == null) {
-			printErrTempo(180,"class FX method get_matrix(): matrix list is",null);
+			print_err_tempo(180,"class FX method get_matrix(): matrix list is",null);
 			return vec3(0);
 		} else {
 			if(matrix[0] == null) {
 				matrix[0] = vec3(0);
-				printErr("class FX method get_matrix(",which,") is out of the list available\nthe first component is used and not this is null too\nmatrix '0' is used");
+				print_err("class FX method get_matrix(",which,") is out of the list available\nthe first component is used and not this is null too\nmatrix '0' is used");
 				return matrix[0];
 			} else {
-				printErr("class FX method get_matrix(",which,") is out of the list available\nthe first component is used");
+				print_err("class FX method get_matrix(",which,") is out of the list available\nthe first component is used");
 				return matrix[0];
 			}
 		}
@@ -641,19 +641,19 @@ public class FX {
 		if(pair != null && which < pair.length && which >= 0) {
 			if(pair[which] == null) {
 				pair[which] = vec2(0);
-				printErr("class FX method get_pair(): arg",null,"instead set arg and return",pair[which]);
+				print_err("class FX method get_pair(): arg",null,"instead set arg and return",pair[which]);
 			}
 			return pair[which];
 		} else if(pair == null)  {
-			printErrTempo(180,"class FX method get_pair(): pair list is",null);
+			print_err_tempo(180,"class FX method get_pair(): pair list is",null);
 			return vec2(0);
 		} else {
 			if(pair[0] == null) {
 				pair[0] = vec2(0);
-				printErr("class FX method get_pair(",which,") is out of the list available\nthe first component is used and not this is null too\npair double '0' is used");
+				print_err("class FX method get_pair(",which,") is out of the list available\nthe first component is used and not this is null too\npair double '0' is used");
 				return pair[0];
 			} else {
-				printErr("class FX method get_pair(",which,") is out of the list available\nthe first component is used");
+				print_err("class FX method get_pair(",which,") is out of the list available\nthe first component is used");
 				return pair[0];
 			}
 		}
@@ -670,15 +670,15 @@ public class FX {
 		if(event != null && which < event.length  && which >= 0) {
 			return event[which];
 		} else if(event == null) {
-			printErrTempo(180,"class FX method get_event(): event list is null\n bvec false is return");
+			print_err_tempo(180,"class FX method get_event(): event list is null\n bvec false is return");
 			return bvec4(false);
 		} else {
 			if(event[0] == null) {
 				event[0] = bvec4(false);
-				printErr("class FX method get_event(",which,") is out of the list available\nthe first component is used and not this is null too\nevent 'false is used");
+				print_err("class FX method get_event(",which,") is out of the list available\nthe first component is used and not this is null too\nevent 'false is used");
 				return event[0];
 			} else {
-				printErr("class FX method get_event(",which,") is out of the list available\nthe first component is used");
+				print_err("class FX method get_event(",which,") is out of the list available\nthe first component is used");
 				return event[0];
 			}
 		}

@@ -47,7 +47,7 @@ public class R_Typewriter {
       this.type = extension(this.path);
       reset_cloud = true;
     } else {
-      printErr("class R_Text: font path don't match with any font type:",path);
+      print_err("class R_Text: font path don't match with any font type:",path);
     }
   }
 
@@ -57,7 +57,7 @@ public class R_Typewriter {
       this.path = path;
       this.font = createFont(this.path,this.size);
     } else if(show_warning) {
-      printErr("class R_Text method set(): font path don't match with any font type:",path);
+      print_err("class R_Text method set(): font path don't match with any font type:",path);
     }
   }
 
