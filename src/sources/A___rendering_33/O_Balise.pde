@@ -213,12 +213,12 @@ class Balise {
     }
 
     for(int i = 0 ; i < max ; i++) {
-      vec2 var = vec2(input(i,max,sound_input,authorization).x, input(i,max,sound_input,authorization).y) ;
-      vec2 pos = vec2(amp *var.x, amp *var.y);
+      vec2 val = vec2(input(i,max,sound_input,authorization).x, input(i,max,sound_input,authorization).y) ;
+      vec2 pos = vec2(amp *val.x, amp *val.y);
       
-      var.set(abs(var.x *factor), abs(var.y *factor));
+      val.set(abs(val.x *factor), abs(val.y *factor));
 
-      vec3 final_size = vec3(size.x *var.x, size.y *var.y, size.z *((var.x +var.y)*.5));
+      vec3 final_size = vec3(size.x *val.x, size.y *val.y, size.z *((val.x +val.y)*.5));
       if(snake_mode) {
         push();
         translate(pos);
@@ -255,14 +255,14 @@ class Balise {
   */
   
   //calculate and return the position for each brick of the balise
-  vec2 input(int whichOne, int max, vec2 var, boolean authorization) {
+  vec2 input(int whichOne, int max, vec2 val, boolean authorization) {
     vec2 value = vec2(1) ;
     if(authorization) {
-      value = vec2((get_left(whichOne)*var.x), (get_right(whichOne)*var.y) ) ; 
+      value = vec2((get_left(whichOne)*val.x), (get_right(whichOne)*val.y) ) ; 
     } else {
       float n = (float)whichOne ;
       n = n - (max/2) ;
-      value = vec2( n*var.x *.01, n*var.y *.01); 
+      value = vec2( n*val.x *.01, n*val.y *.01); 
     } 
     return value ;
   }

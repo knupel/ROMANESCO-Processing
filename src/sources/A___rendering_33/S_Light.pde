@@ -253,12 +253,12 @@ vec4 light_color(vec3 value, int max, vec4 color_univers, vec4 color_light, vec4
 }
 
 // update direction
-vec3 light_direction(vec3 var, vec6 range3D, boolean authorization, vec3 dir, vec3 dir_ref) {
+vec3 light_direction(vec3 val, vec6 range3D, boolean authorization, vec3 dir, vec3 dir_ref) {
   if(authorization) {
     
-    vec3 newRefDir = vec3(map(var.x,range3D.a(),range3D.b(), -1,1),
-                          map(var.y,range3D.c(),range3D.d(), -1,1),
-                          map(var.z,range3D.e(),range3D.f(), -1,1)) ;
+    vec3 newRefDir = vec3(map(val.x,range3D.a(),range3D.b(), -1,1),
+                          map(val.y,range3D.c(),range3D.d(), -1,1),
+                          map(val.z,range3D.e(),range3D.f(), -1,1)) ;
     if(!compare(newRefDir, dir_ref)) dir = newRefDir.copy() ;
     dir_ref = newRefDir.copy() ; 
   }
@@ -267,11 +267,11 @@ vec3 light_direction(vec3 var, vec6 range3D, boolean authorization, vec3 dir, ve
 
 
 // update position
-vec3 light_position(vec3 var, vec6 range3D, vec6 range3D_target,boolean authorization, vec3 pos, vec3 pos_ref) {
+vec3 light_position(vec3 val, vec6 range3D, vec6 range3D_target,boolean authorization, vec3 pos, vec3 pos_ref) {
   if(authorization) {
-    vec3 newRefPos = vec3(map(var.x,range3D.a(),range3D.b(), range3D_target.a(),range3D_target.b()),
-                          map(var.y,range3D.c(),range3D.d(), range3D_target.c(),range3D_target.d()),
-                          map(var.z,range3D.e(),range3D.f(), range3D_target.e(),range3D_target.f())) ;
+    vec3 newRefPos = vec3(map(val.x,range3D.a(),range3D.b(), range3D_target.a(),range3D_target.b()),
+                          map(val.y,range3D.c(),range3D.d(), range3D_target.c(),range3D_target.d()),
+                          map(val.z,range3D.e(),range3D.f(), range3D_target.e(),range3D_target.f())) ;
     if(!compare(newRefPos, pos_ref)) pos = newRefPos.copy() ;
     pos_ref = newRefPos.copy() ; 
   }
@@ -353,13 +353,3 @@ void light_value_dev() {
   on_off_light_action[1] = true ;
   on_off_light_action[2] = true ;
 }
-
-
-
-
-
-
-
-
-
-

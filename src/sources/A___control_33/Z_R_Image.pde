@@ -1436,9 +1436,13 @@ String graphics_is(Object obj) {
     return "PGraphics";
   } else if(obj instanceof PGraphics3D) {
     return "PGraphics";
-  } else if(obj instanceof processing.javafx.PGraphicsFX2D) {
+  } 
+  /*
+  else if(obj instanceof processing.javafx.PGraphicsFX2D) {
     return "PGraphics";
-  } else if(obj instanceof PImage) {
+  } 
+  */
+  else if(obj instanceof PImage) {
     return "PImage";
   } else return null;
 }

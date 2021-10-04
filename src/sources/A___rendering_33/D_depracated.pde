@@ -128,12 +128,12 @@ class Old_Pixel {
     }
   }
   // with external var
-  void drying(float var, float timePast) {
+  void drying(float val, float timePast) {
     if (field > 0 ) { 
       field -= timePast ;
       float rad;
       float angle;
-      rad = random(-1,1) *field *var;
+      rad = random(-1,1) *field *val;
       angle = random(-1,1) * TAU;
       pos.x += rad * cos(angle);
       pos.y += rad * sin(angle);
@@ -481,17 +481,3 @@ class Canvas {
 }
 // END CANVAS
 /////////////
-
-
-
-
-
-
-
-
-
-
-
-
-
-
