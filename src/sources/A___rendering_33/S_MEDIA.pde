@@ -1,8 +1,11 @@
 /*
 * MANAGE MEDIA
-* v 1.2.2
+* v 1.2.3
 * 2016-2021
 */
+import rope.image.R_Image_Manager;
+
+
 void media_init_collection() {
 	update_movie_collection();
 	update_svg_collection();
@@ -128,6 +131,8 @@ String [] import_text(String path) {
 /**
 * bitmap
 */
+
+
 R_Image_Manager r_img_collection;
 PImage[] bitmap;
 String [] bitmap_path ;
@@ -161,7 +166,7 @@ void update_bitmap_collection() {
 	}
 	// update collection
 	if(r_img_collection == null) {
-		r_img_collection = new R_Image_Manager();
+		r_img_collection = new R_Image_Manager(this);
 	}
 
 	if(r_img_collection.size() != count_existing_file) {

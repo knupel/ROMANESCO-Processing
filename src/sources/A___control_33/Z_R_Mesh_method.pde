@@ -1,6 +1,6 @@
 /**
 * R_Bloc method
-* v 0.1.1
+* v 0.1.2
 * 2019-2021
 */
 import rope.mesh.R_Bloc;
@@ -42,9 +42,9 @@ void bloc_show_struct(R_Megabloc mb, float x, float y, PGraphics other) {
 	for(R_Bloc b : mb.get()) {
 		if(b.in_bloc(x,y)) {
 			if(other == null) {
-				b.show_struct();
+				b.show_struc();
 			} else {
-				b.show_struct(other);
+				b.show_struc(other);
 			}	
 		}
 		if(b.select_point_is() || b.select_is()) {
@@ -117,10 +117,10 @@ void bloc_draw(R_Megabloc mb, int x, int y, boolean event_is, boolean show_struc
 					add_point_to_bloc_is(false);
 				}
 				if(other == null) {
-					b.show_struct();
+					b.show_struc();
 					b.show_anchor_point();				
 				} else {
-					b.show_struct(other);
+					b.show_struc(other);
 					b.show_anchor_point(other);
 				}
 			}	

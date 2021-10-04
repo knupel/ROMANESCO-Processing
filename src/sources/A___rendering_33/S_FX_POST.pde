@@ -1,7 +1,7 @@
 /**
 FILTER
-* 2018-2019
-* v 0.1.5
+* 2018-2021
+* v 0.1.6
 * here is calling classic FX ROPE + FX FORCE FIELD
 */
 
@@ -889,13 +889,13 @@ void update_fx_warp_tex(ArrayList<FX> fx_list, boolean move_is, float str) {
 * X SPECIAL
 * this FX is linked with item and call a huge method and 
 * class Force Field and class Force
-* 2018-2019
-* v 0.0.5
+* 2018-2021
+* v 0.0.6
 */
 Warp_Force warp_force_romanesco;
 void init_warp_force() {
   if(warp_force_romanesco == null) {
-    warp_force_romanesco = new Warp_Force();
+    warp_force_romanesco = new Warp_Force(this);
     warp_force_romanesco.add(g);
   }
 }

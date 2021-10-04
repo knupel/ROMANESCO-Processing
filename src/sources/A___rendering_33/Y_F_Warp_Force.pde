@@ -2,9 +2,10 @@
 * Force field warp texture
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Force_Field
-* 2017-2019
-v 0.9.5
+* 2017-2021
+v 0.10.0
 */
+import rope.image.R_Image_Manager;
 
 class Warp_Force {
   private PImage buffer_img;
@@ -22,13 +23,13 @@ class Warp_Force {
   private boolean filter_is = false;
   
 
-  public Warp_Force() {
-    build("shader/");
+  public Warp_Force(PApplet pa) {
+    build("shader/", pa);
   }
 
 
-  private void build(String path) {
-    img_manager = new R_Image_Manager();
+  private void build(String path, PApplet pa) {
+    img_manager = new R_Image_Manager(pa);
     shader(path);
   }
   

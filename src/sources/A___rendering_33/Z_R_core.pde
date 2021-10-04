@@ -51,7 +51,7 @@ that's cool but that's very weird !!!!!
 */
 Rope r;
 
-String rope_framework_version = "1.4.3.81";
+String rope_framework_version = "1.4.4.82";
 public void rope_version() {
 	r = new Rope();
 	println("Romanesco Processing Environment - 2015-2021");

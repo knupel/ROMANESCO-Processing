@@ -1,6 +1,6 @@
 /**
 * ROPE GLSL METHOD
-* v 0.0.7
+* v 0.0.8
 * Copyleft (c) 2019-2021
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
@@ -458,212 +458,33 @@ bvec4 lessThanEqual(ivec4 x, ivec4 y) {
 
 
 /**
-all
-v 0.0.2
+* all, any, only
+* v 0.1.0
 */
-boolean all(bvec2 b) {
-  if(b != null) {
-    boolean [] list = b.array();
-    boolean result = true;
-    for(int i = 0 ; i < list.length ; i++) {
-      if(list[i] == false) {
-        result = false;
-        break;
-      }
-    }
-    return result;
-  } else {
-    print_err("method all(bvec2 b) return false because argument is",b);
-    return false;
-  }
+public boolean all(bvec bv) {
+  return r.all(bv);
 }
 
-boolean all(bvec3 b) {
-  if(b != null) {
-    boolean [] list = b.array();
-    boolean result = true;
-    for(int i = 0 ; i < list.length ; i++) {
-      if(list[i] == false) {
-        result = false;
-        break;
-      }
-    }
-    return result;
-  } else {
-    print_err("method all(bvec3 b) return false because argument is",b);
-    return false;
-  }
-}
-
-boolean all(bvec4 b) {
-  if(b != null) {
-    boolean [] list = b.array();
-    boolean result = true;
-    for(int i = 0 ; i < list.length ; i++) {
-      if(list[i] == false) {
-        result = false;
-        break;
-      }
-    }
-    return result;
-  } else {
-    print_err("method all(bvec4 b) return false because argument is",b);
-    return false;
-  }
-}
-
-boolean all(bvec5 b) {
-  if(b != null) {
-    boolean [] list = b.array();
-    boolean result = true;
-    for(int i = 0 ; i < list.length ; i++) {
-      if(list[i] == false) {
-        result = false;
-        break;
-      }
-    }
-    return result;
-  } else {
-    print_err("method all(bvec5 b) return false because argument is",b);
-    return false;
-  }
-}
-
-boolean all(bvec6 b) {
-  if(b != null) {
-    boolean [] list = b.array();
-    boolean result = true;
-    for(int i = 0 ; i < list.length ; i++) {
-      if(list[i] == false) {
-        result = false;
-        break;
-      }
-    }
-    return result;
-  } else {
-    print_err("method all(bvec6 b) return false because argument is",b);
-    return false;
-  }
-}
-
-/**
-  * 
-  * @param list
-  * @return true if all elments of the list is true
-  */
 public boolean all(boolean ...list) {
-  boolean result = true;
-  for(int i = 0 ; i < list.length ; i++) {
-    if(list[i] == false) {
-      result = false;
-      break;
-    }
-  }
-  return result;
+  return r.all(list);
+}
+
+public boolean any(bvec bv) {
+  return r.any(bv);
 }
 
 
-
-
-/**
-any
-*/
-boolean any(bvec2 b) {
-  if(b != null) {
-    boolean [] list = b.array();
-    boolean result = false;
-    for(int i = 0 ; i < list.length ; i++) {
-      if(list[i] == true) {
-        result = true;
-        break;
-      }
-    }
-    return result;
-  } else {
-    print_err("method any() return false because argument is",b);
-    return false;
-  }
-}
-
-boolean any(bvec3 b) {
-  if(b != null) {
-    boolean [] list = b.array();
-    boolean result = false;
-    for(int i = 0 ; i < list.length ; i++) {
-      if(list[i] == true) {
-        result = true;
-        break;
-      }
-    }
-    return result;
-  } else {
-    print_err("method any() return false because argument is",b);
-    return false;
-  }
-}
-
-boolean any(bvec4 b) {
-  if(b != null) {
-    boolean [] list = b.array();
-    boolean result = false;
-    for(int i = 0 ; i < list.length ; i++) {
-      if(list[i] == true) {
-        result = true;
-        break;
-      }
-    }
-    return result;
-  } else {
-    print_err("method any() return false because argument is",b);
-    return false;
-  }
-}
-
-boolean any(bvec5 b) {
-  if(b != null) {
-    boolean [] list = b.array();
-    boolean result = false;
-    for(int i = 0 ; i < list.length ; i++) {
-      if(list[i] == true) {
-        result = true;
-        break;
-      }
-    }
-    return result;
-  } else {
-    print_err("method any() return false because argument is",b);
-    return false;
-  }
-}
-
-boolean any(bvec6 b) {
-  if(b != null) {
-    boolean [] list = b.array();
-    boolean result = false;
-    for(int i = 0 ; i < list.length ; i++) {
-      if(list[i] == true) {
-        result = true;
-        break;
-      }
-    }
-    return result;
-  } else {
-    print_err("method any() return false because argument is",b);
-    return false;
-  }
-}
-/**
-* 
-* @param list
-* @return return true if any element of the list is true
-*/
 public boolean any(boolean ...list) {
-  boolean result = false;
-  for(int i = 0 ; i < list.length ; i++) {
-    if(list[i] == true) {
-      result = true;
-      break;
-    }
-  }
-  return result;
+  return r.any(list);
 }
+
+
+public boolean only(bvec bv) {
+  return r.only(bv);
+}
+
+
+public boolean only(boolean ...list) {
+  return r.only(list);
+}
+  
