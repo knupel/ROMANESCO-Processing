@@ -1,10 +1,10 @@
 /**
 * Rope framework image
-* v 0.6.1
+* v 0.6.2
 * Copyleft (c) 2014-2021
 *
 * dependencies
-* Processing 3.5.3
+* Processing 4.0.0
 *
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
@@ -1412,7 +1412,6 @@ String get_renderer() {
 String get_renderer(final PGraphics graph) {
   try {
     if (Class.forName(JAVA2D).isInstance(graph)) return JAVA2D;
-    if (Class.forName(FX2D).isInstance(graph)) return FX2D;
     if (Class.forName(P2D).isInstance(graph)) return P2D;
     if (Class.forName(P3D).isInstance(graph)) return P3D;
     if (Class.forName(PDF).isInstance(graph)) return PDF;
@@ -1436,13 +1435,7 @@ String graphics_is(Object obj) {
     return "PGraphics";
   } else if(obj instanceof PGraphics3D) {
     return "PGraphics";
-  } 
-  /*
-  else if(obj instanceof processing.javafx.PGraphicsFX2D) {
-    return "PGraphics";
-  } 
-  */
-  else if(obj instanceof PImage) {
+  } else if(obj instanceof PImage) {
     return "PImage";
   } else return null;
 }

@@ -51,11 +51,11 @@ that's cool but that's very weird !!!!!
 */
 Rope r;
 
-String rope_framework_version = "1.4.4.82";
+String rope_framework_version = "1.4.5.83";
 public void rope_version() {
 	r = new Rope();
 	println("Romanesco Processing Environment - 2015-2021");
-	println("Processing: 3.5.4.270");
+	println("Processing: 4.0b1");
 	println("Rope library: " +r.VERSION);
   println("Rope framework: " + rope_framework_version);
 }
@@ -102,4 +102,3 @@ public vec2 get_scroll() {
 //   println(e.getScrollAmount());
 //   println(e.getUnitsToScroll());
 // }
-
