@@ -1,6 +1,6 @@
 /**
 * Rope framework image
-* v 0.6.2
+* v 0.6.3
 * Copyleft (c) 2014-2021
 *
 * dependencies
@@ -433,7 +433,7 @@ void select_layer(int target) {
 
 /**
 resize image
-v 0.0.3
+v 0.1.0
 */
 /**
 * resize your picture proportionaly to the window sketch of the a specificic PGraphics
@@ -460,11 +460,7 @@ void image_resize(PImage src, int target_width, int target_height, boolean fullf
       src.resize(ceil(src.width *ratio_h), ceil(src.height *ratio_h));  
     }
   } else {
-    if(ratio_w > ratio_h) {
-      src.resize(ceil(src.width *ratio_h), ceil(src.height *ratio_h));
-    } else {
-      src.resize(ceil(src.width *ratio_w), ceil(src.height *ratio_w));  
-    }
+    src.resize(ceil(src.width *ratio_w), ceil(src.height *ratio_h));
   }
 }
 
