@@ -1,8 +1,8 @@
 /**
 * POST FX shader collection
 *
-* 2019-2019
-* v 0.2.14
+* 2019-2021
+* v 0.2.15
 * all filter bellow has been tested.
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Shader
@@ -1510,6 +1510,77 @@ PGraphics fx_level(PImage source, boolean on_g, boolean filter_is, int mode, flo
 }
 
 
+
+
+
+
+
+
+/**
+* Level advanced with gamma correction, black and white point
+v 0.0.1
+2021-2021
+*/
+// direct filtering
+PGraphics fx_level_adv(PImage source, FX fx) {
+	vec3 min = vec3(0);
+	vec3 gamma = vec3(0.5);
+	vec3 max = vec3(1);
+	if(fx.get_min() != null) {
+		min.set(fx.get_min().red(),fx.get_min().gre(),fx.get_min().blu());
+	}
+	if(fx.get_gamma() != null) {
+		gamma.set(fx.get_gamma().red(),fx.get_gamma().gre(),fx.get_gamma().blu());
+	}
+
+	if(fx.get_max() != null) {
+		max.set(fx.get_max().red(),fx.get_max().gre(),fx.get_max().blu());
+	}
+	return fx_level_adv(source,fx.on_g(),fx.pg_filter_is(),min,gamma,max);
+}
+
+PGraphics fx_level_adv(PImage source, boolean on_g, boolean filter_is, float min, float gamma, float max) {
+	return fx_level_adv(source, on_g, filter_is, vec3(min), vec3(gamma), vec3(max));
+}
+
+// main method
+PShader fx_level_adv;
+PGraphics pg_level_adv;
+PGraphics fx_level_adv(PImage source, boolean on_g, boolean filter_is, vec3 min, vec3 gamma, vec3 max) {
+	if(!on_g && (pg_level_adv == null 
+								|| (source.width != pg_level_adv.width 
+								|| source.height != pg_level_adv.height))) {
+		pg_level_adv = createGraphics(source.width,source.height,get_renderer());
+	}
+
+	if(fx_level_adv == null) {
+		String path = get_fx_post_path()+"level_adv.glsl";
+		if(fx_post_rope_path_exists) {
+			fx_level_adv = loadShader(path);
+			println("load shader:",path);
+		}
+	} else {
+		fx_shader_flip(fx_level_adv,on_g,filter_is,source,null);
+
+		fx_level_adv.set("texture_source",source);
+		fx_level_adv.set("resolution_source",source.width,source.height);
+		fx_level_adv.set("r_level",min.red(),gamma.red(),max.red());
+		fx_level_adv.set("g_level",min.gre(),gamma.gre(),max.gre());
+		fx_level_adv.set("b_level",min.blu(),gamma.blu(),max.blu());
+
+    // rendering
+		render_shader(fx_level_adv,pg_level_adv,source,on_g,filter_is);
+
+	}
+
+	// return
+	reset_reverse_g(false);
+	if(on_g) {
+		return null;
+	} else {
+		return pg_level_adv; 
+	}
+}
 
 
 

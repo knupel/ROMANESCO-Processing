@@ -4,7 +4,7 @@
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 * ROPE core
-* v 0.2.2.0
+* v 0.2.3.0
 */
 import rope.core.*;
 import rope.vector.*;
@@ -51,7 +51,7 @@ that's cool but that's very weird !!!!!
 */
 Rope r;
 
-String rope_framework_version = "1.4.5.83";
+String rope_framework_version = "1.4.8.86";
 public void rope_version() {
 	init_rope();
 }

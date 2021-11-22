@@ -4,7 +4,7 @@
  * @author @stanlepunk
  * @see https://github.com/StanLepunK/Shader
  * 2019-2021
-  * v 0.4.5
+  * v 0.4.6
  * Processing 3.5.4
  * class used to create easy setting for shader fx
 */
@@ -41,10 +41,14 @@ public class FX {
 	private vec3 offset; // 25
 	private vec3 speed; // 26
 
+
 	private vec4 level_source; // 30
 	private vec4 level_layer; // 31
 	private vec4 colour; // 32
 	private vec4 cardinal; // 33 > north, east, south, west > top, right, bottom, left
+	private vec4 min; // 34
+	private vec4 max; // 35
+	private vec4 gamma; // 36
 
   private float hue; // 200
 	private float saturation; // 201
@@ -162,6 +166,12 @@ public class FX {
   		set_colour(to_float_array(arg));
   	} else if(which == 33) {
   		set_cardinal(to_float_array(arg));
+  	} else if(which == 34) {
+  		set_min(to_float_array(arg));
+  	} else if(which == 35) {
+  		set_max(to_float_array(arg));
+  	} else if(which == 36) {
+  		set_gamma(to_float_array(arg));
   	}
 
   		else if(which == 40) {
@@ -355,6 +365,31 @@ public class FX {
 			this.cardinal.set(build_float_4(arg));
 		}
 	}
+
+	private void set_min(float... arg) {
+		if(this.min == null) {
+			this.min = vec4(build_float_4(arg));
+		} else {
+			this.min.set(build_float_4(arg));
+		}
+	}
+
+	private void set_max(float... arg) {
+		if(this.max == null) {
+			this.max = vec4(build_float_4(arg));
+		} else {
+			this.max.set(build_float_4(arg));
+		}
+	}
+
+	private void set_gamma(float... arg) {
+		if(this.gamma == null) {
+			this.gamma = vec4(build_float_4(arg));
+		} else {
+			this.gamma.set(build_float_4(arg));
+		}
+	}
+
 
 	private void set_hue(float hue) {
 		this.hue = hue;
@@ -577,6 +612,30 @@ public class FX {
 			print_err("class FX method get_cardinal(): arg",null,"instead set arg and return",cardinal);
 		}
 		return cardinal;
+	}
+
+	public vec4 get_min() {
+		if(min == null) {
+			min = vec4(1);
+			print_err("class FX method get_min(): arg",null,"instead set arg and return",min);
+		}
+		return min;
+	}
+
+	public vec4 get_max() {
+		if(max == null) {
+			max = vec4(1);
+			print_err("class FX method get_max(): arg",null,"instead set arg and return",max);
+		}
+		return max;
+	}
+
+	public vec4 get_gamma() {
+		if(gamma == null) {
+			gamma = vec4(1);
+			print_err("class FX method get_gamma(): arg",null,"instead set arg and return",gamma);
+		}
+		return max;
 	}
 
 	public float get_hue() {
