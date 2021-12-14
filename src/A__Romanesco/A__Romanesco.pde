@@ -1,8 +1,8 @@
 /**
 * Romanesco dui
-* 2012–2019
-* release 33
-* Processing 3.5.3
+* 2012–2021
+* release 34
+* Processing 4.0.2b
 */
 
 
@@ -27,7 +27,7 @@ void settings() {
 
 void setup() {
   path_setting();
-  rope_version();
+  init_rope();
   version();
   colorMode(HSB,360,100,100);
   display_setup();

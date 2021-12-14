@@ -1,4 +1,7 @@
 *Romanesco dui
+*revision 34
+
+> fix shader and glsl bug
 
 *revision 33
 

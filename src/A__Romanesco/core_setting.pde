@@ -1,7 +1,7 @@
 /**
 * setting launcher
-* v 0.1.0
-* 2019-2019
+* v 0.2.0
+* 2019-2021
 */
 void display_setup() {
 	background(r.GRIS[1]);
@@ -152,15 +152,14 @@ void set_data() {
 
 	String app_path = sketchPath("");
 
-	path_controller = (app_path+"sources/control_"+version+".app");
-	path_controller_live = (app_path+"sources/control_"+version+"_live.app");
+	path_controller = (app_path+"sources/controller.app");
+	path_controller_live = (app_path+"sources/controller_live.app");
 	// path to OPENING APP
-	path_prescene = (app_path + "sources/prescene_"+version+".app");
-	path_prescene_live = (app_path + "sources/prescene_"+version+"_live.app");
-	// path_scene_window = (app_path+"sources/scene_"+version+"_window.app");
+	path_prescene = (app_path + "sources/prescene.app");
+	path_prescene_live = (app_path + "sources/prescene_live.app");
 
-	path_scene_live = (app_path+"sources/scene_"+version+"_live.app");
-	path_scene_live_fullscreen = (app_path+"sources/scene_"+version+"_live_fullscreen.app");
+	path_scene_live = (app_path+"sources/scene_live.app");
+	path_scene_live_fullscreen = (app_path+"sources/scene_live_fullscreen.app");
 
 	String[] l = split( ("1"), " ");
 	saveStrings(app_path+"sources/preferences/language.txt", l);
