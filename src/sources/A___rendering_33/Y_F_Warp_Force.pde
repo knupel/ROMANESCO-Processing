@@ -191,7 +191,6 @@ class Warp_Force {
   /**
   *  refresh PImage selected after warp effect
   *
-  * @webref warp:method
   * @param ratio is Vec component of refresh / the max Vec is 4
   * @param value is the array component / the max element is 4
   * refresh component is must have a normal value 0 > 1
@@ -208,7 +207,7 @@ class Warp_Force {
       vec3 r = (vec3) ratio ;
       refresh_image(r.x,r.y,r.z);
     } else {
-      printErr("method refresh() from class Warp : ratio is not an instance of vec2, vec3 or vec4, instead the value max '.5' is used");
+      printErr("method refresh() from class Warp : ratio is not an instance of vec2, vec3 or vec4, instead the value max '0.5' is used");
       refresh_image(.5,.5,.5);
     } 
   }

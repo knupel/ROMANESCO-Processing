@@ -1,7 +1,7 @@
 /**
 * RENDERING
-* 2016-2019
-* v 1.4.1
+* 2016-2021
+* v 1.5.0
 */
 boolean fx_mix_is_done = false;
 boolean show_is = true;
@@ -184,17 +184,6 @@ void rendering_info(boolean use_layer_is, int index) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 /**
 INIT Romanesco
 */
@@ -322,16 +311,6 @@ ivec2 resize_screen(ivec2 window, int target) {
 
 
 
-
-
-
-
-
-
-
-
-
-
 /**
 OPENING
 2018-2018
@@ -370,123 +349,27 @@ void message_opening() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /**
 * SYPHON
 * v 0.1.1
 */
-boolean syphon_is ;
-SyphonServer server;
-void syphon_settings() {
-	PJOGL.profile=1;
-}
+// boolean syphon_is ;
+// SyphonServer server;
+// void syphon_settings() {
+// 	PJOGL.profile=1;
+// }
 
-void syphon_setup() {
-	String name_syphon = (nameVersion + " " + prettyVersion +"."+version);
-	server = new SyphonServer(this, name_syphon);
-	println("Syphon setup done");
-}
+// void syphon_setup() {
+// 	String name_syphon = (nameVersion + " " + prettyVersion +"."+version);
+// 	server = new SyphonServer(this, name_syphon);
+// 	println("Syphon setup done");
+// }
 
-void syphon_draw() {
-	if(syphon_is) {
-		server.sendScreen();
-	}
-}
-
-
-
-
-
-
-
-
+// void syphon_draw() {
+// 	if(syphon_is) {
+// 		server.sendScreen();
+// 	}
+// }
 
 
 
@@ -538,8 +421,8 @@ void show_info_rendering(int bg_txt, int txt) {
 	if(FULL_RENDERING) infoRendering = ("Full rendering") ; else infoRendering = ("Preview rendering") ;
 	text("Size " + width + "x" + height + " / "  + infoRendering + " / Render mode " + displayModeInfo + " / FrameRate " + (int)frameRate, 15,15) ;
 	// INFO SYPHON
-	text("Syphon " +syphon_is + " / press “y“ to on/off the Syphon",15, 15 *posInfo ) ;
-	posInfo += 1 ;
+	// text("Syphon " +syphon_is + " / press “y“ to on/off the Syphon",15, 15 *posInfo ) ;
+	// posInfo += 1 ;
 	//INFO MOUSE and PEN
 	text("Mouse " + mouseX + " / " + mouseY + " molette " + wheel[0] + " pen orientation " + (int)deg360(vec2(pen[0].x,pen[0].y)) +"°   stylet pressur " + int(pen[0].z *10),15, 15 *posInfo ) ;  
 	posInfo += 1 ;

@@ -1,7 +1,7 @@
 /**
 * OSC CORE 
-* v 1.6.2
-* 2015-2019
+* v 1.7.0
+* 2015-2021
 */
 void OSC_setup() {
 	OSC_controller_setup();
@@ -292,7 +292,7 @@ void write_osc_event() {
 	if (ORDER_ONE) data_osc_prescene[131] = ("1") ; else data_osc_prescene[131] = ("0");
 	if (ORDER_TWO) data_osc_prescene[132] = ("1") ; else data_osc_prescene[132] = ("0");
 	if (ORDER_THREE) data_osc_prescene[133] = ("1") ; else data_osc_prescene[133] = ("0");
-	if (LEAPMOTION_DETECTED) data_osc_prescene[134] = ("1") ; else data_osc_prescene[134] = ("0");
+	// if (LEAPMOTION_DETECTED) data_osc_prescene[134] = ("1") ; else data_osc_prescene[134] = ("0");
 
 }
 
@@ -556,7 +556,7 @@ void translate_event_prescene() {
 	if(data_osc_prescene[131].equals("0")) ORDER_ONE = false; else ORDER_ONE = true;
 	if(data_osc_prescene[132].equals("0")) ORDER_TWO = false; else ORDER_TWO = true;
 	if(data_osc_prescene[133].equals("0")) ORDER_THREE = false; else ORDER_THREE = true;
-	if(data_osc_prescene[134].equals("0")) LEAPMOTION_DETECTED = false; else LEAPMOTION_DETECTED = true;
+	// if(data_osc_prescene[134].equals("0")) LEAPMOTION_DETECTED = false; else LEAPMOTION_DETECTED = true;
 }
 
 
@@ -592,9 +592,10 @@ void controller_reception(OscMessage receive) {
 }
 
 void thread_data_controller_general(OscMessage receive) {
-	int rank = 0;
-	receive_data_apple_bar(receive,rank);
-	rank += NUM_EVENT_APPLE_BAR;
+	// int rank = 0;
+	// receive_data_apple_bar(receive,rank);
+	// rank += NUM_EVENT_APPLE_BAR;
+	int rank = 1;
 	receive_data_menu_bar(receive,rank); 
 	rank += NUM_TOP_BUTTON;
 	receive_data_dd_media(receive,rank);
@@ -637,9 +638,9 @@ boolean to_bool(OscMessage receive, int index) {
 	}
 }
 
-void receive_data_apple_bar(OscMessage receive, int in) {
-	syphon_is = to_bool(receive,0+in);
-}
+// void receive_data_apple_bar(OscMessage receive, int in) {
+// 	syphon_is = to_bool(receive,0+in);
+// }
 
 void receive_data_menu_bar(OscMessage receive, int in) {
 	curtain_button_is(to_bool(receive,0+in));

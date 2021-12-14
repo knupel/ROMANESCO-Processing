@@ -1,8 +1,8 @@
 Type,ID slider,Min slider,Max slider,Value length,Value slider 0,Value slider 1,Value slider 2,Value slider 3,ID button,On Off,ID midi,Item ID,Item On Off,Item Name,Item Class Name,Path
 Slider background,0,0.0,1.0,1,0.0,,,,,,16,,,,,
 Slider background,1,0.0,1.0,1,0.8333333,,,,,,17,,,,,
-Slider background,2,0.0,1.0,1,0.06666667,,,,,,18,,,,,
-Slider background,3,0.0,1.0,1,0.35555556,,,,,,0,,,,,
+Slider background,2,0.0,1.0,1,0.6111111,,,,,,18,,,,,
+Slider background,3,0.0,1.0,1,0.53333336,,,,,,0,,,,,
 Slider background,4,0.0,1.0,1,0.18888889,,,,,,-2,,,,,
 Slider background,5,0.0,1.0,1,0.18888889,,,,,,-2,,,,,
 Slider background,6,0.0,1.0,1,0.2,,,,,,-2,,,,,

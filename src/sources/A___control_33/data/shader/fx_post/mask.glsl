@@ -2,7 +2,7 @@
 * Mask post FX
 * @see @stanlepunk
 * @see https://github.com/StanLepunK/Shader
-* v 0.0.3
+* v 0.0.5
 * 2019-2019
 */
 // Processing implementation
@@ -21,12 +21,15 @@ uniform vec2 resolution_source;
 uniform ivec2 flip_source; // can be use to flip texture source
 uniform vec4 level_source;
 
+uniform int num;
+uniform int mode;
+uniform vec2 threshold;
+// uniform vec3 strength;
+
 uniform sampler2D texture_layer;
 uniform vec2 resolution_layer;
 uniform ivec2 flip_layer; // can be use to flip texture layer
 uniform vec4 level_layer;
-uniform int mode;
-
 
 
 
@@ -59,11 +62,36 @@ vec2 set_uv() {
   return set_uv(0,0,vec2(0));
 }
 
+float gray(float val, int rank, float step) {
+  if(val > (rank-1)*step && val < rank*step) {
+    val = (rank-1)*step;
+    val = threshold.x + val;
+  } 
+  // problem ?
+  // else if(val <= threshold.x) {
+  //   val = threshold.x;
+  // } 
+  
+  // else if(val >= threshold.y) {
+  //   val = threshold.y;
+  // }
+  
+ 
+  return val;
+}
 
+vec4 step_gray(vec4 value) {
+  float range = threshold.y - threshold.x;
+  float step = range / num;
 
-
-
-
+  for(int i = 1 ; i < num ; i++) {
+    value.x = gray(value.x,i,step);
+    value.y = gray(value.y,i,step);
+    value.z = gray(value.z,i,step);
+    value.w = gray(value.w,i,step);
+  }
+  return value;
+}
 
 
 
@@ -76,15 +104,22 @@ void main() {
   vec2 uv_layer = set_uv(flip_layer,resolution_layer);
 
   vec4 colour_source = texture2D(texture_source,uv_source);
-
   vec4 colour_mask = texture2D(texture_layer,uv_layer);
-  float remove_alpha = (colour_mask.x + colour_mask.y + colour_mask.z) / 3.0;
-  vec4 remove = vec4(0,0,0,remove_alpha);
-  if(mode == 1) {
-    remove.xyz = colour_mask.xyz;
+
+  vec4 remove = vec4(0);
+  float alpha = (colour_mask.x + colour_mask.y + colour_mask.z) / 3.0;
+  if(mode == 0) {
+    remove = vec4((colour_mask.x + colour_mask.y + colour_mask.z) / 3.0);
+  } else if(mode == 1) {
+    remove = vec4(colour_mask.xyz,alpha);
   } else if(mode == 2) {
-    remove.xyz = vec3((colour_mask.x + colour_mask.y + colour_mask.z) / 3.0) ;
+    remove.w = alpha;
   }
+  
+
+  remove = step_gray(remove);
+  remove = remove *level_layer;
+
   colour_source.xyzw = colour_source.xyzw - remove;
   gl_FragColor = colour_source;
 }

@@ -378,7 +378,8 @@ Main method camera draw
 */
 void camera_romanesco_draw() {
 	set_var_camera_romanesco();
-	update_camera_romanesco(LEAPMOTION_DETECTED) ;
+	update_camera_romanesco();
+	// update_camera_romanesco(LEAPMOTION_DETECTED) ;
 
 	// deformation and focal of the lenz camera
 	paralaxe(focal,deformation);
@@ -628,7 +629,8 @@ boolean reset_inertia = true;
 boolean cursor_move_scene_is = false;
 boolean cursor_move_eye_is = false;
 
-void update_camera_romanesco(boolean leapMotion) {
+void update_camera_romanesco() {
+// void update_camera_romanesco(boolean leapMotion) {
 	if(cursor_final_translate == null) {
 		cursor_final_translate = mouse[0].copy();
 	} 
@@ -702,6 +704,7 @@ void update_camera_romanesco(boolean leapMotion) {
 	}
 	
 	//update pos
+	boolean leapMotion = false;
 	update_position_camera(cursor_move_scene_is, leapMotion, cursor_final_translate);
 	update_direction_camera(cursor_move_eye_is, cursor_final_rotate);
  

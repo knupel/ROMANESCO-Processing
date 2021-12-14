@@ -1,8 +1,8 @@
 /**
 ROMANESCO
 romanesco dui rendering
-2013–2019
-release 33
+2013–2021
+release 34
 */
 
 /**
@@ -152,8 +152,7 @@ LIVE must change from the launcher, the info must be write in the external loadi
 
 void settings() {
 	size(1000,600,P3D); // DEV MODE PARAM
-
-	rope_version();
+	init_rope();
 	
 	// EXPORTING PARAM 
 	// size(124,124,P3D);
@@ -161,7 +160,7 @@ void settings() {
 	// fullScreen(P3D);
 	// FULL_SCREEN = true;
 
-	syphon_settings();
+	// syphon_settings();
 
 	if(IAM.equals("prescene")) {
 		scene = false;
@@ -204,13 +203,13 @@ void setup() {
 
 	if(IAM.equals("prescene")){
 		prescene_setup(); 
-		leapmotion_setup();
+		// leapmotion_setup();
 	} else if(IAM.equals("scene")) {
 		scene_variables_setup();
 	}
 
 	color_setup();
-	syphon_setup();
+	// syphon_setup();
 
 	init_variable_item_min_max();
 	init_variable_item();
@@ -266,7 +265,7 @@ void draw() {
 
 void romanesco() {
 	init_romanesco();
-	syphon_draw();
+	// syphon_draw();
 	if(USE_SOUND) {
 		sound_draw();
 	}
@@ -275,7 +274,7 @@ void romanesco() {
 
 	if(IAM.equals("prescene")) {
 		update_command();
-		leapmotion_update();
+		// leapmotion_update();
 	} 
   
   show_is();

@@ -2,10 +2,9 @@
 * Threshold
 * @see @stanlepunk
 * @see https://github.com/StanLepunK/Shader
-v 0.2.1
-2018-2018
-based on work of Raphaël de Courville, who is explain it's a dither, but at theend is a threshold :)
-@see https://github.com/SableRaf/Filters4Processing
+v 0.2.3
+2018-2019
+* based on work of Raphaël de Courville and for the other better method - with dFdy and dFdx... I don't remember :)
 */
 // Processing implementation
 #ifdef GL_ES
@@ -57,6 +56,19 @@ vec2 set_uv() {
 }
 
 
+/*
+* other option to threshold, better or not I don't know
+*/
+/*
+vec3 threshold(vec3 threshold, vec3 col) {
+  float af_x = length(vec2(dFdx(col.x), dFdy(col.x))) * 0.2126;
+  float af_y = length(vec2(dFdx(col.y), dFdy(col.y))) * 0.70710678118654757;
+  float af_z = length(vec2(dFdx(col.z), dFdy(col.z))) * 0.0722;
+
+  vec3 af = vec3(af_x,af_y,af_z);
+  return smoothstep(threshold-af, threshold+af, col);
+}
+*/
 
 void main() {	
 	vec2 uv_source = set_uv(flip_source,resolution_source);

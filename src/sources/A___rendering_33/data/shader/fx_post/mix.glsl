@@ -1,9 +1,8 @@
 /**
 * Mix
-* @see @stanlepunk
 * @see https://github.com/StanLepunK/Shader
-* v 0.0.5
-* 2019-2019
+* v 0.1.0
+* 2019-2021
 */
 // Processing implementation
 #ifdef GL_ES
@@ -59,8 +58,8 @@ vec2 set_uv() {
 
 
 
-vec4 set_color(vec4 color, vec4 mix) {
-	vec4 ratio = mix;
+vec4 set_color(vec4 color, vec4 level) {
+	vec4 ratio = level;
   if(ratio.x < 0) ratio.x = 0;
   if(ratio.y < 0) ratio.y = 0;
   if(ratio.z < 0) ratio.z = 0;
@@ -194,64 +193,64 @@ void main() {
   vec2 uv_source = set_uv(flip_source,resolution_source);
   vec2 uv_layer = set_uv(flip_layer,resolution_source);
 
-	vec4 source = set_color(texture2D(texture_source,uv_source),vec4(level_source,1));
+	vec4 src = set_color(texture2D(texture_source,uv_source),vec4(level_source,1));
 	vec4 layer = set_color(texture2D(texture_layer,uv_layer),vec4(level_layer,1));
   float alpha = 1.;
   if(mode == -2) {
-    gl_FragColor = vec4(source(source.xyz,layer.xyz),alpha);
+    gl_FragColor = vec4(source(src.xyz,layer.xyz),alpha);
   } else if(mode == -1) {
-    gl_FragColor = vec4(dest(source.xyz,layer.xyz),alpha);
+    gl_FragColor = vec4(dest(src.xyz,layer.xyz),alpha);
 
   } else if(mode == 1) {
-    gl_FragColor = vec4(multiply(source.xyz,layer.xyz),alpha);
+    gl_FragColor = vec4(multiply(src.xyz,layer.xyz),alpha);
   } else if(mode == 2) {
-    gl_FragColor = vec4(screen(source.xyz,layer.xyz),alpha);
+    gl_FragColor = vec4(screen(src.xyz,layer.xyz),alpha);
   } else if(mode == 3) {
-    gl_FragColor = vec4(exclusion(source.xyz,layer.xyz),alpha);
+    gl_FragColor = vec4(exclusion(src.xyz,layer.xyz),alpha);
   } else if(mode == 4) {
-    gl_FragColor = vec4(overlay(source.xyz,layer.xyz),alpha);
+    gl_FragColor = vec4(overlay(src.xyz,layer.xyz),alpha);
   } else if(mode == 5) {
-    gl_FragColor = vec4(hard_light(source.xyz,layer.xyz),alpha);
+    gl_FragColor = vec4(hard_light(src.xyz,layer.xyz),alpha);
   } else if(mode == 6) {
-    gl_FragColor = vec4(soft_light(source.xyz,layer.xyz),alpha);
+    gl_FragColor = vec4(soft_light(src.xyz,layer.xyz),alpha);
   } else if(mode == 7) {
-    gl_FragColor = vec4(color_dodge(source.xyz,layer.xyz),alpha);
+    gl_FragColor = vec4(color_dodge(src.xyz,layer.xyz),alpha);
   } else if(mode == 8) {
-    gl_FragColor = vec4(color_burn(source.xyz,layer.xyz),alpha);
+    gl_FragColor = vec4(color_burn(src.xyz,layer.xyz),alpha);
   } else if(mode == 9) {
-    gl_FragColor = vec4(linear_dodge(source.xyz,layer.xyz),alpha);
+    gl_FragColor = vec4(linear_dodge(src.xyz,layer.xyz),alpha);
   } else if(mode == 10) {
-    gl_FragColor = vec4(linear_burn(source.xyz,layer.xyz),alpha);
+    gl_FragColor = vec4(linear_burn(src.xyz,layer.xyz),alpha);
   } else if(mode == 11) {
-    gl_FragColor = vec4(vivid_light(source.xyz,layer.xyz),alpha);
+    gl_FragColor = vec4(vivid_light(src.xyz,layer.xyz),alpha);
   } else if(mode == 12) {
-    gl_FragColor = vec4(linear_light(source.xyz,layer.xyz),alpha);
+    gl_FragColor = vec4(linear_light(src.xyz,layer.xyz),alpha);
   } else if(mode == 13) {
-    gl_FragColor = vec4(pin_light(source.xyz,layer.xyz),alpha);
+    gl_FragColor = vec4(pin_light(src.xyz,layer.xyz),alpha);
   } else if(mode == 14) {
-    gl_FragColor = vec4(hard_mix(source.xyz,layer.xyz),alpha);
+    gl_FragColor = vec4(hard_mix(src.xyz,layer.xyz),alpha);
   } else if(mode == 15) {
-    gl_FragColor = vec4(subtract(source.xyz,layer.xyz),alpha);
+    gl_FragColor = vec4(subtract(src.xyz,layer.xyz),alpha);
   } else if(mode == 16) {
-    gl_FragColor = vec4(divide(source.xyz,layer.xyz),alpha);
+    gl_FragColor = vec4(divide(src.xyz,layer.xyz),alpha);
   } else if(mode == 17) {
-    gl_FragColor = vec4(addition(source.xyz,layer.xyz),alpha);
+    gl_FragColor = vec4(addition(src.xyz,layer.xyz),alpha);
   } else if(mode == 18) {
-    gl_FragColor = vec4(difference(source.xyz,layer.xyz),alpha);
+    gl_FragColor = vec4(difference(src.xyz,layer.xyz),alpha);
   } else if(mode == 19) {
-    gl_FragColor = vec4(darken(source.xyz,layer.xyz),alpha);
+    gl_FragColor = vec4(darken(src.xyz,layer.xyz),alpha);
   } else if(mode == 20) {
-    gl_FragColor = vec4(lighten(source.xyz,layer.xyz),alpha);
+    gl_FragColor = vec4(lighten(src.xyz,layer.xyz),alpha);
   } else if(mode == 21) {
-    gl_FragColor = vec4(invert(source.xyz,layer.xyz),alpha);
+    gl_FragColor = vec4(invert(src.xyz,layer.xyz),alpha);
   } else if(mode == 22) {
-    gl_FragColor = vec4(invert_rgb(source.xyz,layer.xyz),alpha);
+    gl_FragColor = vec4(invert_rgb(src.xyz,layer.xyz),alpha);
   } else if(mode == 23) {
-    gl_FragColor = vec4(source(source.xyz,layer.xyz),alpha);
+    gl_FragColor = vec4(source(src.xyz,layer.xyz),alpha);
   } else if(mode == 24) {
-    gl_FragColor = vec4(dest(source.xyz,layer.xyz),alpha);
+    gl_FragColor = vec4(dest(src.xyz,layer.xyz),alpha);
   } else {
-    gl_FragColor = vec4(source(source.xyz,layer.xyz),alpha); 	
+    gl_FragColor = vec4(source(src.xyz,layer.xyz),alpha); 	
   }
 }
 

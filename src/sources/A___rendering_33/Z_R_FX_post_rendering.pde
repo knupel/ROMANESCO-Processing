@@ -2209,10 +2209,10 @@ PGraphics fx_threshold(PImage source, boolean on_g, boolean filter_is, vec3 leve
 
 		// external parameter
 		level = map(level,0,1,.05,1.50);
-    fx_threshold.set("level_source",level.x,level.y,level.z);
-    fx_threshold.set("mode",mode); // mode 0 : gray / 1 is rgb
+		fx_threshold.set("level_source",level.x,level.y,level.z);
+		fx_threshold.set("mode",mode); // mode 0 : gray / 1 is rgb
 
-    // rendering
+    	// rendering
 		render_shader(fx_threshold,pg_threshold,source,on_g,filter_is);
 	}
 

@@ -195,7 +195,7 @@ vec4 get_pixel(vec2 coords, float dx, float dy) {
 }
 
 // returns pixel color
-float IsEdge(in vec2 coords) {
+float edge_is(in vec2 coords) {
   float dxtex = 1.0 /float(textureSize(texture_source,0)) ;
   float dytex = 1.0 /float(textureSize(texture_source,0));
   float pix[9];
@@ -231,7 +231,7 @@ void main() {
     vHSV.x = nearestLevel(vHSV.x, 0);
     vHSV.y = nearestLevel(vHSV.y, 1);
     vHSV.z = nearestLevel(vHSV.z, 2);
-    float edg = IsEdge(uv);
+    float edg = edge_is(uv);
     vec3 vRGB = (edg >= edge_thres)? vec3(0.0,0.0,0.0):HSVtoRGB(vHSV.x,vHSV.y,vHSV.z);
     tc = vec4(vRGB.x,vRGB.y,vRGB.z, 1);  
   } else if (uv.x < (offset.x-0.002)) {

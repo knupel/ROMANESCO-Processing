@@ -1,7 +1,7 @@
 /**
 * Cellular refactoring by Stan le Punk
-* 2013-2019
-* v 0.0.5
+* 2013-2021
+* v 0.1.0
 * @see https://github.com/StanLepunK
 * @see https://github.com/StanLepunK/Shader
 * original unkown inspiration maybe sandbox ?
@@ -25,9 +25,9 @@ float field(in vec3 p) {
 	float accum = 0.;
 	float prev = 0.;
 	float tw = 0.;
-	float max = 12 + num;
+	float iter = 12 + num;
 
-	for (int i = 0; i < max; i++) {
+	for (int i = 0; i < iter; i++) {
 		float mag = dot(p,p);
 		p = abs(p) / mag + vec3(-.5, -.4, -1.5);
 		float w = exp(-float(i) / 7.);

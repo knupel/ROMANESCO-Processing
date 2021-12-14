@@ -1,7 +1,7 @@
 /**
 * VARIABLE
 * 2015-2021
-* v 1.13.1
+* v 1.13.2
 */
 boolean scene, prescene;
 boolean miroir_on_off = false;
@@ -99,7 +99,7 @@ boolean MOUSE_IN_OUT = true ;
 // BOOLEAN COMMAND
 // command from leap motion, mouse or other devices if we code for that :)
 boolean ORDER, ORDER_ONE, ORDER_TWO, ORDER_THREE ;
-boolean LEAPMOTION_DETECTED ;
+// boolean LEAPMOTION_DETECTED ;
 
 
 //spectrum band

@@ -1,7 +1,7 @@
 /**
 * Core Prescene
-* v 1.4.2
-* 2013-2019
+* v 1.4.3
+* 2013-2021
 * Here you find
 * variable Prescene
 * update command for the mouse, cursor...
@@ -20,7 +20,7 @@ boolean youCanSendToScene = true;
 
 // CURSOR SPEED
 int speedWheel = 4; // 5 is too quick
-float speedLeapmotion = 0.15; // between 0.000001 and 1 : can be good between 0.1 and 0.4
+// float speedLeapmotion = 0.15; // between 0.000001 and 1 : can be good between 0.1 and 0.4
 float mouse_reactivity = 0.8;
 
 
@@ -28,7 +28,7 @@ import codeanticode.tablet.*;
 Tablet tablet;
 
 void prescene_setup() {
-  leap = new com.leapmotion.leap.Controller();
+  // leap = new com.leapmotion.leap.Controller();
   if(TABLET) tablet = new Tablet(this);
   if(FULL_RENDERING) show_info_camera = false ; else show_info_camera = true;
 }
@@ -40,25 +40,28 @@ void prescene_setup() {
 */
 void update_command() {
   // move the object
-  if(clickLongLeft[0] || finger.activefingers == 1) {
+  if(clickLongLeft[0]) {
+  // if(clickLongLeft[0] || finger.activefingers == 1) {
     ORDER_ONE = true; 
     ORDER_TWO = false;
     ORDER_THREE = false;
   }
   // rotate the object
-  else if(clickLongRight[0] || finger.activefingers == 2) {
+  // else if(clickLongRight[0] || finger.activefingers == 2) {
+  else if(clickLongRight[0]) {
     ORDER_ONE = false; 
     ORDER_TWO = true;
     ORDER_THREE = false;
   }
   // move and rotate
-  else if(finger.activefingers == 3) {
-    ORDER_ONE = false; 
-    ORDER_TWO = false;
-    ORDER_THREE = true;
-  }
+  // else if(finger.activefingers == 3) {
+  //   ORDER_ONE = false; 
+  //   ORDER_TWO = false;
+  //   ORDER_THREE = true;
+  // }
 
-  if(!clickLongLeft[0] && !clickLongRight[0] && finger.activefingers != 2 && finger.activefingers != 1 && finger.activefingers != 3)  {
+  if(!clickLongLeft[0] && !clickLongRight[0])  {
+  // if(!clickLongLeft[0] && !clickLongRight[0] && finger.activefingers != 2 && finger.activefingers != 1 && finger.activefingers != 3)  {
   // false
     ORDER_ONE = false;
     ORDER_TWO = false;
@@ -74,7 +77,7 @@ update cursor 1.2.0
 vec3 mouse_ref;
 int mouseZ;
 void device_update() {
-  update_leap_command();
+  // update_leap_command();
   update_wheel();
   
   //mousePressed
@@ -86,9 +89,12 @@ void device_update() {
   
   update_tablet();
 
-  if(orderOneLeap || orderTwoLeap) {
-    update_leapmotion();
-  } else if (mouse_ref == null || mouse_ref.x != mouseX || mouse_ref.y != mouseY) {
+  // if(orderOneLeap || orderTwoLeap) {
+  //   update_leapmotion();
+  // } else if (mouse_ref == null || mouse_ref.x != mouseX || mouse_ref.y != mouseY) {
+  //   update_mouse();
+  // }
+  if (mouse_ref == null || mouse_ref.x != mouseX || mouse_ref.y != mouseY) {
     update_mouse();
   }
 
@@ -133,14 +139,14 @@ void update_mouse() {
   } else mouse_ref.set(mouse[0]);
 }
 
-void update_leapmotion() {
-  float x = averageTranslatePosition(speedLeapmotion).x;
-  float y = -averageTranslatePosition(speedLeapmotion).y;
-  float z = averageTranslatePosition(speedLeapmotion).z;
-  if(mouse[0] == null) {
-    mouse[0] = vec3(x,y,z);
-  } else mouse[0].set(x,y,z);
-}
+// void update_leapmotion() {
+//   float x = averageTranslatePosition(speedLeapmotion).x;
+//   float y = -averageTranslatePosition(speedLeapmotion).y;
+//   float z = averageTranslatePosition(speedLeapmotion).z;
+//   if(mouse[0] == null) {
+//     mouse[0] = vec3(x,y,z);
+//   } else mouse[0].set(x,y,z);
+// }
 
 
 

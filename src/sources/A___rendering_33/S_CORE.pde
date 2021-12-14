@@ -17,7 +17,7 @@ import netP5.*;
 import processing.net.*;
 import processing.pdf.*;
 
-import codeanticode.syphon.*;
+// import codeanticode.syphon.*;
 
 import rope.mesh.R_Node;
 import rope.mesh.R_Face;

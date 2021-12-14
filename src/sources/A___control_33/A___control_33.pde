@@ -1,13 +1,12 @@
 /**
 * Romanesco dui
-* 2012–2019
-* version 33
-* Processing 3.5.3
-* Rope library 0.8.5.30
+* 2012–2021
+* version 34
+* Processing 4.0.2b
 */
 /**
 * Controller 
-* V 1.2.1
+* V 1.2.2
 * 2015 may 4_100 lines of code
 * 2016 september 8_700 lines of code
 * 2017 March 11_100 lines of code
@@ -163,4 +162,3 @@ void keyReleased() {
 	key_false();
 	keyboard[keyCode] = false;
 }
-

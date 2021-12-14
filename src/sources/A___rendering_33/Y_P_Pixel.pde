@@ -821,7 +821,7 @@ class Cloud extends Pix {
     }
 
     float t = 0 ;
-    if(behavior.contains(SIN) || behavior.contains(COS)) {
+    if(behavior.contains("SIN") || behavior.contains("COS")) {
       if(time_count == Integer.MIN_VALUE) {
         t = frameCount *tempo; 
       } else t = time_count *tempo;   
@@ -849,8 +849,8 @@ class Cloud extends Pix {
       normal_distribution = .25 *temp;
     }
 
-    else if(behavior == SIN) normal_distribution = sin(t);
-    else if(behavior == COS) normal_distribution = cos(t);
+    else if(behavior == "SIN") normal_distribution = sin(t);
+    else if(behavior == "COS") normal_distribution = cos(t);
     else if(behavior == "SIN_TAN") normal_distribution = sin(tan(t)*factor_0_5);
     else if(behavior == "SIN_TAN_COS") normal_distribution = sin(tan(cos(t) *factor_1_2));
     else if(behavior == "SIN_POW_SIN") normal_distribution = sin(pow(8.,sin(t)));
