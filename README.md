@@ -1,7 +1,7 @@
-## Romanesco dui 2.2.0.34
-Generative Live Art Application
-Build with Processing 4
-2011-2021
+## Romanesco dui 
+v 2.2.0.34 – 2011-2021
+
+Generative Live Art Application – Build with Processing 4 
 
 ## What is it ?
 Romanesco is a Free and Open Source Software coded with Processing | FOSS.
