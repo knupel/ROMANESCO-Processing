@@ -8,7 +8,8 @@
         "kind": "build",
         "isDefault": true
       },
-      "command": "${config:processing.path}",
+      // "command": "${config:processing.path}", // use for Tobiah extension
+      "command": "${config:processing.processingPath}", // use for Luke Zhang extension
       "presentation": {
         "echo": true,
         "reveal": "always",
