@@ -1,6 +1,9 @@
 sketches_work/
 design/
 
+#sublimtext
+build-tmp
+
 # vscode
 out
 
