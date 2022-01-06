@@ -46,7 +46,7 @@ import java.awt.Rectangle;
 
 Rope r;
 
-String rope_framework_version = "1.4.9.87";
+String rope_framework_version = "1.4.11.89";
 public void rope_version() {
 	init_rope();
 }
