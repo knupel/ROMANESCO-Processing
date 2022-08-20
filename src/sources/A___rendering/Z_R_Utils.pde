@@ -1,7 +1,7 @@
 /**
 * Rope UTILS 
-* v 1.67.1
-* Copyleft (c) 2014-2021
+* v 1.67.2
+* Copyleft (c) 2014-2022
 * Rope – Romanesco Processing Environment – 
 * @author Knupel / Stanislas Marçais
 * @see https://github.com/StanLepunK/Rope_framework
@@ -600,8 +600,8 @@ void select_single_file(File selection) {
 
 /*
 * FOLDER PART
-* v 1.1.0
-* 2017-2021
+* v 1.2.0
+* 2017-2022
 */
 R_Folder rope_folder;
 void explore_folder(String path, String... extension) {
@@ -665,6 +665,9 @@ void reset_folder() {
 }
 
 boolean folder_is() {
+	if(rope_folder == null) {
+		rope_folder = new R_Folder(this);
+	}
 	return rope_folder.folder_is();
 }
 

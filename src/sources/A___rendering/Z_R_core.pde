@@ -4,7 +4,7 @@
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 * ROPE core
-* v 0.2.4
+* v 0.2.5
 */
 import rope.core.*;
 import rope.vector.*;
@@ -46,15 +46,15 @@ import java.awt.Rectangle;
 
 Rope r;
 
-String rope_framework_version = "1.4.11.89";
+String rope_framework_version = "1.5.0.91";
 public void rope_version() {
 	init_rope();
 }
 
 public void init_rope() {
 	r = new Rope();
-	println("Romanesco Processing Environment - 2015-2021");
-	println("Processing: 4.0b2");
+	println("Romanesco Processing Environment - 2015-2022");
+	println("Processing: 4.0b7");
 	println("Rope library: " + r.VERSION);
 	println("Rope framework: " + rope_framework_version);
 }

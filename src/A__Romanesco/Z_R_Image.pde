@@ -1,7 +1,7 @@
 /**
 * Rope framework image
-* v 0.6.3
-* Copyleft (c) 2014-2021
+* v 0.6.4
+* Copyleft (c) 2014-2022
 *
 * dependencies
 * Processing 4.0.0
@@ -510,8 +510,8 @@ PImage image_copy_window(PImage src, PGraphics pg, int where) {
 
 /**
 IMAGE
-v 0.2.2
-2016-2018
+v 0.2.3
+2016-2022
 */
 /**
 * additionnal method for image
@@ -519,7 +519,7 @@ v 0.2.2
 */
 void image(PImage img) {
   if(img != null) image(img, 0, 0);
-  else print_err("Object PImage pass to method image() is null");
+  else print_err_tempo(30,"void image(PImage img): the argument PImage img is null");
 }
 
 void image(PImage img, int what) {
