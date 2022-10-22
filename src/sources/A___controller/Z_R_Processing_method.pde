@@ -1,12 +1,12 @@
 /**
 * ROPE PROCESSING METHOD
-* v 2.9.0
-* Copyleft (c) 2014-2021
+* v 2.9.1
+* Copyleft (c) 2014-2022
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 * Processing 3.5.4.270
 */
-import rope.costume.R_Shape;
+import rope.mesh.R_Shape;
 
 /**
 ADVANCED GHOST METHOD
@@ -280,12 +280,12 @@ float random(ivec2 v) {
 
 /**
 * PImage method
-* v 0.2.2
+* v 0.2.1
 */
-rope.costume.R_Shape buffer_rope_framework;
+rope.mesh.R_Shape buffer_rope_framework;
 void set_buffer_shape(PGraphics other) {
   if(buffer_rope_framework == null) {
-    buffer_rope_framework = new rope.costume.R_Shape(this,other);
+    buffer_rope_framework = new rope.mesh.R_Shape(this,other);
   }
 }
 

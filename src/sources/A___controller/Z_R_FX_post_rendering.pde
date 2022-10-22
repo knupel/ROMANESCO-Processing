@@ -2,7 +2,7 @@
 * POST FX shader collection
 *
 * 2019-2022
-* v 0.3.1
+* v 0.3.2
 * all filter bellow has been tested.
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Shader
@@ -49,7 +49,6 @@ PGraphics fx_template(PImage source, boolean on_g, boolean filter_is, vec4 level
 		fx_template.set("texture_source",source);
 		fx_template.set("resolution",(float)source.width,(float)source.height);
 
-  
     // fx_template.set("color_mode",3); // mode 0 RGB / mode 3 HSB
 
     // fx_template.set("hue",cx); // value from 0 to 1
@@ -182,8 +181,6 @@ PGraphics fx_fxaa(PImage source, boolean on_g, boolean filter_is, float sub_pix_
 		//float sub_pix_trim = -0.5; //something happen from -1 to 1 
 		fx_fxaa.set("sub_pix_trim",sub_pix_trim);
 
-
-
     // rendering
 		render_shader(fx_fxaa,pg_fxaa,source,on_g,filter_is);
 	}
@@ -252,7 +249,6 @@ PGraphics fx_blur_circular(PImage source, boolean on_g, boolean filter_is, vec3 
 		pg_blur_circular = createGraphics(fx_canvas.x(),fx_canvas.y(),get_renderer());
 	}
 	// Algorithm
-	
 	if(fx_blur_circular == null) {
 		String path = get_fx_post_path()+"blur_circular.glsl";
 		if(fx_post_rope_path_exists) {
@@ -314,7 +310,6 @@ PGraphics fx_blur_gaussian(PImage source, boolean on_g, boolean filter_is, boole
 		pg_blur_gaussian = createGraphics(fx_canvas.x(),fx_canvas.y(),get_renderer());
 	}
 	// Algorithm
-  
   if(pg_blur_gaussian == null) {
   	// security, because that's return problem consol with too much waring message for PImage source
   	if(resolution != null && !all(equal(ivec2(-1),resolution))) {
@@ -360,12 +355,10 @@ PGraphics fx_blur_gaussian(PImage source, boolean on_g, boolean filter_is, boole
 			} 
 		}
 
-
 		if(resolution != null) {
 			fx_blur_gaussian.set("resolution",resolution.x,resolution.y);
 			fx_blur_gaussian.set("resolution_source",resolution.x,resolution.y);
 		}
-
 
 		// external parameter
 		if(strength <= 0.001) strength = 0.001;
@@ -373,8 +366,6 @@ PGraphics fx_blur_gaussian(PImage source, boolean on_g, boolean filter_is, boole
 		fx_blur_gaussian.set("sigma",.5); // better between 0 and 1
 		fx_blur_gaussian.set("horizontal_pass",true);
 	  
-
-
 	  // rendering 
 	  if(!on_g) {
 	  	pg.beginDraw();            
@@ -411,8 +402,7 @@ PGraphics fx_blur_gaussian(PImage source, boolean on_g, boolean filter_is, boole
 			return pg_2; 
 		} else {
 			return pg;
-		}
-		
+		}	
 	}
 }
 
@@ -465,7 +455,6 @@ PGraphics fx_blur_radial(PImage source, boolean on_g, boolean filter_is, vec2 po
 		pg_blur_radial = createGraphics(fx_canvas.x(),fx_canvas.y(),get_renderer());
 	}
 	// Algorithm
-	
 	if(fx_blur_radial == null) {
 		String path = get_fx_post_path()+"blur_radial.glsl";
 		if(fx_post_rope_path_exists) {
@@ -529,7 +518,6 @@ PGraphics fx_colour_change_a(PImage source, boolean on_g, boolean filter_is, int
 		pg_colour_change_a = createGraphics(fx_canvas.x(),fx_canvas.y(),get_renderer());
 	}
 	// Algorithm
-	
 	if(fx_colour_change_a == null) {
 		String path = get_fx_post_path()+"colour_change_A.glsl";
 		if(fx_post_rope_path_exists) {
@@ -538,9 +526,7 @@ PGraphics fx_colour_change_a(PImage source, boolean on_g, boolean filter_is, int
 		}
 	} else {
 		fx_shader_flip(fx_colour_change_a,on_g,filter_is,source,null);
-
 		fx_colour_change_a.set("texture_source",source);
-
 		// external param
 		if(mat != null && mat.length == 1) {
 			if(mat[0] != null) fx_colour_change_a.set("mat_col_0",mat[0].x,mat[0].y,mat[0].z);
@@ -554,9 +540,7 @@ PGraphics fx_colour_change_a(PImage source, boolean on_g, boolean filter_is, int
 		}
 
 		fx_colour_change_a.set("num",num);
-
 		render_shader(fx_colour_change_a,pg_colour_change_a,source,on_g,filter_is);
-
 	}
 	
 	// return
@@ -613,7 +597,6 @@ PGraphics fx_colour_change_b(PImage source, boolean on_g, boolean filter_is, flo
 		pg_colour_change_b = createGraphics(fx_canvas.x(),fx_canvas.y(),get_renderer());
 	}
 	// Algorithm
-
 	if(fx_colour_change_b == null) {
 		String path = get_fx_post_path()+"colour_change_B.glsl";
 		if(fx_post_rope_path_exists) {
@@ -691,7 +674,6 @@ PGraphics fx_datamosh(PImage source, boolean on_g, boolean filter_is, float thre
 		pg_datamosh = createGraphics(fx_canvas.x(),fx_canvas.y(),get_renderer());
 	}
 	// Algorithm
-
 	if(fx_datamosh == null) {
 		// main glsl
 		String path = get_fx_post_path()+"datamosh.glsl";
@@ -792,7 +774,6 @@ PGraphics fx_derivative(PImage source, boolean on_g, boolean filter_is) {
 		pg_derivative = createGraphics(fx_canvas.x(),fx_canvas.y(),get_renderer());
 	}
 	// Algorithm
-
 	if(fx_derivative == null) {
 		String path = get_fx_post_path()+"derivative.glsl";
 		if(fx_post_rope_path_exists) {
@@ -810,7 +791,6 @@ PGraphics fx_derivative(PImage source, boolean on_g, boolean filter_is) {
 
     // rendering
 		render_shader(fx_derivative,pg_derivative,source,on_g,filter_is);
-
 	}
 
 	// return
@@ -874,7 +854,6 @@ PGraphics fx_dither_bayer_8(PImage source, boolean on_g, boolean filter_is, vec3
 		pg_dither_bayer_8 = createGraphics(fx_canvas.x(),fx_canvas.y(),get_renderer());
 	}
 	// Algorithm
-	
 	if(fx_dither_bayer_8 == null) {
 		String path = get_fx_post_path()+"dither_bayer_8.glsl";
 		if(fx_post_rope_path_exists) {
@@ -886,7 +865,6 @@ PGraphics fx_dither_bayer_8(PImage source, boolean on_g, boolean filter_is, vec3
 
 		fx_dither_bayer_8.set("texture_source",source);
 		fx_dither_bayer_8.set("resolution_source",source.width,source.height);
-
 
 		// external parameter
     fx_dither_bayer_8.set("level_source",level.x,level.y,level.z);
@@ -940,7 +918,6 @@ PGraphics fx_flip(PImage source, boolean on_g, boolean filter_is, bvec2 flip) {
 		pg_flip = createGraphics(fx_canvas.x(),fx_canvas.y(),get_renderer());
 	}
 	// Algorithm
-
 	if(fx_flip == null) {
 		// main glsl
 		String path = get_fx_post_path()+"flip.glsl";
@@ -1010,7 +987,6 @@ PGraphics fx_glitch_fxaa(PImage source, boolean on_g, boolean filter_is, vec4 ca
 		pg_glitch_fxaa = createGraphics(fx_canvas.x(),fx_canvas.y(),get_renderer());
 	}
 	// Algorithm
-
 	if(fx_glitch_fxaa == null) {
 		String path = get_fx_post_path()+"AA_FXAA_glitch.glsl";
 		if(fx_post_rope_path_exists) {
@@ -1023,7 +999,6 @@ PGraphics fx_glitch_fxaa(PImage source, boolean on_g, boolean filter_is, vec4 ca
 
 		fx_glitch_fxaa.set("texture_source",source);
 		fx_glitch_fxaa.set("resolution_source",(float)source.width,(float)source.height);
-
 
 		fx_glitch_fxaa.set("nw",cardinal.x(),cardinal.w()); // value from -1 to 1
 		fx_glitch_fxaa.set("ne",cardinal.x(),cardinal.y()); // value from -1 to 1
@@ -1085,7 +1060,6 @@ PGraphics fx_grain(PImage source, boolean on_g, boolean filter_is, float offset,
 		pg_grain = createGraphics(fx_canvas.x(),fx_canvas.y(),get_renderer());
 	}
 	// Algorithm
-
 	if(fx_grain == null) {
 		String path = get_fx_post_path()+"grain.glsl";
 		if(fx_post_rope_path_exists) {
@@ -1104,7 +1078,6 @@ PGraphics fx_grain(PImage source, boolean on_g, boolean filter_is, float offset,
 		fx_grain.set("mode",mode); // mode 0 is for black and white, and mode 1 for RVB
 
 		render_shader(fx_grain,pg_grain,source,on_g,filter_is);
-
 	}
 
 	// return
@@ -1161,7 +1134,6 @@ PGraphics fx_grain_scatter(PImage source, boolean on_g, boolean filter_is, float
 		pg_grain_scatter = createGraphics(fx_canvas.x(),fx_canvas.y(),get_renderer());
 	}
 	// Algorithm
-
 	if(fx_grain_scatter == null) {
 		String path = get_fx_post_path()+"grain_scatter.glsl";
 		if(fx_post_rope_path_exists) {
@@ -1180,7 +1152,6 @@ PGraphics fx_grain_scatter(PImage source, boolean on_g, boolean filter_is, float
 
 		// rendering
 		render_shader(fx_grain_scatter,pg_grain_scatter,source,on_g,filter_is);
-
 	}
 	// return
 	reset_reverse_g(false);
@@ -1253,7 +1224,6 @@ PGraphics fx_halftone_dot(PImage source, boolean on_g, boolean filter_is, vec2 p
 		pg_halftone_dot = createGraphics(fx_canvas.x(),fx_canvas.y(),get_renderer());
 	}
 	// Algorithm
-
 	if(fx_halftone == null) {
 		String path = get_fx_post_path()+"halftone_dot.glsl";
 		if(fx_post_rope_path_exists) {
@@ -1274,12 +1244,10 @@ PGraphics fx_halftone_dot(PImage source, boolean on_g, boolean filter_is, vec2 p
     }
     fx_halftone.set("position",pos.x,pos.y);
 
-		
 		fx_halftone.set("size",size);
 		fx_halftone.set("threshold",threshold);
 
 		render_shader(fx_halftone,pg_halftone_dot,source,on_g,filter_is);
-
 	}
 
 	// return
@@ -1342,7 +1310,6 @@ PGraphics fx_halftone_line(PImage source, boolean on_g, boolean filter_is, vec2 
 		result_halftone_line = createGraphics(fx_canvas.x(),fx_canvas.y(),get_renderer());
 	}
 	// Algorithm
-
 	if(fx_halftone_line == null) {
 		String path = get_fx_post_path()+"halftone_line.glsl";
 		if(fx_post_rope_path_exists) {
@@ -1433,7 +1400,7 @@ PGraphics fx_halftone_multi(PImage source, boolean on_g, boolean filter_is, vec2
 		fx_halftone_multi.set("sharpness",threshold); // from 0 to 2 is good
 		fx_halftone_multi.set("mode",mode); // from 0 to 3 dot, circle and line
 
-		 // rendering
+		// rendering
     render_shader(fx_halftone_multi,pg_halftone_multi,source,on_g,filter_is);
 	}
 
@@ -1480,7 +1447,6 @@ PGraphics fx_image(PImage source, boolean on_g, boolean filter_is, vec2 pos, vec
 		pg_image_rendering = createGraphics(fx_canvas.x(),fx_canvas.y(),get_renderer());
 	}
 	// Algorithm
-
 	if(fx_image == null) {
 		String path = get_fx_post_path()+"image.glsl";
 		if(fx_post_rope_path_exists) {
@@ -1570,8 +1536,10 @@ PGraphics fx_image(PImage source, boolean on_g, boolean filter_is, vec2 pos, vec
 
 /**
 * Level
-v 0.1.2
-2019-2022
+* v 0.1.2
+* 2019-2022
+
+* Uniforme problem need to be fix
 */
 // direct filtering
 PGraphics fx_level(PImage source, FX fx) {
@@ -1596,7 +1564,6 @@ PGraphics fx_level(PImage source, boolean on_g, boolean filter_is, int mode, flo
 		pg_level = createGraphics(fx_canvas.x(),fx_canvas.y(),get_renderer());
 	}
 	// Algorithm
-
 	if(fx_level == null) {
 		String path = get_fx_post_path()+"level.glsl";
 		if(fx_post_rope_path_exists) {
@@ -1605,7 +1572,6 @@ PGraphics fx_level(PImage source, boolean on_g, boolean filter_is, int mode, flo
 		}
 	} else {
 		fx_shader_flip(fx_level,on_g,filter_is,source,null);
-
 		fx_level.set("texture_source",source);
 		fx_level.set("resolution_source",source.width,source.height);
 		if(level.length == 1) {
@@ -1624,10 +1590,8 @@ PGraphics fx_level(PImage source, boolean on_g, boolean filter_is, int mode, flo
 			fx_level.set("mode",mode); // 0 black / 1 white
 		} 
 
-
     // rendering
 		render_shader(fx_level,pg_level,source,on_g,filter_is);
-
 	}
 
 	// return
@@ -1687,7 +1651,6 @@ PGraphics fx_level_adv(PImage source, boolean on_g, boolean filter_is, vec3 min,
 		pg_level_adv = createGraphics(fx_canvas.x(),fx_canvas.y(),get_renderer());
 	}
 	// Algorithm
-
 	if(fx_level_adv == null) {
 		String path = get_fx_post_path()+"level_adv.glsl";
 		if(fx_post_rope_path_exists) {
@@ -1705,7 +1668,6 @@ PGraphics fx_level_adv(PImage source, boolean on_g, boolean filter_is, vec3 min,
 
     // rendering
 		render_shader(fx_level_adv,pg_level_adv,source,on_g,filter_is);
-
 	}
 
 	// return
@@ -1770,20 +1732,17 @@ PGraphics fx_mask(PImage source, PImage mask, boolean on_g, boolean filter_is, i
 		if(num < 2) num = 2;
 		fx_mask.set("num",num); // define the num of step separation
     
-
     if(threshold.min() > threshold.max()) {
     	threshold.x(0);
     }
     threshold.constrain(0,1);
 		fx_mask.set("threshold",threshold.min(),threshold.max()); // from 0 to 1, that's born the sensibility from the minium to the maximum
 
-
 		level_layer.constrain(0,6);
 		fx_mask.set("level_layer",level_layer.x(),level_layer.y(),level_layer.z(),level_layer.w()); // strength 1 is the classic strength
 		  
     // rendering
     render_shader(fx_mask,pg_mask,source,on_g,filter_is);
- 
 	}
 
 	// end
@@ -1808,7 +1767,7 @@ PGraphics fx_mask(PImage source, PImage mask, boolean on_g, boolean filter_is, i
 
 /**
 * mix
-* v 0.1.3
+* v 0.1.5
 * 2019-2022
 *
 * -2 main
@@ -1828,7 +1787,7 @@ PGraphics fx_mask(PImage source, PImage mask, boolean on_g, boolean filter_is, i
 * 12 linear_light
 * 13 pin_light
 * 14 hard_mix
-*  15 subtract
+* 15 subtract
 * 16 divide
 * 17 addition
 * 18 difference
@@ -1851,7 +1810,6 @@ PGraphics fx_mix(PImage source, PImage layer, FX fx) {
 		level_layer = vec3(fx.get_level_layer());
 	}
   return fx_mix(source,layer,fx.on_g(),fx.pg_filter_is(),fx.get_mode(),level_source,level_layer);
-	
 }
 
 // main
@@ -1890,16 +1848,13 @@ PGraphics fx_mix(PImage source, PImage layer, boolean on_g, boolean filter_is, i
 			}
 		}
 		
-
     // external paramer
-    fx_mix.set("level_source",level_source.x,level_source.y,level_source.z);
-		fx_mix.set("level_layer",level_layer.x,level_layer.y,level_layer.z);
-
+    fx_mix.set("level_source",level_source.x(),level_source.y(),level_source.z());
+		fx_mix.set("level_layer",level_layer.x(),level_layer.y(),level_layer.z());
 		fx_mix.set("mode",mode); 
     
     // rendering
     render_shader(fx_mix,pg_mix,source,on_g,filter_is);
- 
 	}
 
 	// end
@@ -1983,7 +1938,6 @@ PGraphics fx_pixel(PImage source, boolean on_g, boolean filter_is, ivec2 size, i
 
     // rendering
 		render_shader(fx_pixel,pg_pixel,source,on_g,filter_is);
-
 	}
 
 	// return
@@ -2040,14 +1994,12 @@ PGraphics fx_posterization(PImage source, boolean on_g, boolean filter_is, vec3 
 		fx_posterization.set("texture_source",source);
 		fx_posterization.set("resolution_source",(float)source.width,(float)source.height);
 
-
 		fx_posterization.set("threshold",threshold.x(),threshold.y(),threshold.z()); // value 0 to 1
 		if(num < 2) num = 2;
 		fx_posterization.set("num",num);
 
     // rendering
 		render_shader(fx_posterization,pg_posterization,source,on_g,filter_is);
-
 	}
 
 	// return
@@ -2190,7 +2142,6 @@ PGraphics fx_reaction_diffusion(PImage source, boolean on_g, vec2 conc_uv, vec2 
 			fx_reac_diff.set("f",0.047f);
 		}
 
-
 		// in progress
 		/*
 		if(rgb != null) {
@@ -2203,7 +2154,6 @@ PGraphics fx_reaction_diffusion(PImage source, boolean on_g, vec2 conc_uv, vec2 
 			fx_reac_diff.set("blue",0);
 		}
 		*/
-
 
 		fx_reac_diff.set("scale",scale.x(),scale.y());
 
@@ -2233,24 +2183,6 @@ PGraphics fx_reaction_diffusion(PImage source, boolean on_g, vec2 conc_uv, vec2 
 		return pg_reac_diff; 
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -2312,7 +2244,6 @@ PGraphics fx_split_rgb(PImage source, boolean on_g, boolean filter_is, vec2 offs
 			fx_split_rgb.set("offset_blue",offset_blue.x,offset_blue.y);
 		} 
 		
-
 		 // rendering
     render_shader(fx_split_rgb,pg_split_rgb,source,on_g,filter_is);
 	}
@@ -2503,7 +2434,6 @@ PGraphics fx_warp_tex_a(PImage source, PImage velocity, PImage direction, boolea
 
 		fx_warp_tex_a.set("texture_source",source);
 		fx_warp_tex_a.set("resolution_source",source.width,source.height);
-
 		
 		// external parameter
 		// warp sources
