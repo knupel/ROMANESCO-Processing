@@ -1,13 +1,13 @@
 /**
 * Costume method
 * Copyleft (c) 2014-2022
-* v 1.10.1
+* v 1.10.2
 * @author @stanlepunk
 * @see https://github.com/StanLepunK/Rope_framework
 */
 import rope.costume.R_Circle;
 import rope.costume.R_House;
-import rope.costume.R_Bezier;
+import rope.utils.R_Bezier;
 import rope.costume.R_Star;
 import rope.costume.R_Virus;
 import rope.costume.R_Icosahedron;
