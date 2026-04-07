@@ -1,7 +1,7 @@
 /**
 * Photomontage
-* v 0.1.1
-* 2019-2021
+* v 0.1.2
+* 2019-2026
 */
 class Photomontage extends Romanesco {
 	public Photomontage() {
@@ -142,7 +142,7 @@ class Photomontage extends Romanesco {
 				float l_alp = (get_fill_alp().value() /get_fill_alp().max() ) *6.0;
 				vec4 level_layer = vec4(l_red,l_gre,l_blu,l_alp); // 0 to 6
 				int fx_mode_mask = get_mode_id();
-				buffer = get_bitmap_collection().get(id_img_buffer);
+				buffer = get_bitmap_collection().get(id_img_buffer).get_PImage();
 				buffer = fx_mask(buffer,mask,on_g,filter_is,fx_mode_mask,step_speparation,threshold,level_layer);
 				show(buffer,SCREEN,use_bg_like_src);
 			} else if(get_mode_name().contains("show")) {
@@ -466,7 +466,8 @@ public class Tartan {
 	private void set_gray(PApplet pa) {
 		palette = new R_Colour(pa);
 		for(int i = 0 ; i < complexity ; i++) {
-			palette.add(color(random(g.colorModeX))); 
+			int value = (int)random(g.colorModeX);
+			palette.add("GRAY", color(value)); 
 		}
 	}
 
@@ -476,7 +477,7 @@ public class Tartan {
 
 	public void set_colour(int index, int colour) {
 		if(index >= 0 && index < palette.size()) {
-			palette.set(index,colour);
+			palette.set("SET COLOUR",index,colour);
 		} else {
 			printErr("class Tartan method set_colour(int index, int colour): index ", index, " is out of the array colour");
 		}
@@ -485,7 +486,7 @@ public class Tartan {
 
 	public void set_palette(int... colour) {
 		for(int i = 0 ; i < colour.length && i < palette.size(0) ; i++) {
-			palette.set(i,colour[i]);
+			palette.set("SET PALETTE",i,colour[i]);
 		}
 	}
 

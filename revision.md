@@ -3,6 +3,7 @@
 *revision 35
 
 > remove toxic lib
+> remove object : Escargot, Grillo, Lorenz, Lyrics
 
 *revision 34
 

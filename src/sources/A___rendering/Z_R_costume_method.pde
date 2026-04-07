@@ -1,9 +1,9 @@
 /**
 * Costume method
-* Copyleft (c) 2014-2022
-* v 1.10.2
-* @author @stanlepunk
-* @see https://github.com/StanLepunK/Rope_framework
+* Copyleft (c) 2014-2023
+* v 1.10.3
+* @author @knupel
+* @see https://github.com/knupel/Rope_framework
 */
 import rope.costume.R_Circle;
 import rope.costume.R_House;
@@ -289,7 +289,7 @@ void costume_rotate(vec rotate) {
 }
 
 void costume_rotate(vec rotate, PGraphics other) {
-	if(get_renderer() == P3D) {
+	if(r.get_renderer(g) == P3D) {
 		if(costume_rot_x && rotate.x() != 0) {
 			rotateX(rotate.x(),other);
 			costume_rot_x = false;
@@ -697,7 +697,7 @@ R_Line2D line2D_echo_loop(R_Line2D line, R_Line2D [] walls, ArrayList<R_Line2D> 
 			
 			// classic go and return
 			if(go_return_is) {
-				rest.angle(rest.angle() +PI);
+				rest.rotation(rest.angle() +PI);
 			// go on a same way
 			} else {
 				float angle = rest.angle() -PI;
@@ -707,7 +707,7 @@ R_Line2D line2D_echo_loop(R_Line2D line, R_Line2D [] walls, ArrayList<R_Line2D> 
 				for(R_Line2D limit_opp : walls) {
 					vec2 opp_node = limit_opp.intersection(max_line,vec2(node).add(displacement));
 					if(opp_node != null) {
-						rest.angle(rest.angle());
+						rest.rotation(rest.angle());
 						vec2 swap = opp_node.sub(node).sub(displacement);
 						rest.offset(swap);
 						break;
@@ -728,7 +728,7 @@ R_Line2D line2D_echo_loop(R_Line2D line, R_Line2D [] walls, ArrayList<R_Line2D> 
 	}
 	//angle echo effect
 	if(angle_echo != 0) {
-		rest.angle(rest.angle()+angle_echo);
+		rest.rotation(rest.angle()+angle_echo);
 	}
 	return rest;
 }

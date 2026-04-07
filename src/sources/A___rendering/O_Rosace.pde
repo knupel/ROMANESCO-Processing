@@ -1,7 +1,7 @@
 /**
 * Rosace
-* 2019-2021
-* V 0.1.4
+* 2019-2026
+* V 0.1.5
 */
 
 class Rosace extends Romanesco {
@@ -10,9 +10,9 @@ class Rosace extends Romanesco {
   public Rosace() {
     //from the index_objects.csv
     item_name = "Rosace" ;
-    item_author  = "Stan le Punk";
-    item_version = "Version 0.1.4";
-    item_pack = "Base 2019-2019";
+    item_author  = "Knupel";
+    item_version = "Version 0.1.5";
+    item_pack = "Base 2019-2026";
     item_mode ="rosace/rose/crown/pillar";
     item_costume = "surface/line/face/point";
 
@@ -404,14 +404,16 @@ class Rosace extends Romanesco {
 
         // aspect
         list[k].thickness(random(setting[i].get_thickness().xy()));
-        int target_fill_group = floor(random(r_fill.size_group()));
-        int target_fill = floor(random(r_fill.size(target_fill_group)));
-        int c_fill = r_fill.get_colour(target_fill_group,target_fill);
+        int target_fill_name = floor(random(r_fill.size(0)));
+        String fill_name = r_fill.get_name(target_fill_name);
+        int target_fill = floor(random(r_fill.size(target_fill_name)));
+        int c_fill = r_fill.get(fill_name,target_fill);
         list[k].fill(c_fill,random(setting[i].get_fill_alp().xy()));
 
-        int target_stroke_group = floor(random(r_stroke.size_group()));        
-        int target_stroke = floor(random(r_stroke.size(target_stroke_group)));
-        int c_stroke = r_stroke.get_colour(target_stroke_group,target_stroke);
+        int target_stroke_name = floor(random(r_stroke.size(0)));
+        String stroke_name = r_stroke.get_name(target_stroke_name);        
+        int target_stroke = floor(random(r_stroke.size(target_stroke_name)));
+        int c_stroke = r_stroke.get(stroke_name,target_stroke);
         list[k].stroke(c_stroke,random(setting[i].get_stroke_alp().xy()));
 
         //rotation
@@ -598,16 +600,18 @@ class Rosace extends Romanesco {
     // BUILD PALETTE
     pillar_palette_fill = new R_Colour(p5);
     for(int i = 0 ; i < num_plane ; i++) {
-      int target_group = floor(random(palette_fill.size_group()));
+      int target_group = floor(random(palette_fill.size()));
       int target_colour = floor(random(palette_fill.size(target_group)));
-      pillar_palette_fill.add(palette_fill.get_colour(target_group,target_colour));
+      String name = palette_fill.get_name(target_group);
+      pillar_palette_fill.add(name, palette_fill.get_colour(name,target_colour));
     }
 
     pillar_palette_stroke = new R_Colour(p5);
     for(int i = 0 ; i < num_plane ; i++) {
-      int target_group = floor(random(palette_stroke.size_group()));
+      int target_group = floor(random(palette_stroke.size()));
       int target_colour = floor(random(palette_stroke.size(target_group)));
-      pillar_palette_stroke.add(palette_fill.get_colour(target_group,target_colour));
+      String name = palette_stroke.get_name(target_group);
+      pillar_palette_stroke.add(name, palette_stroke.get_colour(name,target_colour));
     }
 
 
@@ -653,7 +657,8 @@ class Rosace extends Romanesco {
           face_list = new ArrayList<R_Face>();
         }
         if(i == 0) face_list.clear();
-        generate_faces(face_list, plane[i].get_nodes(), max_pass, mode_selection,ivec2(dist_min,dist_max),max_faces,palette_fill.get_colour(0,i));
+        String name = palette_fill.get_name(0);
+        generate_faces(face_list, plane[i].get_nodes(), max_pass, mode_selection,ivec2(dist_min,dist_max),max_faces,palette_fill.get_colour(name,i));
         max_faces += max_faces;        
       }
     }
@@ -699,7 +704,8 @@ class Rosace extends Romanesco {
   void pillar_show_surface(R_Colour palette) {
     // surface
     for(int i = 0 ; i < plane.length ; i++) {
-      fill(palette.get_colour(0,i));
+      String name = palette.get_name(0);
+      fill(palette.get_colour(name,i));
       noStroke();
       if(plane[i].get_nodes() != null) {
         beginShape();
@@ -713,7 +719,8 @@ class Rosace extends Romanesco {
 
   void pillar_show_point(R_Colour palette) {
     for(int i = 0 ; i < plane.length ; i++) {
-      stroke(palette.get_colour(0,i));
+      String name = palette.get_name(0);
+      stroke(palette.get_colour(name,i));
       strokeWeight(get_thickness().value());
       noFill();
 

@@ -131,18 +131,18 @@ class Warp_Force {
 
   public int get_width() {
     if(img_manager.get_current() != null) {
-      return img_manager.get_current().width;
+      return img_manager.get_current().width();
     } else return 0 ;
   }
 
   public int get_height() {
     if(img_manager.get_current() != null) {
-      return img_manager.get_current().height;
+      return img_manager.get_current().height();
     } else return 0 ;
   }
   
   public PImage get_image() {
-    return img_manager.get_current();
+    return img_manager.get_current().get_PImage();
   }
 
 
@@ -247,17 +247,17 @@ class Warp_Force {
 
   public void image_library_fit(PGraphics pg, boolean full_fit) {
     for(int i = 0 ; i < img_manager.size() ;i++) {
-      image_resize(img_manager.get(i),pg, full_fit);
+      image_resize(img_manager.get_PImage(i),pg, full_fit);
     }
   }
 
   public void image_library_crop(PGraphics pg) {
     for(int i = 0 ; i < img_manager.size() ;i++) {
-      PImage temp = image_copy_window(img_manager.get(i), CENTER).copy();
+      PImage temp = image_copy_window(img_manager.get_PImage(i), CENTER).copy();
       img_manager.get(i).resize(temp.width,temp.height);
       temp.loadPixels();
-      img_manager.get(i).pixels = temp.pixels;
-      img_manager.get(i).updatePixels();
+      img_manager.get_PImage(i).pixels = temp.pixels;
+      img_manager.get_PImage(i).updatePixels();
     }
   }
 
@@ -274,14 +274,14 @@ class Warp_Force {
   */
   public void show(Force_field force_field, float intensity) {
     if(reset_img) {
-      draw(img_manager.get_current());
+      draw(img_manager.get_current_PImage());
     }
     reset_img = false;
 
     if(pg == null && img_manager.get_current() != null) { 
-      set(img_manager.get_current());
+      set(img_manager.get_current_PImage());
     } else if(img_manager.get_current() != null) {  
-      update(force_field,img_manager.get_current(),intensity);
+      update(force_field,img_manager.get_current_PImage(),intensity);
     }
   }
 
@@ -732,7 +732,7 @@ class Warp_Force {
       int to_ = lerpColor(bottom_left,bottom_right,u);
       float ratio = v;
 
-      int c = lerpColor(from,to,ratio);
+      int c = lerpColor(from,to_,ratio);
 
       return c;
     } catch (Exception e) {
