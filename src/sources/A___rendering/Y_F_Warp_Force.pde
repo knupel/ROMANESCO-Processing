@@ -729,7 +729,7 @@ class Warp_Force {
       int bottom_right = pix[indexBottomRight];
 
       int from = lerpColor(top_left,top_right,u);
-      int to = lerpColor(bottom_left,bottom_right,u);
+      int to_ = lerpColor(bottom_left,bottom_right,u);
       float ratio = v;
 
       int c = lerpColor(from,to,ratio);

@@ -53,7 +53,7 @@ void check_midi_input() {
 void open_midi_bus() {
 	myBus = new MidiBus[num_midi_input] ;
 	for(int i = 0 ; i < num_midi_input ; i++) {
-		myBus [i] = new MidiBus(this, i, "Romanesco midi controller");
+		myBus [i] = new MidiBus(this, i, "Romanesco midi controller"); // NullPointerException here if no midi device is available
 		ID_midi_input [i] = myBus [i].getBusName();
 	}
 }

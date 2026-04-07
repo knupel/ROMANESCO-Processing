@@ -1,4 +1,9 @@
 *Romanesco dui
+
+*revision 35
+
+> remove toxic lib
+
 *revision 34
 
 > fix shader and glsl bug

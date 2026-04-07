@@ -9,6 +9,5 @@ Tablet
 Minim
 oscP5
 Syphon
-Toxiclib
 Geomerative
 Processing Video
