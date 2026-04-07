@@ -51,10 +51,20 @@ void check_midi_input() {
 
 
 void open_midi_bus() {
-	myBus = new MidiBus[num_midi_input] ;
+	myBus = new MidiBus[num_midi_input];
+	println("je suis la et nous sommes ", num_midi_input);
 	for(int i = 0 ; i < num_midi_input ; i++) {
-		myBus [i] = new MidiBus(this, i, "Romanesco midi controller"); // NullPointerException here if no midi device is available
-		ID_midi_input [i] = myBus [i].getBusName();
+		println("étape 0", i, this);
+		// if(new MidiBus(this, i, "Romanesco midi controller") == null) {
+		// 	printErr("No MIDI devices available");
+		// } else {
+			println("étape 1", i);
+			myBus [i] = new MidiBus(this, i, "Romanesco midi controller"); // NullPointerException here if no midi device is available
+			println("étape 2", i);
+			ID_midi_input [i] = myBus [i].getBusName();
+			println("étape 3", i);
+		// }
+		
 	}
 }
 

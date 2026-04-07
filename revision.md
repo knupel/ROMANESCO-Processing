@@ -3,7 +3,8 @@
 *revision 35
 
 > remove toxic lib
-> remove object : Escargot, Grillo, Lorenz, Lyrics
+> Suspension du systeme MIDI
+> remove object : Escargot, Grillo, Lorenz, Lyrics, Rosace, Photomontage
 
 *revision 34
 
