@@ -25,10 +25,10 @@ boolean test;
 
 PFont FuturaStencil, text_info ;
 
-color c1, c2, c3, c4 ;
-color colorOUT, colorIN ;
+color c1, c2, c3, c4;
+color colorOUT, colorIN;
 
-boolean open;
+// boolean open;
 
 //
 String screen = (""); // for the saved table information
