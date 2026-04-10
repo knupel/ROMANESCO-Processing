@@ -33,6 +33,7 @@ void opening_rendering() {
 void rendering() {
 	opening_rendering();
 	if(show_is) {
+		println("je suis rendering()", frameCount); 
 		fx_mix_is_done = false;
 		rendering_background(USE_LAYER,0);
 		fx_mix_before_rendering(0);
@@ -119,6 +120,7 @@ void rendering_item_final_3D() {
 
 
 void rendering_background(boolean use_layer_is, int index) {
+	println("je suis rendering_background(", use_layer_is, ")"); 
 	if(use_layer_is) {
 		select_layer(index);
 		begin_layer();

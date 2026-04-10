@@ -6,15 +6,15 @@ v 2.2.0
 boolean reset_midi_selection;
 
 void init_midi() {
-	check_midi_input();
-	open_midi_bus();
-	select_first_midi_input();
+	// check_midi_input();
+	// open_midi_bus();
+	// select_first_midi_input();
 }
 
 void update_midi() {
-	update_midi_button(false);
-	midi_select(which_midi_input, num_midi_input);
-	use_specific_midi_input(which_midi_input);
+	// update_midi_button(false);
+	// midi_select(which_midi_input, num_midi_input);
+	// use_specific_midi_input(which_midi_input);
 }
 
 void reset_midi_control_parametter() {

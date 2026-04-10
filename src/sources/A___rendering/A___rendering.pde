@@ -28,27 +28,30 @@ BUG with warp on MacBook Pro 2018 or HighSierra / Mojave
 
 // DEVELOPER SETTING
 boolean DEBUG_MODE = true;
-boolean USE_LAYER = false; // cause a bug when the  shader effect is used
+boolean USE_LAYER = false; // cause a bug when the shader effect is used
 boolean DEV_MODE = true; // inter alia, path preferences folder, curtain
 String IAM = "prescene";
 boolean LIVE = false;
 boolean FULL_RENDERING = true;
 
+
 // PRESCENE LIVE
-// boolean DEBUG_MODE = true;
-// boolean USE_LAYER = true;
-// boolean DEV_MODE = true; // inter alia, path preferences folder, curtain
-// String IAM = "prescene";
-// boolean LIVE = true;
-// boolean FULL_RENDERING = false;
+
+//  boolean DEBUG_MODE = true;
+//  boolean USE_LAYER = true;
+//  boolean DEV_MODE = true; // inter alia, path preferences folder, curtain
+//  String IAM = "prescene";
+//  boolean LIVE = true;
+//  boolean FULL_RENDERING = false;
+
 
 // SCENE LIVE
-// boolean DEBUG_MODE = true;
-// boolean USE_LAYER = true;
-// boolean DEV_MODE = true; // inter alia, path preferences folder, curtain
-// String IAM = "scene";
-// boolean LIVE = false;
-// boolean FULL_RENDERING = true;
+//  boolean DEBUG_MODE = true;
+//  boolean USE_LAYER = true;
+//  boolean DEV_MODE = true; // inter alia, path preferences folder, curtain
+//  String IAM = "scene";
+//  boolean LIVE = false;
+//  boolean FULL_RENDERING = true;
 
 
 
@@ -391,6 +394,3 @@ public void mouseExited(MouseEvent e) {
 void mouseWheel(MouseEvent e) {
 	mouseWheel_event(e);
 }
-
-
-
